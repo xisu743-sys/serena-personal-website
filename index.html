@@ -1394,32 +1394,32 @@
 
     .canvas-manifesto {
       position: absolute;
-      left: clamp(18px, 5vw, 78px);
-      top: clamp(54px, 10vh, 108px);
+      left: clamp(16px, 3.2vw, 48px);
+      top: clamp(42px, 7vh, 76px);
       z-index: 5;
-      width: clamp(265px, 29vw, 430px);
-      padding: clamp(26px, 3.5vw, 44px);
+      width: clamp(238px, 24vw, 340px);
+      padding: clamp(21px, 2.7vw, 30px) clamp(23px, 2.8vw, 32px);
       background:
-        linear-gradient(90deg, transparent 0 25px, rgba(214, 60, 166, .15) 25px 27px, transparent 27px),
+        linear-gradient(90deg, transparent 0 21px, rgba(214, 60, 166, .13) 21px 23px, transparent 23px),
         repeating-linear-gradient(transparent 0 31px, rgba(91, 111, 224, .055) 31px 32px),
         var(--paper);
       border: 1px solid #e9e3d5;
-      box-shadow: 9px 11px 0 rgba(212, 225, 87, .65);
-      transform: rotate(-2deg);
+      box-shadow: 5px 6px 0 rgba(212, 225, 87, .42);
+      transform: rotate(-1.4deg);
     }
 
-    .canvas-manifesto .room-kicker { font-size: 1rem; }
+    .canvas-manifesto .room-kicker { font-size: .88rem; }
     .canvas-manifesto .room-title {
-      font-size: clamp(1.7rem, 3.4vw, 3.2rem);
-      line-height: 1.2;
+      font-size: clamp(1.42rem, 2.7vw, 2.35rem);
+      line-height: 1.24;
     }
     .canvas-manifesto .room-hint {
       position: static;
-      max-width: 330px;
-      margin: 15px 0 0;
+      max-width: 270px;
+      margin: 12px 0 0;
       text-align: left;
+      font-size: .68rem;
     }
-    .canvas-manifesto .room-actions { margin-top: 18px; }
 
     .canvas-shortcut {
       position: absolute;
@@ -1573,7 +1573,7 @@
     /* ---------- 响应式 ---------- */
     @media (max-width: 1050px) {
       .canvas-stage { width: clamp(480px, 62vw, 700px); top: 55%; }
-      .canvas-manifesto { top: 52px; }
+      .canvas-manifesto { top: 40px; }
       .shortcut-a { right: 3%; }
       .shortcut-b { right: 2%; }
       .shortcut-d { left: 3%; }
@@ -1789,11 +1789,7 @@
         <section class="canvas-manifesto">
           <span class="room-kicker">Serena's creative canvas ✦</span>
           <h1 class="room-title">我和小冉，正在把<br><em>想法做出来。</em></h1>
-          <p class="room-hint">中文系女生的写作、产品实验，与正在发生的 AI building。</p>
-          <div class="room-actions">
-            <button class="room-action room-action--primary" type="button" data-page-target="works">看作品 →</button>
-            <button class="room-action" type="button" data-page-target="journal">翻札记</button>
-          </div>
+          <p class="room-hint">中文系 × Agent × AI building</p>
         </section>
 
         <section class="canvas-stage" aria-label="Serena 正在写作">
