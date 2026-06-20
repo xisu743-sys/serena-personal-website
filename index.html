@@ -675,7 +675,11 @@
       position: fixed;
       inset: 0;
       z-index: 500;
-      background: rgba(21, 24, 33, .68);
+      background:
+        radial-gradient(circle at 12% 16%, rgba(212, 225, 87, .22), transparent 28%),
+        radial-gradient(circle at 88% 82%, rgba(91, 111, 224, .12), transparent 30%),
+        rgba(254, 252, 246, .92);
+      backdrop-filter: blur(8px);
       opacity: 0;
       visibility: hidden;
       transition: opacity .3s ease, visibility .3s ease;
@@ -708,7 +712,7 @@
     .bookshelf-zone.is-focused,
     .gallery-zone.is-focused {
       position: fixed;
-      inset: clamp(78px, 9vh, 112px) clamp(22px, 7vw, 110px) clamp(24px, 6vh, 68px);
+      inset: clamp(78px, 9vh, 104px) clamp(18px, 5vw, 74px) clamp(20px, 4vh, 48px);
       z-index: 510;
       width: auto;
       min-height: 0;
@@ -724,41 +728,84 @@
       grid-template-columns: repeat(3, minmax(150px, 1fr));
       gap: clamp(18px, 3vw, 40px);
       align-content: center;
-      padding: clamp(58px, 8vh, 86px) clamp(26px, 6vw, 74px) clamp(30px, 5vh, 58px);
-      border-top-width: 54px;
-      box-shadow: 20px 22px 0 rgba(212, 225, 87, .7);
+      padding: clamp(76px, 10vh, 108px) clamp(26px, 6vw, 74px) clamp(34px, 6vh, 68px);
+      border: 2px solid rgba(26, 58, 82, .16);
+      border-top: 18px solid var(--blue-purple);
+      background:
+        linear-gradient(180deg, rgba(212, 225, 87, .14), transparent 36%),
+        var(--cream-warm);
+      box-shadow: 18px 20px 0 rgba(212, 225, 87, .62);
     }
 
     .bookshelf-zone.is-focused .shelf {
       min-height: clamp(190px, 32vh, 290px);
       padding-inline: clamp(8px, 2vw, 24px);
+      border-bottom-width: 12px;
+      background: rgba(255, 254, 248, .62);
+      transition: transform .3s ease, background .3s ease;
+    }
+
+    .bookshelf-zone.is-focused .shelf:nth-of-type(2) {
+      transform: translateY(-20px);
+    }
+
+    .bookshelf-zone.is-focused .shelf:hover {
+      background: rgba(212, 225, 87, .15);
     }
 
     .bookshelf-zone.is-focused .exhibit-book {
       width: calc(var(--book-width, 31px) + 8px);
       height: calc(var(--book-height, 94px) + 42px);
       font-size: .78rem;
+      transform-origin: bottom;
+    }
+
+    .bookshelf-zone.is-focused .exhibit-book:hover,
+    .bookshelf-zone.is-focused .exhibit-book:focus-visible {
+      transform: translateY(-28px) rotate(-4deg) scale(1.08);
+      box-shadow: inset -4px 0 rgba(26, 58, 82, .12), 10px 14px 0 rgba(91, 111, 224, .12);
     }
 
     .gallery-zone.is-focused {
-      padding: clamp(64px, 9vh, 96px) clamp(30px, 7vw, 100px) clamp(38px, 6vh, 70px);
-      border-left-width: 58px;
-      box-shadow: -18px 20px 0 rgba(214, 60, 166, .2);
+      padding: clamp(78px, 10vh, 110px) clamp(30px, 8vw, 120px) clamp(44px, 7vh, 84px);
+      border: 2px solid rgba(26, 58, 82, .13);
+      border-left: 18px solid var(--blue-purple);
+      background:
+        linear-gradient(90deg, transparent 49.9%, rgba(26, 58, 82, .07) 50%, transparent 50.1%),
+        linear-gradient(180deg, rgba(214, 60, 166, .055), transparent 42%),
+        var(--cream-warm);
+      box-shadow: -14px 18px 0 rgba(214, 60, 166, .16);
+      perspective: 1100px;
     }
 
     .gallery-zone.is-focused .gallery-grid {
-      width: min(960px, 100%);
+      width: min(980px, 100%);
       min-height: 100%;
       margin: auto;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(2, minmax(230px, 1fr));
       align-items: center;
-      gap: clamp(26px, 4vw, 58px);
+      gap: clamp(42px, 7vh, 82px) clamp(64px, 9vw, 130px);
     }
 
     .gallery-zone.is-focused .artwork:nth-child(n) {
-      min-height: clamp(220px, 36vh, 360px);
+      min-height: clamp(190px, 27vh, 280px);
       margin-top: 0;
       padding: clamp(18px, 3vw, 34px);
+      transition: transform .3s cubic-bezier(.2, .8, .2, 1), box-shadow .3s ease;
+    }
+
+    .gallery-zone.is-focused .artwork:nth-child(odd) {
+      transform: translateX(6%) rotateY(5deg);
+    }
+
+    .gallery-zone.is-focused .artwork:nth-child(even) {
+      transform: translateX(-6%) rotateY(-5deg);
+    }
+
+    .gallery-zone.is-focused .artwork:hover,
+    .gallery-zone.is-focused .artwork:focus-visible {
+      transform: translateY(-12px) rotateY(0deg) scale(1.045);
+      box-shadow: 0 0 0 8px var(--blue-purple), 0 0 0 10px #b8a88d, 0 28px 44px rgba(26, 58, 82, .16);
     }
 
     .gallery-zone.is-focused .artwork-mark {
@@ -775,6 +822,20 @@
       left: clamp(18px, 4vw, 48px);
       background: transparent;
       font-size: 1.25rem;
+    }
+
+    .is-focused .zone-label::after {
+      content: " · 点击展品继续探索";
+      color: var(--ink-faint);
+      font-family: var(--sans);
+      font-size: .68rem;
+      font-weight: 400;
+      letter-spacing: .04em;
+    }
+
+    .exhibit.is-opening-exhibit {
+      animation: takeExhibit .26s ease both;
+      pointer-events: none;
     }
 
     /* 可点击物品统一提示 */
@@ -812,7 +873,10 @@
       display: grid;
       place-items: center;
       padding: 20px;
-      background: rgba(21, 24, 33, .72);
+      background:
+        radial-gradient(circle at 16% 18%, rgba(212, 225, 87, .2), transparent 28%),
+        rgba(254, 252, 246, .9);
+      backdrop-filter: blur(9px);
       opacity: 0;
       visibility: hidden;
       transition: opacity .25s ease, visibility .25s ease;
@@ -998,14 +1062,17 @@
       .bookshelf-zone.is-focused {
         display: block;
         padding: 62px 22px 28px;
-        border-top-width: 34px;
+        border-top-width: 14px;
       }
       .bookshelf-zone.is-focused .shelf {
         min-height: 150px;
       }
+      .bookshelf-zone.is-focused .shelf:nth-of-type(2) {
+        transform: none;
+      }
       .gallery-zone.is-focused {
         padding: 64px 24px 30px;
-        border-left-width: 24px;
+        border-left-width: 14px;
       }
       .gallery-zone.is-focused .gallery-grid {
         min-height: auto;
@@ -1052,6 +1119,10 @@
     @keyframes focusZoneIn {
       from { opacity: 0; transform: scale(.92) translateY(18px); }
       to { opacity: 1; transform: none; }
+    }
+    @keyframes takeExhibit {
+      50% { transform: translateY(-18px) scale(1.06); }
+      to { transform: translateY(-10px) scale(1.02); opacity: .72; }
     }
   </style>
 </head>
@@ -1498,7 +1569,17 @@
     });
 
     document.querySelectorAll("[data-exhibit]").forEach(element => {
-      element.addEventListener("click", () => openExhibit(element.dataset.exhibit, element));
+      element.addEventListener("click", () => {
+        if (focusedZone && focusedZone.contains(element)) {
+          element.classList.add("is-opening-exhibit");
+          setTimeout(() => {
+            element.classList.remove("is-opening-exhibit");
+            openExhibit(element.dataset.exhibit, element);
+          }, 230);
+        } else {
+          openExhibit(element.dataset.exhibit, element);
+        }
+      });
     });
 
     document.querySelectorAll("[data-focus]").forEach(element => {
