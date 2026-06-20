@@ -1678,6 +1678,76 @@
       vertical-align: 1px;
     }
 
+    /* ---------- 跨页面可拖动 Serena 贴纸 ---------- */
+    .draggable-serena {
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 440;
+      height: clamp(168px, 22vh, 220px);
+      aspect-ratio: 540 / 1147;
+      width: auto;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      transform: translate3d(var(--drag-x, 0), var(--drag-y, 0), 0) rotate(var(--drag-tilt, 0deg));
+      transform-origin: 50% 78%;
+      transition: filter .2s ease, transform .16s ease;
+      filter: drop-shadow(0 12px 12px rgba(26, 58, 82, .12));
+      will-change: transform;
+    }
+
+    .draggable-serena.is-dragging {
+      z-index: 470;
+      cursor: grabbing;
+      transition: filter .2s ease;
+      filter: drop-shadow(0 19px 18px rgba(26, 58, 82, .18));
+    }
+
+    .draggable-serena:focus-visible {
+      outline: 3px solid rgba(214, 60, 166, .42);
+      outline-offset: 4px;
+      border-radius: 42%;
+    }
+
+    .draggable-serena img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .drag-hint {
+      position: absolute;
+      left: 50%;
+      bottom: 2%;
+      min-width: max-content;
+      padding: 4px 9px;
+      color: var(--ink);
+      background: var(--yellow-green);
+      border: 1px solid rgba(26, 58, 82, .08);
+      border-radius: 999px;
+      font-family: var(--hand);
+      font-size: .8rem;
+      font-weight: 700;
+      opacity: .92;
+      transform: translateX(-50%);
+      transition: opacity .25s ease, transform .25s ease;
+      pointer-events: none;
+    }
+
+    .draggable-serena.has-moved .drag-hint {
+      opacity: 0;
+      transform: translateX(-50%) translateY(5px);
+    }
+
     /* ---------- 响应式 ---------- */
     @media (max-width: 1050px) {
       .canvas-stage { width: clamp(480px, 62vw, 700px); top: 55%; }
@@ -1748,6 +1818,9 @@
         transform: none;
       }
       .canvas-live { order: 5; text-align: center; }
+      .draggable-serena {
+        height: 154px;
+      }
       .room-heading { padding-right: 0; margin-bottom: 24px; }
       .room-title { max-width: 330px; }
       .room-hint {
@@ -1848,6 +1921,7 @@
         transition-duration: .01ms !important;
       }
       .map-depth { transform: none !important; }
+      .draggable-serena { transition: none !important; }
     }
 
     @keyframes cursorBlink { 50% { opacity: 0; } }
@@ -2050,6 +2124,11 @@
       <button class="page-tab" type="button" data-page-target="works"><span>02</span>作品集</button>
       <button class="page-tab" type="button" data-page-target="journal"><span>03</span>札记</button>
     </nav>
+
+    <button class="draggable-serena" id="draggableSerena" type="button" aria-label="可拖动的 Serena，双击回到初始位置">
+      <img src="assets/serena-sticker.png" alt="">
+      <span class="drag-hint">拖动我 ✦</span>
+    </button>
   </div>
 
   <div class="focus-backdrop" id="focusBackdrop" aria-hidden="true"></div>
@@ -2228,12 +2307,14 @@
     const writingWindow = document.getElementById("writingWindow");
     const canvasLive = document.getElementById("canvasLive");
     const mapBackground = document.getElementById("mapBackground");
+    const draggableSerena = document.getElementById("draggableSerena");
     let introFinished = false;
     let typingTimer;
     let lastFocused = null;
     let focusedZone = null;
     let focusTrigger = null;
     let focusPlaceholder = null;
+    const DRAG_POSITION_KEY = "serena-sticker-position-v1";
 
     function typeIntro() {
       let lineIndex = 0;
@@ -2401,6 +2482,80 @@
       history.replaceState(null, "", `#${pageName}`);
     }
 
+    function stickerBounds() {
+      const rect = draggableSerena.getBoundingClientRect();
+      const margin = 8;
+      return {
+        minX: margin,
+        maxX: Math.max(margin, window.innerWidth - rect.width - margin),
+        minY: 68,
+        maxY: Math.max(68, window.innerHeight - rect.height - 82)
+      };
+    }
+
+    function clampStickerPosition(x, y) {
+      const bounds = stickerBounds();
+      return {
+        x: Math.min(bounds.maxX, Math.max(bounds.minX, x)),
+        y: Math.min(bounds.maxY, Math.max(bounds.minY, y))
+      };
+    }
+
+    function placeSticker(x, y, tilt = 0) {
+      const next = clampStickerPosition(x, y);
+      draggableSerena.dataset.x = String(next.x);
+      draggableSerena.dataset.y = String(next.y);
+      draggableSerena.style.setProperty("--drag-x", `${next.x}px`);
+      draggableSerena.style.setProperty("--drag-y", `${next.y}px`);
+      draggableSerena.style.setProperty("--drag-tilt", `${tilt}deg`);
+    }
+
+    function defaultStickerPosition() {
+      const rect = draggableSerena.getBoundingClientRect();
+      return clampStickerPosition(
+        window.innerWidth - rect.width - 26,
+        window.innerHeight - rect.height - 104
+      );
+    }
+
+    function saveStickerPosition() {
+      const bounds = stickerBounds();
+      const x = Number(draggableSerena.dataset.x || bounds.maxX);
+      const y = Number(draggableSerena.dataset.y || bounds.maxY);
+      const rangeX = Math.max(1, bounds.maxX - bounds.minX);
+      const rangeY = Math.max(1, bounds.maxY - bounds.minY);
+      try {
+        localStorage.setItem(DRAG_POSITION_KEY, JSON.stringify({
+          rx: (x - bounds.minX) / rangeX,
+          ry: (y - bounds.minY) / rangeY
+        }));
+      } catch (error) {}
+    }
+
+    function restoreStickerPosition() {
+      const bounds = stickerBounds();
+      try {
+        const saved = JSON.parse(localStorage.getItem(DRAG_POSITION_KEY));
+        if (saved && Number.isFinite(saved.rx) && Number.isFinite(saved.ry)) {
+          placeSticker(
+            bounds.minX + saved.rx * (bounds.maxX - bounds.minX),
+            bounds.minY + saved.ry * (bounds.maxY - bounds.minY)
+          );
+          draggableSerena.classList.add("has-moved");
+          return;
+        }
+      } catch (error) {}
+      const initial = defaultStickerPosition();
+      placeSticker(initial.x, initial.y);
+    }
+
+    function resetStickerPosition() {
+      try { localStorage.removeItem(DRAG_POSITION_KEY); } catch (error) {}
+      draggableSerena.classList.remove("has-moved");
+      const initial = defaultStickerPosition();
+      placeSticker(initial.x, initial.y);
+    }
+
     document.getElementById("openJournal").addEventListener("click", enterStudio);
     document.getElementById("skipIntro").addEventListener("click", enterStudio);
 
@@ -2443,6 +2598,77 @@
       element.addEventListener("click", () => switchPage(element.dataset.pageTarget));
     });
 
+    let stickerDrag = null;
+
+    draggableSerena.addEventListener("pointerdown", event => {
+      if (event.button !== 0 && event.pointerType === "mouse") return;
+      const x = Number(draggableSerena.dataset.x || 0);
+      const y = Number(draggableSerena.dataset.y || 0);
+      stickerDrag = {
+        pointerId: event.pointerId,
+        startClientX: event.clientX,
+        startClientY: event.clientY,
+        startX: x,
+        startY: y,
+        lastClientX: event.clientX,
+        moved: false
+      };
+      draggableSerena.setPointerCapture(event.pointerId);
+      draggableSerena.classList.add("is-dragging");
+      event.preventDefault();
+    });
+
+    draggableSerena.addEventListener("pointermove", event => {
+      if (!stickerDrag || stickerDrag.pointerId !== event.pointerId) return;
+      const dx = event.clientX - stickerDrag.startClientX;
+      const dy = event.clientY - stickerDrag.startClientY;
+      if (Math.hypot(dx, dy) > 4) stickerDrag.moved = true;
+      const directionalDelta = event.clientX - stickerDrag.lastClientX;
+      stickerDrag.lastClientX = event.clientX;
+      const tilt = Math.max(-6, Math.min(6, directionalDelta * .75));
+      placeSticker(stickerDrag.startX + dx, stickerDrag.startY + dy, tilt);
+    });
+
+    function finishStickerDrag(event) {
+      if (!stickerDrag || stickerDrag.pointerId !== event.pointerId) return;
+      if (draggableSerena.hasPointerCapture(event.pointerId)) {
+        draggableSerena.releasePointerCapture(event.pointerId);
+      }
+      const moved = stickerDrag.moved;
+      stickerDrag = null;
+      draggableSerena.classList.remove("is-dragging");
+      placeSticker(
+        Number(draggableSerena.dataset.x || 0),
+        Number(draggableSerena.dataset.y || 0),
+        0
+      );
+      if (moved) {
+        draggableSerena.classList.add("has-moved");
+        saveStickerPosition();
+      }
+    }
+
+    draggableSerena.addEventListener("pointerup", finishStickerDrag);
+    draggableSerena.addEventListener("pointercancel", finishStickerDrag);
+    draggableSerena.addEventListener("dblclick", resetStickerPosition);
+
+    draggableSerena.addEventListener("keydown", event => {
+      const direction = {
+        ArrowLeft: [-12, 0],
+        ArrowRight: [12, 0],
+        ArrowUp: [0, -12],
+        ArrowDown: [0, 12]
+      }[event.key];
+      if (!direction) return;
+      event.preventDefault();
+      placeSticker(
+        Number(draggableSerena.dataset.x || 0) + direction[0],
+        Number(draggableSerena.dataset.y || 0) + direction[1]
+      );
+      draggableSerena.classList.add("has-moved");
+      saveStickerPosition();
+    });
+
     document.querySelectorAll(".zone-focus-close").forEach(button => {
       button.addEventListener("click", () => closeFocusedZone());
     });
@@ -2477,6 +2703,15 @@
 
     updateClock();
     setInterval(updateClock, 1000);
+    requestAnimationFrame(restoreStickerPosition);
+
+    window.addEventListener("resize", () => {
+      placeSticker(
+        Number(draggableSerena.dataset.x || 0),
+        Number(draggableSerena.dataset.y || 0)
+      );
+      saveStickerPosition();
+    });
 
     const initialPage = location.hash.replace("#", "");
     if (["home", "works", "journal"].includes(initialPage)) {
