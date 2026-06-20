@@ -259,6 +259,12 @@
       transform: none;
     }
 
+    .site-page { display: none; }
+    .site-page.is-active {
+      display: block;
+      animation: pageEnter .45s cubic-bezier(.2, .8, .2, 1) both;
+    }
+
     .app-header {
       position: sticky;
       top: 0;
@@ -1014,6 +1020,294 @@
 
     .room-footer strong { color: var(--magenta); font-weight: 500; }
 
+    /* ---------- 一级页面 ---------- */
+    .pill-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 450;
+      display: flex;
+      gap: 4px;
+      padding: 5px;
+      background: rgba(254, 252, 246, .94);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      box-shadow: 0 12px 40px rgba(26, 58, 82, .14);
+      backdrop-filter: blur(14px);
+      transform: translateX(-50%);
+    }
+
+    .page-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 18px;
+      color: var(--ink-light);
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      font-size: .8rem;
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: color .22s ease, background .22s ease;
+    }
+
+    .page-tab span {
+      color: currentColor;
+      font-family: var(--mono);
+      font-size: .6rem;
+      opacity: .55;
+    }
+
+    .page-tab.is-active {
+      color: var(--cream);
+      background: var(--blue-purple);
+    }
+
+    .page-tab:hover:not(.is-active) { color: var(--blue-purple); }
+
+    .room-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .room-action {
+      padding: 11px 18px;
+      border: 1px solid var(--border);
+      background: var(--paper);
+      font-size: .75rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .room-action--primary {
+      color: var(--cream);
+      border-color: var(--magenta);
+      background: var(--magenta);
+    }
+
+    .room-action:hover { transform: translateY(-2px); }
+
+    .collection-page {
+      min-height: calc(100vh - 62px);
+      padding: clamp(60px, 10vh, 120px) clamp(22px, 6vw, 90px) 120px;
+      background: var(--cream);
+    }
+
+    .collection-inner {
+      width: min(1180px, 100%);
+      margin: auto;
+    }
+
+    .collection-hero {
+      display: grid;
+      grid-template-columns: .7fr 1.3fr;
+      gap: clamp(38px, 7vw, 110px);
+      align-items: end;
+      margin-bottom: clamp(54px, 8vh, 90px);
+      padding-bottom: 38px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .collection-index {
+      color: var(--blue-purple);
+      font-family: "Fraunces", serif;
+      font-size: clamp(4.2rem, 11vw, 9rem);
+      font-style: italic;
+      font-weight: 900;
+      line-height: .75;
+      opacity: .16;
+    }
+
+    .collection-kicker {
+      margin: 0 0 10px;
+      color: var(--magenta);
+      font-family: var(--hand);
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .collection-title {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 6vw, 5.2rem);
+      line-height: 1.08;
+      letter-spacing: -.055em;
+    }
+
+    .collection-desc {
+      max-width: 660px;
+      margin: 18px 0 0;
+      color: var(--ink-light);
+      font-size: .93rem;
+      line-height: 1.9;
+    }
+
+    .works-curation {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: clamp(20px, 3vw, 38px);
+    }
+
+    .work-piece {
+      position: relative;
+      min-height: 310px;
+      padding: clamp(28px, 4vw, 48px);
+      overflow: hidden;
+      border: 0;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      transition: transform .3s ease;
+    }
+
+    .work-piece:hover,
+    .work-piece:focus-visible {
+      z-index: 2;
+      transform: translateY(-8px) rotate(-.5deg);
+      outline: 4px solid rgba(214, 60, 166, .18);
+      outline-offset: 6px;
+    }
+
+    .work-piece:nth-child(1) {
+      grid-column: span 7;
+      background: var(--yellow-soft);
+      border-top: 40px solid var(--blue-purple);
+    }
+
+    .work-piece:nth-child(2) {
+      grid-column: span 5;
+      margin-top: 62px;
+      color: var(--cream);
+      background: var(--blue-purple);
+      border-bottom: 40px solid var(--yellow-green);
+    }
+
+    .work-piece:nth-child(3) {
+      grid-column: span 5;
+      background: var(--magenta-soft);
+      border-left: 40px solid var(--magenta);
+    }
+
+    .work-piece:nth-child(4) {
+      grid-column: span 7;
+      margin-top: -38px;
+      background: var(--blue-soft);
+      border-right: 40px solid var(--yellow-green);
+    }
+
+    .work-num {
+      display: block;
+      margin-bottom: clamp(54px, 8vh, 90px);
+      font-family: "Fraunces", serif;
+      font-size: clamp(3.2rem, 7vw, 6rem);
+      font-style: italic;
+      font-weight: 900;
+      line-height: .8;
+      opacity: .24;
+    }
+
+    .work-piece h2 {
+      max-width: 430px;
+      margin: 0 0 12px;
+      font-family: var(--serif);
+      font-size: clamp(1.35rem, 3vw, 2.3rem);
+      line-height: 1.3;
+    }
+
+    .work-piece p {
+      max-width: 480px;
+      margin: 0;
+      font-size: .82rem;
+      line-height: 1.85;
+      opacity: .78;
+    }
+
+    .work-tag {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .09em;
+    }
+
+    .journal-page-shell {
+      background:
+        linear-gradient(90deg, rgba(214, 60, 166, .055) 1px, transparent 1px),
+        var(--cream-warm);
+      background-size: 68px 100%;
+    }
+
+    .journal-layout {
+      display: grid;
+      grid-template-columns: .42fr 1fr;
+      gap: clamp(38px, 7vw, 100px);
+      align-items: start;
+    }
+
+    .journal-side {
+      position: sticky;
+      top: 100px;
+    }
+
+    .journal-side .collection-title { font-size: clamp(2.7rem, 6vw, 4.8rem); }
+
+    .journal-list {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .journal-entry {
+      position: relative;
+      width: 100%;
+      min-height: 170px;
+      padding: 28px 32px 26px 58px;
+      color: var(--ink);
+      border: 1px solid #e6e0d2;
+      background:
+        linear-gradient(90deg, transparent 0 30px, rgba(214, 60, 166, .15) 30px 32px, transparent 32px),
+        repeating-linear-gradient(transparent 0 31px, rgba(91, 111, 224, .055) 31px 32px),
+        var(--paper);
+      text-align: left;
+      box-shadow: 5px 6px 0 rgba(26, 58, 82, .07);
+      cursor: pointer;
+      transition: transform .25s ease;
+    }
+
+    .journal-entry:nth-child(even) { transform: rotate(.45deg); }
+    .journal-entry:nth-child(odd) { transform: rotate(-.3deg); }
+    .journal-entry:hover,
+    .journal-entry:focus-visible {
+      z-index: 2;
+      transform: translateX(-8px) rotate(0);
+      outline: 3px solid rgba(91, 111, 224, .16);
+      outline-offset: 3px;
+    }
+
+    .journal-entry time {
+      color: var(--magenta);
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .08em;
+    }
+
+    .journal-entry h2 {
+      margin: 18px 0 8px;
+      font-family: var(--serif);
+      font-size: clamp(1.25rem, 2.6vw, 1.8rem);
+    }
+
+    .journal-entry p {
+      margin: 0;
+      color: var(--ink-light);
+      font-size: .82rem;
+      line-height: 1.85;
+    }
+
     /* ---------- 响应式 ---------- */
     @media (max-width: 1050px) {
       .studio-grid {
@@ -1068,6 +1362,19 @@
       .gallery-grid { grid-template-columns: 1fr 1fr; }
       .artwork:nth-child(n) { min-height: 138px; }
       .room-footer { flex-direction: column; margin-top: 34px; }
+      .pill-nav { bottom: 14px; }
+      .page-tab { padding: 9px 13px; }
+      .room-actions { flex-wrap: wrap; }
+      .collection-page { padding: 54px 18px 104px; }
+      .collection-hero, .journal-layout { grid-template-columns: 1fr; }
+      .collection-index { display: none; }
+      .works-curation { display: block; }
+      .work-piece:nth-child(n) {
+        width: 100%;
+        min-height: 270px;
+        margin: 0 0 24px;
+      }
+      .journal-side { position: static; }
       .bookshelf-zone.is-focused,
       .gallery-zone.is-focused {
         inset: 76px 12px 14px;
@@ -1133,6 +1440,10 @@
       from { opacity: 0; transform: scale(.92) translateY(18px); }
       to { opacity: 1; transform: none; }
     }
+    @keyframes pageEnter {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: none; }
+    }
     @keyframes takeExhibit {
       50% { transform: translateY(-18px) scale(1.06); }
       to { transform: translateY(-10px) scale(1.02); opacity: .72; }
@@ -1165,24 +1476,23 @@
         <strong>Serena's Room</strong>
         <span>CREATIVE ARCHIVE · OPEN</span>
       </div>
-      <nav class="room-nav" aria-label="房间导航">
-        <button class="nav-button" type="button" data-exhibit="about">关于我</button>
-        <button class="nav-button" type="button" data-focus="bookshelf">文字书架</button>
-        <button class="nav-button" type="button" data-focus="gallery">项目展墙</button>
-        <button class="nav-button" type="button" data-exhibit="contact">找到我</button>
-      </nav>
+      <button class="nav-button" type="button" data-exhibit="about">和 Agent 并肩前行的女生 ↗</button>
     </header>
 
-    <main class="room-shell">
+    <main class="room-shell site-page is-active" id="page-home" data-page="home">
       <div class="room-heading">
         <span class="room-kicker">come in, take a look around ✦</span>
-        <h1 class="room-title">这里是 Serena 和小冉的<br><em>创作房间。</em></h1>
-        <p class="room-hint">点击书、画框和桌边札记，查看我们一起做出来的东西。</p>
+        <h1 class="room-title">我和小冉，正在把<br><em>想法做出来。</em></h1>
+        <p class="room-hint">主页是一间仍在工作的创作房间。书架上是最近写下的，墙上是最近做出的。</p>
+        <div class="room-actions">
+          <button class="room-action room-action--primary" type="button" data-page-target="works">看完整作品集 →</button>
+          <button class="room-action" type="button" data-page-target="journal">翻一翻札记</button>
+        </div>
       </div>
 
       <div class="studio-grid">
         <section class="bookshelf-zone" id="bookshelf" aria-label="文字书架">
-          <span class="zone-label">文字书架 / writings</span>
+          <span class="zone-label">最近写下 / recent writings</span>
           <button class="zone-focus-close" type="button" aria-label="关闭文字书架放大视图">×</button>
           <div class="shelf">
             <button class="exhibit exhibit-book" style="--book-height:96px;--book-color:#d4e157" type="button" data-exhibit="writing">创意写作</button>
@@ -1215,7 +1525,7 @@
         </section>
 
         <section class="gallery-zone" id="gallery" aria-label="项目展墙">
-          <span class="zone-label">项目展墙 / selected works</span>
+          <span class="zone-label">最近做出 / recent works</span>
           <button class="zone-focus-close" type="button" aria-label="关闭项目展墙放大视图">×</button>
           <div class="gallery-grid">
             <button class="exhibit artwork" type="button" data-exhibit="xiaohongshu">
@@ -1248,6 +1558,90 @@
         <span><strong>万水千山，我们一同领略 🌊</strong></span>
       </footer>
     </main>
+
+    <main class="collection-page site-page" id="page-works" data-page="works">
+      <div class="collection-inner">
+        <header class="collection-hero">
+          <div class="collection-index">02</div>
+          <div>
+            <p class="collection-kicker">selected works · 正式策展</p>
+            <h1 class="collection-title">作品集</h1>
+            <p class="collection-desc">这里不只是罗列做过什么，而是保存每个项目为什么开始、怎样成形，以及我和小冉分别承担了什么。</p>
+          </div>
+        </header>
+
+        <section class="works-curation" aria-label="代表作品">
+          <button class="work-piece" type="button" data-exhibit="xiaohongshu">
+            <span class="work-tag">CHROME EXTENSION</span>
+            <span class="work-num">01</span>
+            <h2>小红书案例库插件</h2>
+            <p>让收藏真正进入个人知识与创作工作流。</p>
+          </button>
+          <button class="work-piece" type="button" data-exhibit="speech">
+            <span class="work-tag">MINI PROGRAM</span>
+            <span class="work-num">02</span>
+            <h2>即兴演讲练习</h2>
+            <p>随机出题、录音表达与 AI 反馈组成完整练习闭环。</p>
+          </button>
+          <button class="work-piece" type="button" data-exhibit="poetry">
+            <span class="work-tag">WEB EXPERIMENT</span>
+            <span class="work-num">03</span>
+            <h2>拼贴诗生成器</h2>
+            <p>把语言做成可以移动、吸附和重新组合的游戏。</p>
+          </button>
+          <button class="work-piece" type="button" data-exhibit="design">
+            <span class="work-tag">DESIGN SKILL</span>
+            <span class="work-num">04</span>
+            <h2>个人品牌设计系统</h2>
+            <p>把审美判断写成 Agent 可以理解并持续执行的规范。</p>
+          </button>
+        </section>
+      </div>
+    </main>
+
+    <main class="collection-page journal-page-shell site-page" id="page-journal" data-page="journal">
+      <div class="collection-inner journal-layout">
+        <header class="journal-side">
+          <p class="collection-kicker">Serena's journal · 03</p>
+          <h1 class="collection-title">札记</h1>
+          <p class="collection-desc">写作、阅读、灵感，以及我和小冉如何并肩工作。这里保留的不是答案，而是事情正在长出来的过程。</p>
+        </header>
+
+        <section class="journal-list" aria-label="札记目录">
+          <button class="journal-entry" type="button" data-exhibit="now">
+            <time>NOW · 2026</time>
+            <h2>正在发生</h2>
+            <p>创意写作、内容账号，以及一次次被做成小产品的念头。</p>
+          </button>
+          <button class="journal-entry" type="button" data-exhibit="agent">
+            <time>WITH AGENT · 001</time>
+            <h2>我和小冉如何同行</h2>
+            <p>不是把任务丢给 AI，而是在判断、执行、质疑和补全之间逐渐形成默契。</p>
+          </button>
+          <button class="journal-entry" type="button" data-exhibit="writing">
+            <time>WRITING · 001</time>
+            <h2>靠 AI 提效，不靠 AI 代笔</h2>
+            <p>让 Agent 参与资料与结构，但把感受和最后一句留给自己。</p>
+          </button>
+          <button class="journal-entry" type="button" data-exhibit="building">
+            <time>PERSONAL EXPRESSION</time>
+            <h2>妳的 AI building</h2>
+            <p>一个故意不标准的表达，也是一种仍在进行中的生活状态。</p>
+          </button>
+          <button class="journal-entry" type="button" data-exhibit="journey">
+            <time>JOURNEY · OPEN</time>
+            <h2>万水千山，我们一同领略</h2>
+            <p>一起工作，也一起经过更大的生活。</p>
+          </button>
+        </section>
+      </div>
+    </main>
+
+    <nav class="pill-nav" aria-label="一级页面导航">
+      <button class="page-tab is-active" type="button" data-page-target="home" aria-current="page"><span>01</span>主页</button>
+      <button class="page-tab" type="button" data-page-target="works"><span>02</span>作品集</button>
+      <button class="page-tab" type="button" data-page-target="journal"><span>03</span>札记</button>
+    </nav>
   </div>
 
   <div class="focus-backdrop" id="focusBackdrop" aria-hidden="true"></div>
@@ -1579,6 +1973,23 @@
       focusTrigger = null;
     }
 
+    function switchPage(pageName) {
+      if (focusedZone) closeFocusedZone(false);
+      if (modal.classList.contains("is-open")) closeExhibit();
+
+      document.querySelectorAll(".site-page").forEach(page => {
+        page.classList.toggle("is-active", page.dataset.page === pageName);
+      });
+      document.querySelectorAll(".page-tab").forEach(tab => {
+        const active = tab.dataset.pageTarget === pageName;
+        tab.classList.toggle("is-active", active);
+        tab.setAttribute("aria-current", active ? "page" : "false");
+      });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      history.replaceState(null, "", `#${pageName}`);
+    }
+
     document.getElementById("openJournal").addEventListener("click", enterStudio);
     document.getElementById("skipIntro").addEventListener("click", enterStudio);
 
@@ -1617,6 +2028,10 @@
       });
     });
 
+    document.querySelectorAll("[data-page-target]").forEach(element => {
+      element.addEventListener("click", () => switchPage(element.dataset.pageTarget));
+    });
+
     document.querySelectorAll(".zone-focus-close").forEach(button => {
       button.addEventListener("click", () => closeFocusedZone());
     });
@@ -1636,6 +2051,11 @@
 
     updateClock();
     setInterval(updateClock, 1000);
+
+    const initialPage = location.hash.replace("#", "");
+    if (["home", "works", "journal"].includes(initialPage)) {
+      switchPage(initialPage);
+    }
   </script>
 </body>
 </html>
