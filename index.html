@@ -1313,21 +1313,12 @@
       min-height: max(760px, calc(100vh - 62px));
       padding: 0;
       background:
-        radial-gradient(circle at 50% 42%, rgba(212, 225, 87, .22), transparent 29%),
+        radial-gradient(circle at 50% 42%, rgba(212, 225, 87, .15), transparent 31%),
         var(--cream);
     }
 
     #page-home.room-shell::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 46%;
-      width: min(74vw, 980px);
-      aspect-ratio: 1;
-      border: clamp(38px, 5vw, 72px) solid rgba(91, 111, 224, .1);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
+      display: none;
     }
 
     #page-home.room-shell::after {
@@ -1355,6 +1346,123 @@
       margin: auto;
       overflow: hidden;
     }
+
+    .map-background {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .map-depth {
+      position: absolute;
+      inset: -5%;
+      will-change: transform;
+      transition: transform .75s cubic-bezier(.2, .8, .2, 1);
+    }
+
+    .map-depth--far {
+      transform: translate3d(calc(var(--px, 0) * -4px), calc(var(--py, 0) * -3px), 0);
+      background:
+        radial-gradient(ellipse at 14% 24%, rgba(212, 225, 87, .29), transparent 24%),
+        radial-gradient(ellipse at 86% 75%, rgba(212, 225, 87, .2), transparent 25%),
+        radial-gradient(circle at 69% 19%, rgba(91, 111, 224, .08), transparent 18%);
+    }
+
+    .map-depth--path {
+      transform: translate3d(calc(var(--px, 0) * 7px), calc(var(--py, 0) * 5px), 0);
+    }
+
+    .map-depth--near {
+      transform: translate3d(calc(var(--px, 0) * 12px), calc(var(--py, 0) * 9px), 0);
+    }
+
+    .map-svg {
+      position: absolute;
+      inset: 7% 2% 4%;
+      width: 96%;
+      height: 89%;
+      overflow: visible;
+    }
+
+    .map-route {
+      fill: none;
+      stroke: var(--blue-purple);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-dasharray: 4 12;
+      opacity: .22;
+    }
+
+    .map-route.secondary {
+      stroke: var(--ink);
+      stroke-width: 1.2;
+      stroke-dasharray: 2 15;
+      opacity: .12;
+    }
+
+    .map-node {
+      fill: var(--cream);
+      stroke: var(--blue-purple);
+      stroke-width: 2;
+      opacity: .52;
+    }
+
+    .map-node.hot {
+      fill: var(--magenta);
+      stroke: var(--magenta);
+      opacity: .7;
+    }
+
+    .map-word {
+      position: absolute;
+      color: var(--blue-purple);
+      font-family: var(--hand);
+      font-size: clamp(.9rem, 1.5vw, 1.25rem);
+      opacity: .32;
+      white-space: nowrap;
+    }
+
+    .map-word.one { left: 12%; top: 40%; transform: rotate(-8deg); }
+    .map-word.two { right: 14%; top: 28%; transform: rotate(6deg); }
+    .map-word.three { left: 61%; bottom: 12%; transform: rotate(-3deg); }
+
+    .map-paper {
+      position: absolute;
+      width: 34px;
+      height: 46px;
+      background: rgba(255, 254, 248, .76);
+      border: 1px solid rgba(26, 58, 82, .09);
+      box-shadow: 3px 4px 0 rgba(26, 58, 82, .04);
+    }
+
+    .map-paper::before {
+      content: "";
+      position: absolute;
+      left: 7px;
+      right: 7px;
+      top: 12px;
+      height: 1px;
+      background: rgba(91, 111, 224, .16);
+      box-shadow: 0 7px rgba(91, 111, 224, .12), 0 14px rgba(91, 111, 224, .1);
+    }
+
+    .map-paper.one { left: 25%; top: 12%; transform: rotate(-12deg); }
+    .map-paper.two { right: 29%; top: 9%; transform: rotate(9deg); background: rgba(243, 246, 206, .72); }
+    .map-paper.three { right: 9%; bottom: 25%; transform: rotate(-8deg); }
+
+    .map-pin {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--magenta);
+      border-radius: 50%;
+      box-shadow: 0 0 0 7px rgba(214, 60, 166, .09);
+    }
+
+    .map-pin.one { left: 37%; bottom: 14%; }
+    .map-pin.two { right: 19%; top: 48%; }
 
     .canvas-stage {
       position: absolute;
@@ -1596,6 +1704,7 @@
         min-height: auto;
         padding: 30px 16px 110px;
       }
+      .map-background { display: none; }
       .creative-canvas {
         min-height: auto;
         display: flex;
@@ -1738,6 +1847,7 @@
         animation-iteration-count: 1 !important;
         transition-duration: .01ms !important;
       }
+      .map-depth { transform: none !important; }
     }
 
     @keyframes cursorBlink { 50% { opacity: 0; } }
@@ -1786,6 +1896,29 @@
 
     <main class="room-shell site-page is-active" id="page-home" data-page="home">
       <div class="creative-canvas">
+        <div class="map-background" id="mapBackground" aria-hidden="true">
+          <div class="map-depth map-depth--far"></div>
+          <div class="map-depth map-depth--path">
+            <svg class="map-svg" viewBox="0 0 1200 700" preserveAspectRatio="none">
+              <path class="map-route" d="M-40 525 C140 420 164 158 354 236 C522 304 520 574 708 496 C858 434 856 128 1036 180 C1124 206 1176 306 1240 266"></path>
+              <path class="map-route secondary" d="M62 102 C218 208 318 64 444 142 C574 222 638 108 754 132 C914 166 1000 368 1164 300"></path>
+              <circle class="map-node" cx="168" cy="389" r="8"></circle>
+              <circle class="map-node hot" cx="354" cy="236" r="7"></circle>
+              <circle class="map-node" cx="708" cy="496" r="9"></circle>
+              <circle class="map-node" cx="1036" cy="180" r="8"></circle>
+            </svg>
+            <span class="map-word one">writing...</span>
+            <span class="map-word two">something is building</span>
+            <span class="map-word three">with agent ✦</span>
+          </div>
+          <div class="map-depth map-depth--near">
+            <span class="map-paper one"></span>
+            <span class="map-paper two"></span>
+            <span class="map-paper three"></span>
+            <span class="map-pin one"></span>
+            <span class="map-pin two"></span>
+          </div>
+        </div>
         <section class="canvas-manifesto">
           <span class="room-kicker">Serena's creative canvas ✦</span>
           <h1 class="room-title">我和小冉，正在把<br><em>想法做出来。</em></h1>
@@ -2094,6 +2227,7 @@
     const focusBackdrop = document.getElementById("focusBackdrop");
     const writingWindow = document.getElementById("writingWindow");
     const canvasLive = document.getElementById("canvasLive");
+    const mapBackground = document.getElementById("mapBackground");
     let introFinished = false;
     let typingTimer;
     let lastFocused = null;
@@ -2314,6 +2448,21 @@
     });
 
     focusBackdrop.addEventListener("click", () => closeFocusedZone());
+
+    if (mapBackground && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.getElementById("page-home").addEventListener("pointermove", event => {
+        const rect = event.currentTarget.getBoundingClientRect();
+        const px = (event.clientX - rect.left) / rect.width - .5;
+        const py = (event.clientY - rect.top) / rect.height - .5;
+        mapBackground.style.setProperty("--px", px.toFixed(3));
+        mapBackground.style.setProperty("--py", py.toFixed(3));
+      }, { passive: true });
+
+      document.getElementById("page-home").addEventListener("pointerleave", () => {
+        mapBackground.style.setProperty("--px", "0");
+        mapBackground.style.setProperty("--py", "0");
+      });
+    }
 
     modalClose.addEventListener("click", closeExhibit);
     modal.addEventListener("click", event => {
