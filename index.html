@@ -1308,18 +1308,276 @@
       line-height: 1.85;
     }
 
+    /* ---------- 主页：Serena 创作画布 ---------- */
+    #page-home.room-shell {
+      min-height: max(760px, calc(100vh - 62px));
+      padding: 0;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(212, 225, 87, .22), transparent 29%),
+        var(--cream);
+    }
+
+    #page-home.room-shell::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 46%;
+      width: min(74vw, 980px);
+      aspect-ratio: 1;
+      border: clamp(38px, 5vw, 72px) solid rgba(91, 111, 224, .1);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    #page-home.room-shell::after {
+      content: "SERENA  ×  AGENT  ×  BUILDING";
+      position: absolute;
+      left: clamp(24px, 4vw, 60px);
+      bottom: 28px;
+      z-index: 1;
+      height: auto;
+      color: var(--blue-purple);
+      background: none;
+      border: 0;
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .18em;
+      opacity: .42;
+      transform: none;
+    }
+
+    .creative-canvas {
+      position: relative;
+      z-index: 2;
+      width: min(1380px, 100%);
+      min-height: max(700px, calc(100vh - 62px));
+      margin: auto;
+      overflow: hidden;
+    }
+
+    .canvas-stage {
+      position: absolute;
+      left: 50%;
+      top: 51%;
+      width: clamp(520px, 58vw, 850px);
+      transform: translate(-50%, -50%);
+    }
+
+    .canvas-stage::before {
+      content: "";
+      position: absolute;
+      left: 7%;
+      right: 7%;
+      bottom: -18px;
+      height: 40px;
+      z-index: -1;
+      background: rgba(26, 58, 82, .1);
+      filter: blur(18px);
+      border-radius: 50%;
+    }
+
+    .canvas-stage .writing-window {
+      max-width: none;
+      border: 0;
+      border-radius: 4px;
+      box-shadow: 0 24px 70px rgba(26, 58, 82, .13);
+      transform: rotate(-.5deg);
+    }
+
+    .canvas-stage .writing-window::before {
+      top: 16px;
+      left: 18px;
+    }
+
+    .canvas-stage .writing-window img { aspect-ratio: 16 / 9; }
+
+    .canvas-manifesto {
+      position: absolute;
+      left: clamp(18px, 5vw, 78px);
+      top: clamp(54px, 10vh, 108px);
+      z-index: 5;
+      width: clamp(265px, 29vw, 430px);
+      padding: clamp(26px, 3.5vw, 44px);
+      background:
+        linear-gradient(90deg, transparent 0 25px, rgba(214, 60, 166, .15) 25px 27px, transparent 27px),
+        repeating-linear-gradient(transparent 0 31px, rgba(91, 111, 224, .055) 31px 32px),
+        var(--paper);
+      border: 1px solid #e9e3d5;
+      box-shadow: 9px 11px 0 rgba(212, 225, 87, .65);
+      transform: rotate(-2deg);
+    }
+
+    .canvas-manifesto .room-kicker { font-size: 1rem; }
+    .canvas-manifesto .room-title {
+      font-size: clamp(1.7rem, 3.4vw, 3.2rem);
+      line-height: 1.2;
+    }
+    .canvas-manifesto .room-hint {
+      position: static;
+      max-width: 330px;
+      margin: 15px 0 0;
+      text-align: left;
+    }
+    .canvas-manifesto .room-actions { margin-top: 18px; }
+
+    .canvas-shortcut {
+      position: absolute;
+      z-index: 6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      min-width: 86px;
+      padding: 0;
+      color: var(--ink);
+      border: 0;
+      background: transparent;
+      font-size: .68rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: transform .25s ease;
+    }
+
+    .canvas-shortcut:hover,
+    .canvas-shortcut:focus-visible {
+      transform: translateY(-8px) rotate(-1deg);
+      outline: none;
+    }
+
+    .shortcut-art {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 76px;
+      height: 76px;
+      color: var(--ink);
+      background: var(--paper);
+      border: 1px solid rgba(26, 58, 82, .12);
+      box-shadow: 6px 7px 0 rgba(26, 58, 82, .08);
+      font-family: "Fraunces", var(--serif);
+      font-size: 1.7rem;
+      font-style: italic;
+      font-weight: 900;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .canvas-shortcut:hover .shortcut-art {
+      color: var(--cream);
+      background: var(--blue-purple);
+    }
+
+    .shortcut-art.folder {
+      width: 90px;
+      height: 62px;
+      margin-top: 14px;
+      background: var(--yellow-green);
+      border-radius: 3px;
+    }
+
+    .shortcut-art.folder::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -13px;
+      width: 42px;
+      height: 16px;
+      background: var(--yellow-green);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .canvas-shortcut:hover .shortcut-art.folder,
+    .canvas-shortcut:hover .shortcut-art.folder::before {
+      background: var(--blue-purple);
+    }
+
+    .shortcut-art.note {
+      background:
+        repeating-linear-gradient(transparent 0 16px, rgba(91, 111, 224, .1) 16px 17px),
+        var(--paper);
+      transform: rotate(3deg);
+    }
+
+    .shortcut-art.agent {
+      color: var(--cream);
+      background: var(--blue-purple);
+      border-radius: 28% 34% 30% 36%;
+      box-shadow: 6px 7px 0 rgba(212, 225, 87, .65);
+    }
+
+    .shortcut-art.agent::after {
+      content: "✦";
+      color: var(--yellow-green);
+      font-style: normal;
+    }
+
+    .shortcut-art.html::after {
+      content: "</>";
+      color: var(--magenta);
+      font-family: var(--mono);
+      font-size: .82rem;
+      font-style: normal;
+    }
+
+    .shortcut-a { right: 7%; top: 13%; transform: rotate(2deg); }
+    .shortcut-b { right: 4%; top: 42%; transform: rotate(-2deg); }
+    .shortcut-c { right: 12%; bottom: 10%; transform: rotate(2deg); }
+    .shortcut-d { left: 7%; bottom: 14%; transform: rotate(-2deg); }
+    .shortcut-e { left: 27%; bottom: 5%; transform: rotate(1deg); }
+
+    .canvas-agent-note {
+      position: absolute;
+      right: 22%;
+      bottom: 20%;
+      z-index: 7;
+      max-width: 210px;
+      padding: 11px 15px;
+      color: var(--cream);
+      background: var(--blue-purple);
+      font-size: .68rem;
+      line-height: 1.55;
+      transform: rotate(1.5deg);
+    }
+
+    .canvas-agent-note strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--yellow-green);
+      font-family: var(--hand);
+      font-size: 1rem;
+    }
+
+    .canvas-live {
+      position: absolute;
+      right: clamp(20px, 4vw, 56px);
+      bottom: 27px;
+      z-index: 7;
+      color: var(--ink-faint);
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .1em;
+    }
+
+    .canvas-live::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      margin-right: 8px;
+      background: var(--magenta);
+      border-radius: 50%;
+      vertical-align: 1px;
+    }
+
     /* ---------- 响应式 ---------- */
     @media (max-width: 1050px) {
-      .studio-grid {
-        grid-template-columns: minmax(190px, .8fr) minmax(390px, 1.5fr);
-      }
-      .gallery-zone {
-        grid-column: 1 / -1;
-        min-height: auto;
-        border-left-width: 24px;
-      }
-      .gallery-grid { grid-template-columns: repeat(4, 1fr); }
-      .artwork:nth-child(n) { min-height: 145px; margin-top: 0; }
+      .canvas-stage { width: clamp(480px, 62vw, 700px); top: 55%; }
+      .canvas-manifesto { top: 52px; }
+      .shortcut-a { right: 3%; }
+      .shortcut-b { right: 2%; }
+      .shortcut-d { left: 3%; }
+      .canvas-agent-note { right: 18%; bottom: 18%; }
     }
 
     @media (max-width: 760px) {
@@ -1334,6 +1592,53 @@
       .room-nav { overflow-x: auto; }
       .nav-button { padding: 7px 9px; font-size: .72rem; }
       .room-shell { padding: 30px 16px 36px; }
+      #page-home.room-shell {
+        min-height: auto;
+        padding: 30px 16px 110px;
+      }
+      .creative-canvas {
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+        overflow: visible;
+      }
+      .canvas-manifesto,
+      .canvas-stage,
+      .canvas-shortcut,
+      .canvas-agent-note,
+      .canvas-live {
+        position: relative;
+        inset: auto;
+        left: auto;
+        right: auto;
+        top: auto;
+        bottom: auto;
+        width: 100%;
+        max-width: none;
+        transform: none;
+      }
+      .canvas-manifesto { order: 1; }
+      .canvas-stage { order: 2; }
+      .canvas-agent-note {
+        order: 3;
+        align-self: flex-end;
+        width: min(230px, 82%);
+      }
+      .canvas-shortcuts-mobile {
+        order: 4;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px 10px;
+      }
+      .canvas-shortcut {
+        position: relative;
+        inset: auto;
+        width: auto;
+        min-width: 0;
+        transform: none;
+      }
+      .canvas-live { order: 5; text-align: center; }
       .room-heading { padding-right: 0; margin-bottom: 24px; }
       .room-title { max-width: 330px; }
       .room-hint {
@@ -1480,82 +1785,56 @@
     </header>
 
     <main class="room-shell site-page is-active" id="page-home" data-page="home">
-      <div class="room-heading">
-        <span class="room-kicker">come in, take a look around ✦</span>
-        <h1 class="room-title">我和小冉，正在把<br><em>想法做出来。</em></h1>
-        <p class="room-hint">主页是一间仍在工作的创作房间。书架上是最近写下的，墙上是最近做出的。</p>
-        <div class="room-actions">
-          <button class="room-action room-action--primary" type="button" data-page-target="works">看完整作品集 →</button>
-          <button class="room-action" type="button" data-page-target="journal">翻一翻札记</button>
-        </div>
-      </div>
-
-      <div class="studio-grid">
-        <section class="bookshelf-zone" id="bookshelf" aria-label="文字书架">
-          <span class="zone-label">最近写下 / recent writings</span>
-          <button class="zone-focus-close" type="button" aria-label="关闭文字书架放大视图">×</button>
-          <div class="shelf">
-            <button class="exhibit exhibit-book" style="--book-height:96px;--book-color:#d4e157" type="button" data-exhibit="writing">创意写作</button>
-            <button class="exhibit exhibit-book" style="--book-height:112px;--book-width:36px;--book-color:#5b6fe0;color:#fefcf6" type="button" data-exhibit="content">内容创作</button>
-            <button class="exhibit exhibit-book" style="--book-height:86px;--book-color:#f1bfdc" type="button" data-exhibit="notes">阅读札记</button>
-            <button class="exhibit exhibit-book" style="--book-height:104px;--book-color:#f4efb7" type="button" data-exhibit="novel">小说练习</button>
-          </div>
-          <div class="shelf">
-            <button class="exhibit shelf-object" type="button" data-exhibit="agent">小冉<br>批注</button>
-            <button class="exhibit exhibit-book" style="--book-height:82px;--book-width:38px;--book-color:#d63ca6;color:#fefcf6" type="button" data-exhibit="ideas">灵感碎片</button>
-            <button class="exhibit exhibit-book" style="--book-height:105px;--book-color:#dfe3ff" type="button" data-exhibit="now">正在发生</button>
-          </div>
-          <div class="shelf">
-            <button class="exhibit shelf-object" type="button" data-exhibit="archive">OPEN<br>ARCHIVE</button>
-            <button class="exhibit exhibit-book" style="--book-height:88px;--book-color:#eff59c" type="button" data-exhibit="journey">万水千山</button>
-            <button class="exhibit exhibit-book" style="--book-height:102px;--book-color:#cbcffa" type="button" data-exhibit="building">AI building</button>
+      <div class="creative-canvas">
+        <section class="canvas-manifesto">
+          <span class="room-kicker">Serena's creative canvas ✦</span>
+          <h1 class="room-title">我和小冉，正在把<br><em>想法做出来。</em></h1>
+          <p class="room-hint">中文系女生的写作、产品实验，与正在发生的 AI building。</p>
+          <div class="room-actions">
+            <button class="room-action room-action--primary" type="button" data-page-target="works">看作品 →</button>
+            <button class="room-action" type="button" data-page-target="journal">翻札记</button>
           </div>
         </section>
 
-        <section class="writing-zone" aria-label="Serena 正在写作">
+        <section class="canvas-stage" aria-label="Serena 正在写作">
           <div class="writing-window" id="writingWindow" data-time="NOW WRITING · --:--:--">
             <img src="assets/serena-writing.jpg" alt="蓝紫卷发、戴圆框眼镜的 Serena 伏在桌前写作，旁边有一个小小的蓝色 Agent 伙伴">
-            <div class="desk-caption">她说自己只是创作者，但凌晨还在 debug 的时候，更像一个闷头造东西的产品人。</div>
-          </div>
-          <div class="desk-tabs" aria-label="桌边札记">
-            <button class="exhibit desk-tab" type="button" data-exhibit="about">WHO AM I</button>
-            <button class="exhibit desk-tab" type="button" data-exhibit="now">NOW</button>
-            <button class="exhibit desk-tab" type="button" data-exhibit="agent">WITH AGENT</button>
           </div>
         </section>
 
-        <section class="gallery-zone" id="gallery" aria-label="项目展墙">
-          <span class="zone-label">最近做出 / recent works</span>
-          <button class="zone-focus-close" type="button" aria-label="关闭项目展墙放大视图">×</button>
-          <div class="gallery-grid">
-            <button class="exhibit artwork" type="button" data-exhibit="xiaohongshu">
-              <span class="artwork-mark">01</span>
-              <strong>小红书案例库插件</strong>
-              <small>CHROME EXTENSION</small>
-            </button>
-            <button class="exhibit artwork" type="button" data-exhibit="speech">
-              <span class="artwork-mark">02</span>
-              <strong>即兴演讲练习</strong>
-              <small>MINI PROGRAM</small>
-            </button>
-            <button class="exhibit artwork" type="button" data-exhibit="poetry">
-              <span class="artwork-mark">03</span>
-              <strong>拼贴诗生成器</strong>
-              <small>WEB EXPERIMENT</small>
-            </button>
-            <button class="exhibit artwork" type="button" data-exhibit="design">
-              <span class="artwork-mark">04</span>
-              <strong>个人品牌设计系统</strong>
-              <small>DESIGN SKILL</small>
-            </button>
-          </div>
-          <p class="gallery-note">please touch the art :)</p>
-        </section>
+        <div class="canvas-shortcuts-mobile">
+          <button class="canvas-shortcut shortcut-a" type="button" data-exhibit="design">
+            <span class="shortcut-art folder">Ds</span>
+            <span>Design Skill</span>
+          </button>
+          <button class="canvas-shortcut shortcut-b" type="button" data-exhibit="xiaohongshu">
+            <span class="shortcut-art html"></span>
+            <span>案例库 HTML</span>
+          </button>
+          <button class="canvas-shortcut shortcut-c" type="button" data-exhibit="speech">
+            <span class="shortcut-art">02</span>
+            <span>即兴演讲</span>
+          </button>
+          <button class="canvas-shortcut shortcut-d" type="button" data-exhibit="writing">
+            <span class="shortcut-art note">Aa</span>
+            <span>创意写作</span>
+          </button>
+          <button class="canvas-shortcut shortcut-e" type="button" data-exhibit="agent">
+            <span class="shortcut-art agent"></span>
+            <span>小冉</span>
+          </button>
+        </div>
+
+        <aside class="canvas-agent-note">
+          <strong>小冉说：</strong>
+          她负责决定什么值得做，我负责让它先跑起来。
+        </aside>
+
+        <div class="canvas-live" id="canvasLive">ROOM IS LIVE</div>
       </div>
 
-      <footer class="room-footer">
+      <footer class="room-footer" style="display:none">
         <span>Serena · 熙冉 × 小冉 · 2026</span>
-        <span><strong>万水千山，我们一同领略 🌊</strong></span>
       </footer>
     </main>
 
@@ -1818,6 +2097,7 @@
     const modalClose = document.getElementById("modalClose");
     const focusBackdrop = document.getElementById("focusBackdrop");
     const writingWindow = document.getElementById("writingWindow");
+    const canvasLive = document.getElementById("canvasLive");
     let introFinished = false;
     let typingTimer;
     let lastFocused = null;
@@ -1924,6 +2204,7 @@
         hour12: false
       }).format(new Date());
       writingWindow.dataset.time = `NOW WRITING · ${time}`;
+      if (canvasLive) canvasLive.textContent = `ROOM IS LIVE · ${time}`;
     }
 
     function updateBodyLock() {
