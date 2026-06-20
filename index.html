@@ -678,8 +678,8 @@
       background:
         radial-gradient(circle at 12% 16%, rgba(212, 225, 87, .22), transparent 28%),
         radial-gradient(circle at 88% 82%, rgba(91, 111, 224, .12), transparent 30%),
-        rgba(254, 252, 246, .92);
-      backdrop-filter: blur(8px);
+        rgba(254, 252, 246, .78);
+      backdrop-filter: blur(5px);
       opacity: 0;
       visibility: hidden;
       transition: opacity .3s ease, visibility .3s ease;
@@ -721,6 +721,19 @@
       overflow: auto;
       transform: none;
       animation: focusZoneIn .38s cubic-bezier(.2, .8, .2, 1) both;
+    }
+
+    .bookshelf-zone.is-focused::before,
+    .gallery-zone.is-focused::before {
+      content: "SERENA'S ROOM  /  EXPLORE MODE";
+      position: absolute;
+      top: 20px;
+      right: 76px;
+      z-index: 7;
+      color: var(--ink-faint);
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .1em;
     }
 
     .bookshelf-zone.is-focused {
@@ -1416,6 +1429,7 @@
     let lastFocused = null;
     let focusedZone = null;
     let focusTrigger = null;
+    let focusPlaceholder = null;
 
     function typeIntro() {
       let lineIndex = 0;
@@ -1529,6 +1543,10 @@
       if (focusedZone) closeFocusedZone(false);
       focusedZone = zone;
       focusTrigger = trigger;
+      focusPlaceholder = document.createComment(`${id}-focus-placeholder`);
+      zone.parentNode.insertBefore(focusPlaceholder, zone);
+      document.body.appendChild(zone);
+      document.body.classList.add("zone-focus-active");
       zone.classList.add("is-focused");
       zone.setAttribute("aria-label", `${zone.getAttribute("aria-label")}，放大视图`);
       focusBackdrop.classList.add("is-open");
@@ -1542,10 +1560,17 @@
 
     function closeFocusedZone(restoreFocus = true) {
       if (!focusedZone) return;
+      const zoneToRestore = focusedZone;
       const currentLabel = focusedZone.getAttribute("aria-label");
       focusedZone.setAttribute("aria-label", currentLabel.replace("，放大视图", ""));
       focusedZone.classList.remove("is-focused");
+      if (focusPlaceholder && focusPlaceholder.parentNode) {
+        focusPlaceholder.parentNode.insertBefore(zoneToRestore, focusPlaceholder);
+        focusPlaceholder.remove();
+      }
+      focusPlaceholder = null;
       focusedZone = null;
+      document.body.classList.remove("zone-focus-active");
       focusBackdrop.classList.remove("is-open");
       focusBackdrop.setAttribute("aria-hidden", "true");
       document.querySelectorAll("[data-focus]").forEach(button => button.classList.remove("is-active"));
