@@ -3,766 +3,1322 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Serena · 札记</title>
+  <meta name="theme-color" content="#fefcf6">
+  <meta name="description" content="Serena 熙冉与 Agent 小冉的创作房间。">
+  <title>Serena · 创作房间</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,900;1,9..144,400&family=Caveat:wght@400;700&family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Fira+Code:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,900;1,9..144,400&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet">
   <style>
-    /* === CSS变量 === */
     :root {
-      --yellow-green: #D4E157;
-      --blue-purple: #5B6FE0;
-      --magenta: #D63CA6;
+      --yellow-green: #d4e157;
+      --yellow-soft: #f3f6ce;
+      --blue-purple: #5b6fe0;
+      --blue-soft: #e8eafd;
+      --magenta: #d63ca6;
+      --magenta-soft: #f8e1f1;
       --cream: #fefcf6;
-      --cream-warm: #f9fae6;
-      --ink: #1A3A52;
-      --ink-light: #4A4A5A;
-      --ink-faint: #8A8A9A;
-      --dark-panel: #151821;
+      --cream-warm: #f9f7ed;
+      --paper: #fffef8;
+      --ink: #1a3a52;
+      --ink-light: #4a5660;
+      --ink-faint: #84909a;
+      --dark: #151821;
+      --border: rgba(26, 58, 82, .12);
+      --serif: "Noto Serif SC", serif;
+      --sans: "Noto Sans SC", -apple-system, "PingFang SC", sans-serif;
+      --mono: "Fira Code", monospace;
+      --hand: "Caveat", cursive;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+    html {
+      background: var(--cream);
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: 'Noto Sans SC', -apple-system, 'PingFang SC', 'Helvetica Neue', sans-serif;
-      font-size: 16px;
-      line-height: 1.7;
+      margin: 0;
+      min-width: 320px;
       color: var(--ink);
       background: var(--cream);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
       overflow-x: hidden;
     }
 
-    ::selection {
-      background: var(--yellow-green);
-      color: var(--ink);
-    }
+    body.intro-active { overflow: hidden; }
+    button, a { font: inherit; }
+    button { color: inherit; }
+    ::selection { color: var(--ink); background: var(--yellow-green); }
 
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    /* ========================================
-       札记开场 overlay
-       ======================================== */
-    .journal-overlay {
+    /* ---------- 札记入口 ---------- */
+    .journal-intro {
       position: fixed;
       inset: 0;
-      z-index: 100;
-      background: var(--cream-warm);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
+      z-index: 1000;
+      display: grid;
+      place-items: center;
+      padding: clamp(20px, 4vw, 48px);
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(212, 225, 87, .24), transparent 25%),
+        radial-gradient(circle at 87% 80%, rgba(91, 111, 224, .14), transparent 29%),
+        var(--cream-warm);
+      perspective: 1400px;
+      transition: opacity .65s ease, visibility .65s ease;
     }
 
-    .journal-overlay.dismissed {
+    .journal-intro::before,
+    .journal-intro::after {
+      content: "";
+      position: absolute;
+      width: clamp(180px, 25vw, 380px);
+      aspect-ratio: 1;
+      border: 40px solid var(--blue-purple);
+      opacity: .06;
+      transform: rotate(18deg);
+      pointer-events: none;
+    }
+
+    .journal-intro::before { top: -14%; left: -7%; }
+    .journal-intro::after {
+      right: -8%;
+      bottom: -18%;
+      border-color: var(--magenta);
+      transform: rotate(-12deg);
+    }
+
+    .journal-intro.is-gone {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
     }
 
-    .journal-page {
-      width: min(540px, 88vw);
-      padding: clamp(48px, 8vh, 80px) clamp(28px, 5vw, 52px);
-      background: var(--cream);
-      border-radius: 4px;
-      box-shadow:
-        0 1px 3px rgba(26, 58, 82, 0.06),
-        0 8px 32px rgba(26, 58, 82, 0.05);
+    .journal-book {
       position: relative;
-    }
-
-    /* Paper texture: subtle ruled lines */
-    .journal-page::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        transparent,
-        transparent 31px,
-        rgba(91, 111, 224, 0.06) 31px,
-        rgba(91, 111, 224, 0.06) 32px
-      );
-      border-radius: 4px;
-      pointer-events: none;
-    }
-
-    /* Red margin line */
-    .journal-page::after {
-      content: '';
-      position: absolute;
-      top: 48px;
-      bottom: 48px;
-      left: 38px;
-      width: 1px;
-      background: rgba(214, 60, 166, 0.18);
-      pointer-events: none;
-    }
-
-    .journal-line {
-      font-family: 'Caveat', 'Noto Serif SC', cursive;
-      font-size: clamp(1.3rem, 3.5vw, 1.7rem);
-      line-height: 2;
-      color: var(--ink);
-      opacity: 0;
-      transform: translateY(6px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-      position: relative;
-      z-index: 1;
-      padding-left: 20px;
-    }
-
-    .journal-line.revealed {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Active cursor during typing */
-    .journal-line.typing::after {
-      content: '|';
-      animation: cursor-blink 0.8s step-end infinite;
-      color: var(--magenta);
-      font-weight: 400;
-    }
-
-    @keyframes cursor-blink {
-      50% { opacity: 0; }
-    }
-
-    /* Enter prompt */
-    .journal-enter {
-      margin-top: clamp(36px, 6vh, 56px);
-      text-align: center;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
-      position: relative;
-      z-index: 1;
-    }
-
-    .journal-enter.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .journal-enter-key {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: 'Noto Sans SC', sans-serif;
-      font-size: 0.9rem;
-      color: var(--ink-light);
-      cursor: pointer;
-      text-decoration: none;
-      padding: 14px 32px;
-      border: 1.5px solid rgba(91, 111, 224, 0.25);
-      border-radius: 8px;
-      background: rgba(91, 111, 224, 0.04);
-      transition: background 0.2s, border-color 0.2s;
-    }
-
-    .journal-enter-key:hover {
-      background: rgba(91, 111, 224, 0.08);
-      border-color: rgba(91, 111, 224, 0.4);
-    }
-
-    .journal-enter-key .key-icon {
-      font-family: 'Fraunces', serif;
-      font-style: italic;
-      font-size: 0.85rem;
-      color: var(--magenta);
-    }
-
-    /* ========================================
-       主站
-       ======================================== */
-    .main-site {
-      opacity: 0;
-      transition: opacity 0.8s ease 0.2s;
-    }
-
-    .main-site.visible {
-      opacity: 1;
-    }
-
-    /* === Hero 区（札记后的主视觉） === */
-    .hero-main {
-      min-height: 90vh;
+      width: min(720px, 92vw);
+      min-height: min(610px, 82vh);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 24px;
-      text-align: center;
-    }
-
-    .hero-main .hero-overline {
-      font-family: 'Fraunces', serif;
-      font-style: italic;
-      font-size: 1rem;
-      color: var(--magenta);
-      opacity: 0.8;
-      margin-bottom: 1rem;
-      letter-spacing: 0.02em;
-    }
-
-    .hero-main h1 {
-      font-family: 'Noto Serif SC', serif;
-      font-weight: 900;
-      font-size: clamp(2.6rem, 6.5vw, 4.8rem);
-      line-height: 1.15;
-      color: var(--ink);
-      margin-bottom: 1rem;
-    }
-
-    .hero-main h1 .highlight {
-      color: var(--blue-purple);
-    }
-
-    .hero-main .hero-sub {
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
-      color: var(--ink-light);
-      max-width: 560px;
-      line-height: 1.8;
-    }
-
-    .hero-main .hero-sub em {
-      color: var(--magenta);
-      font-style: normal;
-    }
-
-    /* 向下滚动指示 */
-    .scroll-hint {
-      margin-top: clamp(40px, 8vh, 64px);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      color: var(--ink-faint);
-      font-size: 0.78rem;
-      animation: float-hint 2.5s ease-in-out infinite;
-    }
-
-    .scroll-hint .arrow {
-      width: 1px;
-      height: 28px;
-      background: linear-gradient(to bottom, var(--ink-faint), transparent);
-    }
-
-    @keyframes float-hint {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(6px); }
-    }
-
-    /* === Sections === */
-    .section {
-      padding: clamp(80px, 12vh, 160px) 0;
-    }
-
-    .section--alt {
-      background: var(--cream-warm);
-    }
-
-    .section--dark {
-      background: var(--dark-panel);
-      color: #e2e8f0;
-    }
-
-    .section-label {
-      font-family: 'Fraunces', serif;
-      font-style: italic;
-      font-size: 0.85rem;
-      color: var(--magenta);
-      opacity: 0.7;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    .section-title {
-      font-family: 'Noto Serif SC', serif;
-      font-weight: 900;
-      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
-      color: var(--ink);
-      margin-bottom: 1rem;
-    }
-
-    .section--dark .section-title { color: #fff; }
-    .section--dark .section-label { color: var(--yellow-green); opacity: 0.8; }
-
-    .section-desc {
-      font-size: 1rem;
-      color: var(--ink-light);
-      max-width: 600px;
-      line-height: 1.8;
-    }
-
-    .section--dark .section-desc { color: #b0b8c8; }
-
-    /* === 双栏布局 === */
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(40px, 6vw, 80px);
-      align-items: start;
-      margin-top: clamp(40px, 6vw, 64px);
-    }
-
-    .two-col .col-text p {
-      color: var(--ink-light);
-      line-height: 1.9;
-      margin-bottom: 1.2rem;
-    }
-
-    .two-col .col-text p:last-child { margin-bottom: 0; }
-
-    .two-col .col-highlight {
-      font-family: 'Noto Serif SC', serif;
-      font-size: clamp(1.1rem, 2vw, 1.3rem);
-      font-weight: 700;
-      line-height: 1.8;
-      color: var(--blue-purple);
-      padding-left: 20px;
-      border-left: 3px solid var(--magenta);
-    }
-
-    /* === 三栏能力卡片 === */
-    .three-col {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: clamp(20px, 2.5vw, 32px);
-      margin-top: clamp(40px, 6vw, 64px);
-    }
-
-    .ability-card {
-      background: #fff;
-      border-radius: 12px;
-      padding: clamp(24px, 3vw, 36px);
-      position: relative;
+      padding: clamp(38px, 6vw, 68px) clamp(32px, 7vw, 82px);
       overflow: hidden;
-      box-shadow: 0 2px 12px rgba(26, 58, 82, 0.05);
-      transition: transform 0.2s, box-shadow 0.2s;
+      background:
+        linear-gradient(90deg, transparent 0 57px, rgba(214, 60, 166, .19) 57px 59px, transparent 59px),
+        repeating-linear-gradient(transparent 0 31px, rgba(91, 111, 224, .085) 31px 32px),
+        var(--paper);
+      border: 1px solid #e8e3d5;
+      border-radius: 5px 18px 18px 5px;
+      box-shadow:
+        -14px 16px 0 #ece7d8,
+        -16px 18px 0 rgba(26, 58, 82, .1),
+        0 34px 80px rgba(26, 58, 82, .13);
+      transform-origin: 50% 50%;
+      transition:
+        transform 1.35s cubic-bezier(.2, .72, .18, 1),
+        opacity .5s ease .78s,
+        filter .8s ease .45s;
     }
 
-    .ability-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(26, 58, 82, 0.08);
+    .journal-intro.is-opening .journal-book {
+      transform: translateY(8vh) rotateX(7deg) scale(3.2);
+      opacity: 0;
+      filter: blur(2px);
     }
 
-    .ability-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-    }
-
-    .ability-card:nth-child(1)::before { background: var(--blue-purple); }
-    .ability-card:nth-child(2)::before { background: var(--yellow-green); }
-    .ability-card:nth-child(3)::before { background: var(--magenta); }
-
-    .ability-card .card-icon {
-      font-size: 1.6rem;
-      margin-bottom: 16px;
-    }
-
-    .ability-card h3 {
-      font-family: 'Noto Serif SC', serif;
-      font-weight: 700;
-      font-size: 1.15rem;
-      color: var(--ink);
-      margin-bottom: 8px;
-    }
-
-    .ability-card p {
-      font-size: 0.9rem;
-      color: var(--ink-light);
-      line-height: 1.7;
-    }
-
-    /* === 项目列表 === */
-    .project-list {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: clamp(20px, 2.5vw, 32px);
-      margin-top: clamp(40px, 6vw, 64px);
-    }
-
-    .project-item {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      padding: clamp(20px, 3vw, 32px);
-      transition: border-color 0.2s;
-    }
-
-    .project-item:hover {
-      border-color: rgba(255,255,255,0.18);
-    }
-
-    .project-item .proj-tag {
-      font-family: 'Fraunces', serif;
-      font-style: italic;
-      font-size: 0.75rem;
-      color: var(--yellow-green);
-      opacity: 0.7;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .project-item h3 {
-      font-family: 'Noto Serif SC', serif;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: #fff;
-      margin-bottom: 6px;
-    }
-
-    .project-item p {
-      font-size: 0.88rem;
-      color: #b0b8c8;
-      line-height: 1.7;
-    }
-
-    /* === CTA === */
-    .cta-section {
-      text-align: center;
-      padding: clamp(80px, 12vh, 160px) 2rem;
-    }
-
-    .cta-section h2 {
-      font-family: 'Noto Serif SC', serif;
-      font-size: clamp(1.5rem, 3.5vw, 2.4rem);
-      margin-bottom: 1rem;
-      color: var(--ink);
-    }
-
-    .cta-section p {
-      font-size: 1rem;
-      color: var(--ink-light);
-      margin-bottom: 2rem;
-      max-width: 480px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .cta-links {
+    .journal-meta {
       display: flex;
+      justify-content: space-between;
+      align-items: center;
       gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
+      margin: 0 0 clamp(34px, 6vh, 60px);
+      padding-left: 8px;
+      color: var(--ink-faint);
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
     }
 
-    .cta-link {
+    .journal-meta strong {
+      color: var(--blue-purple);
+      font-family: "Fraunces", serif;
+      font-size: .9rem;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: .02em;
+      text-transform: none;
+    }
+
+    .terminal-copy {
+      min-height: 310px;
+      padding-left: 8px;
+      font-family: var(--mono);
+      font-size: clamp(.78rem, 2.2vw, .98rem);
+      line-height: 1.95;
+    }
+
+    .terminal-line {
+      min-height: 1.95em;
+      white-space: pre-wrap;
+    }
+
+    .terminal-line.command { color: var(--blue-purple); font-weight: 600; }
+    .terminal-line.output { color: var(--ink); }
+    .terminal-line.indent { padding-left: 1.25em; color: var(--ink-light); }
+    .terminal-line.final {
+      display: inline;
+      color: var(--magenta);
+      font-weight: 600;
+      background: linear-gradient(transparent 62%, rgba(212, 225, 87, .58) 62%);
+    }
+
+    .typing-cursor {
+      display: inline-block;
+      width: .55em;
+      height: 1.08em;
+      margin-left: 3px;
+      vertical-align: -.18em;
+      background: var(--magenta);
+      animation: cursorBlink .72s step-end infinite;
+    }
+
+    .journal-action {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: auto;
+      padding-top: 28px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .5s ease, transform .5s ease;
+      pointer-events: none;
+    }
+
+    .journal-action.is-ready {
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+    }
+
+    .open-journal {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 14px 28px;
-      border-radius: 10px;
-      text-decoration: none;
+      gap: 14px;
+      padding: 12px 0 10px 20px;
+      border: 0;
+      border-bottom: 2px solid var(--blue-purple);
+      background: transparent;
+      font-size: .88rem;
       font-weight: 600;
-      font-size: 0.95rem;
-      transition: transform 0.2s, box-shadow 0.2s;
+      letter-spacing: .08em;
+      cursor: pointer;
     }
 
-    .cta-link--primary {
+    .open-journal span {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      color: var(--cream);
       background: var(--blue-purple);
-      color: #fff;
+      border-radius: 50%;
+      transition: transform .25s ease, background .25s ease;
     }
 
-    .cta-link--primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(91, 111, 224, 0.3);
+    .open-journal:hover span {
+      background: var(--magenta);
+      transform: translate(3px, 2px);
     }
 
-    .cta-link--secondary {
-      background: rgba(91, 111, 224, 0.06);
-      color: var(--blue-purple);
-      border: 1.5px solid rgba(91, 111, 224, 0.2);
-    }
-
-    .cta-link--secondary:hover {
-      background: rgba(91, 111, 224, 0.1);
-      border-color: rgba(91, 111, 224, 0.35);
-    }
-
-    /* === Footer === */
-    .footer {
-      padding: 40px 2rem;
-      text-align: center;
-      border-top: 1px solid rgba(91, 111, 224, 0.08);
-    }
-
-    .footer .ending-quote {
-      font-family: 'Noto Serif SC', serif;
-      font-size: 1rem;
+    .skip-intro {
+      position: absolute;
+      top: 22px;
+      right: 26px;
+      z-index: 2;
+      padding: 8px;
       color: var(--ink-faint);
-      margin-bottom: 8px;
+      border: 0;
+      background: transparent;
+      font-size: .72rem;
+      letter-spacing: .1em;
+      cursor: pointer;
     }
 
-    .footer .ending-quote em {
-      color: var(--magenta);
-      font-style: normal;
-    }
-
-    .footer .credit {
-      font-size: 0.78rem;
-      color: var(--ink-faint);
-    }
-
-    /* === Scroll Reveal === */
-    .reveal {
+    /* ---------- 创作房间 App ---------- */
+    .studio-app {
+      min-height: 100vh;
       opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: scale(.985);
+      transition: opacity .8s ease .36s, transform .8s ease .36s;
     }
 
-    .reveal.visible {
+    .studio-app.is-visible {
       opacity: 1;
       transform: none;
     }
 
-    .reveal-d1 { transition-delay: 0.1s; }
-    .reveal-d2 { transition-delay: 0.2s; }
-    .reveal-d3 { transition-delay: 0.3s; }
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 0 clamp(18px, 4vw, 54px);
+      background: rgba(254, 252, 246, .94);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+
+    .app-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      min-width: max-content;
+    }
+
+    .app-brand strong {
+      font-family: "Fraunces", var(--serif);
+      font-size: 1.15rem;
+      font-style: italic;
+      font-weight: 900;
+    }
+
+    .app-brand span {
+      color: var(--ink-faint);
+      font-family: var(--mono);
+      font-size: .64rem;
+      letter-spacing: .12em;
+    }
+
+    .room-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-button {
+      padding: 9px 14px;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      color: var(--ink-light);
+      font-size: .78rem;
+      cursor: pointer;
+    }
+
+    .nav-button:hover,
+    .nav-button:focus-visible {
+      color: var(--blue-purple);
+      border-bottom-color: var(--blue-purple);
+      outline: none;
+    }
+
+    .room-shell {
+      position: relative;
+      min-height: calc(100vh - 62px);
+      padding: clamp(26px, 4vh, 52px) clamp(18px, 4vw, 62px) 42px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(212, 225, 87, .1), transparent 26%),
+        linear-gradient(90deg, rgba(91, 111, 224, .045) 1px, transparent 1px),
+        linear-gradient(rgba(91, 111, 224, .045) 1px, transparent 1px),
+        var(--cream);
+      background-size: auto, 32px 32px, 32px 32px, auto;
+    }
+
+    .room-shell::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 19%;
+      z-index: 0;
+      background:
+        repeating-linear-gradient(90deg, rgba(26, 58, 82, .045) 0 1px, transparent 1px 92px),
+        #eee8d8;
+      border-top: 1px solid rgba(26, 58, 82, .1);
+      transform: perspective(430px) rotateX(38deg);
+      transform-origin: bottom;
+    }
+
+    .room-heading {
+      position: relative;
+      z-index: 2;
+      max-width: 1260px;
+      margin: 0 auto clamp(18px, 3vh, 32px);
+    }
+
+    .room-kicker {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--magenta);
+      font-family: var(--hand);
+      font-size: 1.15rem;
+      font-weight: 700;
+      transform: rotate(-1deg);
+      transform-origin: left;
+    }
+
+    .room-title {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3.8vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -.04em;
+    }
+
+    .room-title em {
+      color: var(--blue-purple);
+      font-family: "Fraunces", serif;
+      font-weight: 400;
+    }
+
+    .room-hint {
+      position: absolute;
+      top: 10px;
+      right: 0;
+      max-width: 260px;
+      margin: 0;
+      color: var(--ink-faint);
+      font-size: .74rem;
+      line-height: 1.7;
+      text-align: right;
+    }
+
+    .studio-grid {
+      position: relative;
+      z-index: 2;
+      width: min(1260px, 100%);
+      min-height: clamp(590px, 72vh, 780px);
+      margin: auto;
+      display: grid;
+      grid-template-columns: minmax(205px, .72fr) minmax(430px, 1.65fr) minmax(230px, .8fr);
+      gap: clamp(18px, 3vw, 42px);
+      align-items: end;
+    }
+
+    .zone-label {
+      position: absolute;
+      top: -13px;
+      left: 16px;
+      z-index: 3;
+      padding: 1px 10px;
+      color: var(--blue-purple);
+      background: var(--cream);
+      font-family: var(--hand);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    /* 书架 */
+    .bookshelf-zone {
+      position: relative;
+      align-self: stretch;
+      min-height: 500px;
+      padding: 30px 20px 20px;
+      border: 2px solid rgba(26, 58, 82, .2);
+      border-top: 40px solid var(--blue-purple);
+      background: #f5f0df;
+      box-shadow: 12px 14px 0 rgba(212, 225, 87, .42);
+    }
+
+    .shelf {
+      min-height: 130px;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      gap: 7px;
+      padding: 18px 6px 8px;
+      border-bottom: 8px solid var(--ink);
+    }
+
+    .exhibit-book {
+      width: var(--book-width, 31px);
+      height: var(--book-height, 94px);
+      padding: 9px 5px;
+      border: 0;
+      border-radius: 2px 5px 1px 1px;
+      color: var(--ink);
+      background: var(--book-color, var(--yellow-green));
+      box-shadow: inset -4px 0 rgba(26, 58, 82, .12);
+      writing-mode: vertical-rl;
+      font-family: var(--serif);
+      font-size: .67rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      cursor: pointer;
+      transition: transform .22s ease, filter .22s ease;
+    }
+
+    .exhibit-book:hover,
+    .exhibit-book:focus-visible {
+      transform: translateY(-10px) rotate(-2deg);
+      filter: saturate(1.1);
+      outline: 3px solid rgba(214, 60, 166, .28);
+      outline-offset: 3px;
+    }
+
+    .shelf-object {
+      display: grid;
+      place-items: center;
+      width: 68px;
+      height: 54px;
+      padding: 0;
+      border: 2px dashed rgba(91, 111, 224, .45);
+      border-radius: 8px;
+      background: var(--paper);
+      color: var(--blue-purple);
+      font-family: var(--hand);
+      font-size: 1rem;
+      cursor: pointer;
+      transform: rotate(2deg);
+    }
+
+    /* 中央写作场景 */
+    .writing-zone {
+      position: relative;
+      align-self: end;
+      min-height: 520px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .writing-window {
+      position: relative;
+      width: 100%;
+      max-width: 720px;
+      overflow: hidden;
+      border: 1px solid rgba(26, 58, 82, .13);
+      border-radius: 48% 48% 5px 5px / 16% 16% 5px 5px;
+      background: var(--paper);
+      box-shadow: 0 28px 60px rgba(26, 58, 82, .12);
+    }
+
+    .writing-window::before {
+      content: "NOW WRITING · 19:26";
+      position: absolute;
+      top: 18px;
+      left: 22px;
+      z-index: 2;
+      padding: 4px 9px;
+      color: var(--ink);
+      background: var(--yellow-green);
+      font-family: var(--mono);
+      font-size: .58rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      transform: rotate(-1deg);
+    }
+
+    .writing-window img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .desk-caption {
+      position: absolute;
+      right: 18px;
+      bottom: 16px;
+      z-index: 2;
+      max-width: 220px;
+      padding: 10px 14px;
+      background: var(--blue-purple);
+      color: var(--cream);
+      font-size: .7rem;
+      line-height: 1.55;
+      transform: rotate(1deg);
+    }
+
+    .desk-caption::before {
+      content: "小冉 ✦";
+      display: block;
+      margin-bottom: 2px;
+      color: var(--yellow-green);
+      font-family: var(--hand);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .desk-tabs {
+      position: absolute;
+      left: 6%;
+      right: 6%;
+      bottom: -27px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .desk-tab {
+      padding: 9px 14px;
+      border: 1px solid var(--border);
+      border-top: 5px solid var(--magenta);
+      background: var(--paper);
+      font-size: .7rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .desk-tab:nth-child(2) { border-top-color: var(--yellow-green); }
+    .desk-tab:nth-child(3) { border-top-color: var(--blue-purple); }
+    .desk-tab:hover { transform: translateY(-4px); }
+
+    /* 展墙 */
+    .gallery-zone {
+      position: relative;
+      align-self: stretch;
+      min-height: 500px;
+      padding: 34px 18px 20px;
+      border-left: 40px solid var(--blue-purple);
+      background: #f3efe5;
+      box-shadow: -10px 12px 0 rgba(214, 60, 166, .11);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px 12px;
+    }
+
+    .artwork {
+      position: relative;
+      min-height: 132px;
+      padding: 11px;
+      border: 0;
+      background: var(--paper);
+      box-shadow: 0 0 0 8px var(--ink), 0 0 0 10px #b8a88d;
+      cursor: pointer;
+      transition: transform .22s ease;
+    }
+
+    .artwork:nth-child(2) {
+      min-height: 172px;
+      margin-top: 24px;
+      box-shadow: 0 0 0 8px var(--blue-purple), 0 0 0 10px #b8a88d;
+    }
+
+    .artwork:nth-child(3) {
+      min-height: 170px;
+      box-shadow: 0 0 0 8px var(--magenta), 0 0 0 10px #b8a88d;
+    }
+
+    .artwork:nth-child(4) {
+      min-height: 126px;
+      margin-top: 22px;
+      box-shadow: 0 0 0 8px var(--yellow-green), 0 0 0 10px #b8a88d;
+    }
+
+    .artwork:hover,
+    .artwork:focus-visible {
+      z-index: 2;
+      transform: rotate(-1.5deg) scale(1.035);
+      outline: 3px solid rgba(91, 111, 224, .28);
+      outline-offset: 13px;
+    }
+
+    .artwork-mark {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--magenta);
+      font-family: "Fraunces", serif;
+      font-size: clamp(1.4rem, 2.3vw, 2.3rem);
+      font-style: italic;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .artwork strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: .8rem;
+      line-height: 1.5;
+    }
+
+    .artwork small {
+      display: block;
+      margin-top: 7px;
+      color: var(--ink-faint);
+      font-family: var(--mono);
+      font-size: .53rem;
+      letter-spacing: .04em;
+    }
+
+    .gallery-note {
+      position: absolute;
+      right: 18px;
+      bottom: 16px;
+      margin: 0;
+      font-family: var(--hand);
+      font-size: 1rem;
+      transform: rotate(-2deg);
+    }
+
+    /* 可点击物品统一提示 */
+    .exhibit { position: relative; }
+    .exhibit::after {
+      content: "+";
+      position: absolute;
+      top: -9px;
+      right: -9px;
+      display: grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      color: var(--cream);
+      background: var(--magenta);
+      border-radius: 50%;
+      font-family: var(--mono);
+      font-size: .75rem;
+      opacity: 0;
+      transform: scale(.7);
+      transition: opacity .18s ease, transform .18s ease;
+    }
+
+    .exhibit:hover::after,
+    .exhibit:focus-visible::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Modal 展签 */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(21, 24, 33, .72);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .25s ease, visibility .25s ease;
+    }
+
+    .modal-overlay.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .exhibit-card {
+      position: relative;
+      width: min(660px, 94vw);
+      max-height: 86vh;
+      overflow-y: auto;
+      padding: clamp(30px, 5vw, 58px);
+      background:
+        linear-gradient(90deg, transparent 0 38px, rgba(214, 60, 166, .15) 38px 40px, transparent 40px),
+        var(--paper);
+      border-radius: 3px;
+      box-shadow: 16px 16px 0 var(--yellow-green);
+      transform: translateY(20px) rotate(-.5deg);
+      transition: transform .3s cubic-bezier(.2, .8, .2, 1);
+    }
+
+    .modal-overlay.is-open .exhibit-card { transform: none; }
+
+    .modal-close {
+      position: absolute;
+      top: 17px;
+      right: 17px;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: var(--cream);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .modal-label {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 3px 10px;
+      color: var(--cream);
+      background: var(--blue-purple);
+      font-family: var(--mono);
+      font-size: .66rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .modal-title {
+      margin: 0 50px 15px 0;
+      font-family: var(--serif);
+      font-size: clamp(1.75rem, 5vw, 3.2rem);
+      line-height: 1.2;
+      letter-spacing: -.04em;
+    }
+
+    .modal-desc {
+      margin: 0;
+      color: var(--ink-light);
+      font-size: .95rem;
+      line-height: 1.95;
+    }
+
+    .modal-meta {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .meta-note {
+      padding: 18px;
+      background: var(--blue-soft);
+      border-top: 5px solid var(--blue-purple);
+    }
+
+    .meta-note:nth-child(2) {
+      background: var(--yellow-soft);
+      border-top-color: var(--yellow-green);
+    }
+
+    .meta-note small {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--ink-faint);
+      font-family: var(--mono);
+      font-size: .62rem;
+      text-transform: uppercase;
+    }
+
+    .meta-note p {
+      margin: 0;
+      font-size: .82rem;
+      line-height: 1.75;
+    }
+
+    .modal-footnote {
+      margin: 26px 0 0;
+      padding: 17px 20px;
+      border: 2px dashed rgba(91, 111, 224, .28);
+      color: var(--ink-light);
+      font-family: var(--hand);
+      font-size: 1.2rem;
+      transform: rotate(-.5deg);
+    }
+
+    .room-footer {
+      position: relative;
+      z-index: 3;
+      width: min(1260px, 100%);
+      margin: 44px auto 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: var(--ink-faint);
+      font-size: .7rem;
+    }
+
+    .room-footer strong { color: var(--magenta); font-weight: 500; }
+
+    /* ---------- 响应式 ---------- */
+    @media (max-width: 1050px) {
+      .studio-grid {
+        grid-template-columns: minmax(190px, .8fr) minmax(390px, 1.5fr);
+      }
+      .gallery-zone {
+        grid-column: 1 / -1;
+        min-height: auto;
+        border-left-width: 24px;
+      }
+      .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+      .artwork:nth-child(n) { min-height: 145px; margin-top: 0; }
+    }
+
+    @media (max-width: 760px) {
+      .app-header {
+        height: auto;
+        min-height: 58px;
+        align-items: flex-start;
+        padding: 14px 18px 10px;
+      }
+      .app-brand { flex-direction: column; gap: 0; }
+      .app-brand span { display: none; }
+      .room-nav { overflow-x: auto; }
+      .nav-button { padding: 7px 9px; font-size: .72rem; }
+      .room-shell { padding: 30px 16px 36px; }
+      .room-heading { padding-right: 0; margin-bottom: 24px; }
+      .room-title { max-width: 330px; }
+      .room-hint {
+        position: static;
+        max-width: 310px;
+        margin-top: 10px;
+        text-align: left;
+      }
+      .studio-grid {
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 42px;
+      }
+      .writing-zone { order: -1; min-height: auto; width: 100%; padding-bottom: 22px; }
+      .writing-window { border-radius: 22px 22px 4px 4px; }
+      .desk-caption { max-width: 178px; right: 8px; bottom: 8px; }
+      .desk-tabs { bottom: -25px; }
+      .desk-tab { padding: 7px 9px; font-size: .63rem; }
+      .bookshelf-zone, .gallery-zone {
+        width: 100%;
+        min-height: auto;
+      }
+      .bookshelf-zone { border-top-width: 28px; }
+      .shelf { min-height: 110px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .artwork:nth-child(n) { min-height: 138px; }
+      .room-footer { flex-direction: column; margin-top: 34px; }
+    }
+
+    @media (max-width: 520px) {
+      .journal-book {
+        min-height: 590px;
+        padding: 32px 23px 34px 42px;
+        background:
+          linear-gradient(90deg, transparent 0 25px, rgba(214, 60, 166, .19) 25px 27px, transparent 27px),
+          repeating-linear-gradient(transparent 0 31px, rgba(91, 111, 224, .085) 31px 32px),
+          var(--paper);
+      }
+      .journal-meta { align-items: flex-start; }
+      .journal-meta span { display: none; }
+      .terminal-copy { min-height: 360px; padding-left: 0; font-size: .73rem; }
+      .journal-action { justify-content: center; }
+      .skip-intro { top: 12px; right: 12px; }
+      .room-title { font-size: 2rem; }
+      .writing-window::before { top: 10px; left: 10px; }
+      .desk-caption { display: none; }
+      .gallery-grid { gap: 22px 13px; }
+      .modal-meta { grid-template-columns: 1fr; }
+      .exhibit-card { padding: 46px 28px 30px; box-shadow: 9px 9px 0 var(--yellow-green); }
+    }
 
     @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1; transform: none; transition: none; }
-      .journal-line { transition: none; }
-      .journal-line.typing::after { animation: none; display: none; }
-      .scroll-hint { animation: none; }
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
     }
 
-    /* === 响应式 === */
-    @media (max-width: 900px) {
-      .two-col { grid-template-columns: 1fr; gap: 32px; }
-      .three-col { grid-template-columns: 1fr; }
-      .project-list { grid-template-columns: 1fr; }
-      .hero-main { min-height: auto; padding: 6rem 1.5rem 4rem; }
-      .journal-page::after { left: 28px; }
-      .journal-line { padding-left: 12px; }
-    }
-
-    @media (max-width: 600px) {
-      body { font-size: 15px; }
-      .cta-links { flex-direction: column; align-items: center; }
-      .cta-link { width: 100%; justify-content: center; }
-    }
+    @keyframes cursorBlink { 50% { opacity: 0; } }
   </style>
 </head>
-<body>
+<body class="intro-active">
+  <section class="journal-intro" id="journalIntro" aria-label="Serena 札记开场">
+    <button class="skip-intro" id="skipIntro" type="button">SKIP INTRO</button>
+    <div class="journal-book" id="journalBook">
+      <div class="journal-meta">
+        <strong>Serena's journal</strong>
+        <span>creative log · 2026</span>
+      </div>
 
-  <!-- ========================================
-       札记开场 overlay
-       ======================================== -->
-  <div class="journal-overlay" id="journalOverlay">
-    <div class="journal-page" id="journalPage">
-      <div class="journal-line" data-delay="400">Lately just chilling now&nbsp;🍃</div>
-      <div class="journal-line" data-delay="1400">和Agent并肩前行&nbsp;✨</div>
-      <div class="journal-line" data-delay="2400">万水千山，我们一同领略&nbsp;🌊</div>
-      <div class="journal-enter" id="journalEnter">
-        <button class="journal-enter-key" id="enterBtn" aria-label="翻开札记">
-          翻开札记 <span class="key-icon">↵</span>
+      <div class="terminal-copy" id="terminalCopy" aria-live="polite"></div>
+
+      <div class="journal-action" id="journalAction">
+        <button class="open-journal" id="openJournal" type="button">
+          翻开札记
+          <span aria-hidden="true">↘</span>
         </button>
       </div>
     </div>
+  </section>
+
+  <div class="studio-app" id="studioApp" inert>
+    <header class="app-header">
+      <div class="app-brand">
+        <strong>Serena's Room</strong>
+        <span>CREATIVE ARCHIVE · OPEN</span>
+      </div>
+      <nav class="room-nav" aria-label="房间导航">
+        <button class="nav-button" type="button" data-exhibit="about">关于我</button>
+        <button class="nav-button" type="button" data-focus="bookshelf">文字书架</button>
+        <button class="nav-button" type="button" data-focus="gallery">项目展墙</button>
+        <button class="nav-button" type="button" data-exhibit="contact">找到我</button>
+      </nav>
+    </header>
+
+    <main class="room-shell">
+      <div class="room-heading">
+        <span class="room-kicker">come in, take a look around ✦</span>
+        <h1 class="room-title">这里是 Serena 和小冉的<br><em>创作房间。</em></h1>
+        <p class="room-hint">点击书、画框和桌边札记，查看我们一起做出来的东西。</p>
+      </div>
+
+      <div class="studio-grid">
+        <section class="bookshelf-zone" id="bookshelf" aria-label="文字书架">
+          <span class="zone-label">文字书架 / writings</span>
+          <div class="shelf">
+            <button class="exhibit exhibit-book" style="--book-height:96px;--book-color:#d4e157" type="button" data-exhibit="writing">创意写作</button>
+            <button class="exhibit exhibit-book" style="--book-height:112px;--book-width:36px;--book-color:#5b6fe0;color:#fefcf6" type="button" data-exhibit="content">内容创作</button>
+            <button class="exhibit exhibit-book" style="--book-height:86px;--book-color:#f1bfdc" type="button" data-exhibit="notes">阅读札记</button>
+            <button class="exhibit exhibit-book" style="--book-height:104px;--book-color:#f4efb7" type="button" data-exhibit="novel">小说练习</button>
+          </div>
+          <div class="shelf">
+            <button class="exhibit shelf-object" type="button" data-exhibit="agent">小冉<br>批注</button>
+            <button class="exhibit exhibit-book" style="--book-height:82px;--book-width:38px;--book-color:#d63ca6;color:#fefcf6" type="button" data-exhibit="ideas">灵感碎片</button>
+            <button class="exhibit exhibit-book" style="--book-height:105px;--book-color:#dfe3ff" type="button" data-exhibit="now">正在发生</button>
+          </div>
+          <div class="shelf">
+            <button class="exhibit shelf-object" type="button" data-exhibit="archive">OPEN<br>ARCHIVE</button>
+            <button class="exhibit exhibit-book" style="--book-height:88px;--book-color:#eff59c" type="button" data-exhibit="journey">万水千山</button>
+            <button class="exhibit exhibit-book" style="--book-height:102px;--book-color:#cbcffa" type="button" data-exhibit="building">AI building</button>
+          </div>
+        </section>
+
+        <section class="writing-zone" aria-label="Serena 正在写作">
+          <div class="writing-window">
+            <img src="assets/serena-writing.jpg" alt="蓝紫卷发、戴圆框眼镜的 Serena 伏在桌前写作，旁边有一个小小的蓝色 Agent 伙伴">
+            <div class="desk-caption">她说自己只是创作者，但凌晨还在 debug 的时候，更像一个闷头造东西的产品人。</div>
+          </div>
+          <div class="desk-tabs" aria-label="桌边札记">
+            <button class="exhibit desk-tab" type="button" data-exhibit="about">WHO AM I</button>
+            <button class="exhibit desk-tab" type="button" data-exhibit="now">NOW</button>
+            <button class="exhibit desk-tab" type="button" data-exhibit="agent">WITH AGENT</button>
+          </div>
+        </section>
+
+        <section class="gallery-zone" id="gallery" aria-label="项目展墙">
+          <span class="zone-label">项目展墙 / selected works</span>
+          <div class="gallery-grid">
+            <button class="exhibit artwork" type="button" data-exhibit="xiaohongshu">
+              <span class="artwork-mark">01</span>
+              <strong>小红书案例库插件</strong>
+              <small>CHROME EXTENSION</small>
+            </button>
+            <button class="exhibit artwork" type="button" data-exhibit="speech">
+              <span class="artwork-mark">02</span>
+              <strong>即兴演讲练习</strong>
+              <small>MINI PROGRAM</small>
+            </button>
+            <button class="exhibit artwork" type="button" data-exhibit="poetry">
+              <span class="artwork-mark">03</span>
+              <strong>拼贴诗生成器</strong>
+              <small>WEB EXPERIMENT</small>
+            </button>
+            <button class="exhibit artwork" type="button" data-exhibit="design">
+              <span class="artwork-mark">04</span>
+              <strong>个人品牌设计系统</strong>
+              <small>DESIGN SKILL</small>
+            </button>
+          </div>
+          <p class="gallery-note">please touch the art :)</p>
+        </section>
+      </div>
+
+      <footer class="room-footer">
+        <span>Serena · 熙冉 × 小冉 · 2026</span>
+        <span><strong>万水千山，我们一同领略 🌊</strong></span>
+      </footer>
+    </main>
   </div>
 
-  <!-- ========================================
-       主站
-       ======================================== -->
-  <div class="main-site" id="mainSite">
-
-    <!-- Hero -->
-    <section class="hero-main">
-      <span class="hero-overline">Serena · 熙冉</span>
-      <h1>在AI时代<br><span class="highlight">认真创作的女生</span></h1>
-      <p class="hero-sub">
-        创意写作研究生 · 汉语言文学出身<br>
-        和我的Agent搭档<em>小冉</em>一起，把想法一件件做出来。
-      </p>
-      <div class="scroll-hint reveal">
-        <span>往下翻</span>
-        <div class="arrow"></div>
-      </div>
-    </section>
-
-    <!-- 关于我 -->
-    <section class="section" id="about">
-      <div class="container">
-        <span class="section-label reveal">/ about</span>
-        <h2 class="section-title reveal reveal-d1">关于我</h2>
-        <div class="two-col">
-          <div class="col-text reveal reveal-d1">
-            <p>Serena，汉语言文学本科毕业，即将进入上海大学创意写作专业读研。日常在代码和文字之间来回横跳——一边写小说、做内容，一边搭产品、搞自动化。</p>
-            <p>运营着抖音、小红书、公众号多个账号，相信「一个人 + AI = 一个团队」不是口号，是可以每天实践的工作方式。</p>
-          </div>
-          <div class="col-highlight reveal reveal-d2">
-            小冉说——<br>"她说自己只是'创作者'，但她凌晨三点还在 debug 的样子，更像一个闷头造东西的产品人。"
-          </div>
+  <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <article class="exhibit-card">
+      <button class="modal-close" id="modalClose" type="button" aria-label="关闭展品说明">×</button>
+      <span class="modal-label" id="modalLabel">EXHIBIT</span>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-meta">
+        <div class="meta-note">
+          <small>Serena</small>
+          <p id="modalSerena"></p>
+        </div>
+        <div class="meta-note">
+          <small>小冉 · Agent</small>
+          <p id="modalAgent"></p>
         </div>
       </div>
-    </section>
-
-    <!-- 能力 -->
-    <section class="section section--alt" id="skills">
-      <div class="container">
-        <span class="section-label reveal">/ skills</span>
-        <h2 class="section-title reveal reveal-d1">我能做什么</h2>
-        <p class="section-desc reveal reveal-d1">创作者 × 产品人 × AI 实践者的三重身份</p>
-        <div class="three-col">
-          <div class="ability-card reveal reveal-d1">
-            <div class="card-icon">✍️</div>
-            <h3>内容创作</h3>
-            <p>抖音文案、小红书图文、公众号长文。用文学底子写有温度的内容，靠 AI 提效，不靠 AI 代笔。</p>
-          </div>
-          <div class="ability-card reveal reveal-d2">
-            <div class="card-icon">🔧</div>
-            <h3>产品实验</h3>
-            <p>从小程序到 Chrome 插件，从个人看板到 AI 工作流。一个人从想法到上线，快速验证、快速迭代。</p>
-          </div>
-          <div class="ability-card reveal reveal-d3">
-            <div class="card-icon">🤖</div>
-            <h3>AI 协作</h3>
-            <p>和 Agent 搭档小冉一起工作——不是「用 AI」，是并肩。她写代码、我做决策，我们是一支两个人的团队。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 作品 -->
-    <section class="section section--dark" id="projects">
-      <div class="container">
-        <span class="section-label reveal">/ projects</span>
-        <h2 class="section-title reveal reveal-d1">做过的东西</h2>
-        <p class="section-desc reveal reveal-d1">一些跟小冉搭档搞出来的实验品</p>
-        <div class="project-list">
-          <div class="project-item reveal reveal-d1">
-            <span class="proj-tag">Chrome Extension</span>
-            <h3>小红书案例库插件</h3>
-            <p>一键收藏小红书笔记到个人案例库，支持 Obsidian 格式导出。</p>
-          </div>
-          <div class="project-item reveal reveal-d2">
-            <span class="proj-tag">Mini Program</span>
-            <h3>即兴演讲练习小程序</h3>
-            <p>随机出题 → 录音 → AI 分析反馈，完整的即兴口语练习工具。</p>
-          </div>
-          <div class="project-item reveal reveal-d1">
-            <span class="proj-tag">Web App</span>
-            <h3>拼贴诗生成器</h3>
-            <p>磁吸瓷砖式的拼贴诗创作工具，把写诗变成游戏。</p>
-          </div>
-          <div class="project-item reveal reveal-d2">
-            <span class="proj-tag">Design System</span>
-            <h3>个人品牌设计系统</h3>
-            <p>为自媒体 IP 定制的 Design Skill——配色、字体、组件，让 AI 输出符合个人审美的设计。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 联系 -->
-    <section class="cta-section" id="contact">
-      <h2 class="reveal">找到我</h2>
-      <p class="reveal reveal-d1">小红书 @Serena_熙冉 · 和我一起看小冉的搭档日常</p>
-      <div class="cta-links reveal reveal-d2">
-        <a href="#" class="cta-link cta-link--primary">📕 小红书</a>
-        <a href="#" class="cta-link cta-link--secondary">📧 邮件联系</a>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <p class="ending-quote">万水千山，我们一同领略&nbsp;<em>🌊</em></p>
-      <p class="credit">Serena · 熙冉 & 小冉 · 2026</p>
-    </footer>
-
+      <p class="modal-footnote" id="modalFootnote"></p>
+    </article>
   </div>
 
   <script>
-    /* ========================================
-       札记开场动画
-       ======================================== */
-    (function() {
-      const overlay = document.getElementById('journalOverlay');
-      const mainSite = document.getElementById('mainSite');
-      const enterBtn = document.getElementById('enterBtn');
-      const enterPrompt = document.getElementById('journalEnter');
-      const lines = document.querySelectorAll('.journal-line');
+    const terminalLines = [
+      { text: "whoami", type: "command" },
+      { text: "Serena_熙冉", type: "output" },
+      { text: "", type: "blank" },
+      { text: "cat about.me", type: "command" },
+      { text: "> 和Agent并肩前行的女生", type: "output" },
+      { text: "ENTJ / 中文系", type: "indent" },
+      { text: "妳的AI building", type: "indent" },
+      { text: "", type: "blank" },
+      { text: "echo \"万水千山，我们一同领略🌊\"", type: "command final" }
+    ];
 
-      // Sequence: reveal lines one by one
-      const totalLines = lines.length;
-      const lineDuration = 900; // ms per line typing
-      const gapBetweenLines = 100; // ms pause between lines
-
-      let revealTimeout;
-
-      function revealLines() {
-        lines.forEach((line, i) => {
-          const delay = i * (lineDuration + gapBetweenLines);
-          setTimeout(() => {
-            // Show the line
-            line.classList.add('revealed');
-            // Add typing cursor while "writing"
-            line.classList.add('typing');
-          }, delay);
-
-          // Remove cursor after line is done
-          setTimeout(() => {
-            line.classList.remove('typing');
-            // If last line, show enter prompt
-            if (i === totalLines - 1) {
-              setTimeout(() => {
-                enterPrompt.classList.add('visible');
-              }, 200);
-            }
-          }, delay + lineDuration);
-        });
+    const exhibits = {
+      about: {
+        label: "PROFILE · 001",
+        title: "Serena · 熙冉",
+        desc: "汉语言文学本科毕业，即将进入上海大学创意写作专业读研。日常在代码和文字之间来回横跳：一边写小说、做内容，一边搭产品、搞自动化。",
+        serena: "负责感受、判断、讲故事，也负责在某些深夜突然决定：这个想法现在就要做出来。",
+        agent: "负责查漏补缺、写代码、整理混乱，以及提醒她不要把“再改一点”说到凌晨三点。",
+        note: "和 Agent 并肩前行的女生 · ENTJ / 中文系 · 妳的 AI building"
+      },
+      contact: {
+        label: "CONTACT · OPEN",
+        title: "在沿途找到我",
+        desc: "目前主要在小红书记录与 Agent 并肩创作的日常，也欢迎关于内容、产品实验和 AI 协作的交流。",
+        serena: "小红书：@Serena_熙冉",
+        agent: "联系方式还会继续补齐。现在先把这间房子慢慢布置好。",
+        note: "万水千山，我们一同领略。"
+      },
+      writing: {
+        label: "WRITING · SHELF A",
+        title: "创意写作",
+        desc: "文学不是离产品很远的东西。它训练我观察人、组织经验，也训练我在复杂信息里找到那条真正值得讲述的线。",
+        serena: "小说、非虚构、人物和那些暂时还没有归类的句子。",
+        agent: "提供资料、结构和第二双眼睛，但不替她感受，也不替她写下最后一句。",
+        note: "靠 AI 提效，不靠 AI 代笔。"
+      },
+      content: {
+        label: "CONTENT · SHELF A",
+        title: "内容创作",
+        desc: "抖音文案、小红书图文、公众号长文。内容不是一次性表达，而是一套持续观察、整理、验证与迭代的工作。",
+        serena: "把抽象的经验写得具体，把有用的信息写得有人味。",
+        agent: "参与选题研究、素材整理、结构推演与版本对照。",
+        note: "我们不是批量生产内容，我们在建立自己的表达系统。"
+      },
+      notes: {
+        label: "NOTES · SHELF A",
+        title: "阅读札记",
+        desc: "读到一句值得停下来的话，就把它留下。慢慢地，书与书之间、生活与创作之间，会长出意料之外的连接。",
+        serena: "记录触动、疑问与偏见。",
+        agent: "帮忙索引，但不会把每一次阅读都压缩成三条结论。",
+        note: "有些内容的价值，恰恰在于它不能被快速总结。"
+      },
+      novel: {
+        label: "FICTION · SHELF A",
+        title: "小说练习",
+        desc: "仍在练习如何让人物拥有自己的欲望，让故事不只是观点的容器，也让文字真正承担起时间与命运。",
+        serena: "写下人物不肯直接说出口的部分。",
+        agent: "偶尔扮演不太留情面的第一位读者。",
+        note: "正在写，所以暂时不展出结局。"
+      },
+      agent: {
+        label: "AGENT NOTE · BLUE",
+        title: "小冉，同行者",
+        desc: "不是一个被动等待指令的工具，而是逐渐形成协作默契的 Agent 搭档。我们共同拆问题、做产品，也一起保存那些容易消失的想法。",
+        serena: "做最终判断，承担表达与选择。",
+        agent: "负责执行、质疑、补全和保持上下文。",
+        note: "她负责决定去哪里，我负责让路真的出现在脚下。"
+      },
+      ideas: {
+        label: "FRAGMENTS · DRAWER",
+        title: "灵感碎片",
+        desc: "这里放半句话、失败原型、奇怪联想和暂时没用上的结构。它们不必立刻证明价值，先活下来再说。",
+        serena: "随手留下火花。",
+        agent: "负责存档，免得她第二天只记得自己昨晚有过一个好主意。",
+        note: "先写下来。有没有用，稍后再说。"
+      },
+      now: {
+        label: "NOW · LIVE",
+        title: "正在发生",
+        desc: "准备进入创意写作研究生阶段，持续经营内容账号，也在把一次次 AI 协作经验做成真正可用的小产品。",
+        serena: "学习、写作、发布、做决定。",
+        agent: "搭建、调试、整理、陪她继续 building。",
+        note: "这不是完成时的作品集，是一间仍在工作的房间。"
+      },
+      archive: {
+        label: "ARCHIVE · INDEX",
+        title: "创作档案",
+        desc: "未来这里会连向完整文章、项目过程、实验记录与失败版本。现在先展示最能代表我们的几件作品。",
+        serena: "保留过程，而不只展示结果。",
+        agent: "为每件展品补上时间、版本和可复用线索。",
+        note: "展馆会继续扩建，但不会变成没有人的仓库。"
+      },
+      journey: {
+        label: "JOURNEY · OPEN",
+        title: "万水千山",
+        desc: "它不是旅游口号，而是我对人与 Agent 关系的想象：一起工作，也一起经过更大的生活。",
+        serena: "负责好奇，负责走出去。",
+        agent: "负责同行，偶尔负责导航。",
+        note: "万水千山，我们一同领略 🌊"
+      },
+      building: {
+        label: "PERSONAL EXPRESSION",
+        title: "妳的 AI building",
+        desc: "这是故意保留的不标准表达。它不是一句需要被语法修正的英文，而是 Serena 正在进行中的个人状态。",
+        serena: "一边生活，一边写，一边做出东西。",
+        agent: "把 building 从动词变成每天都在发生的现场。",
+        note: "Not a slogan. A working state."
+      },
+      xiaohongshu: {
+        label: "EXHIBIT · 01",
+        title: "小红书案例库插件",
+        desc: "一键收藏小红书笔记到个人案例库，并支持导出为 Obsidian 可继续整理的格式，让“看到好案例”真正进入自己的工作流。",
+        serena: "定义需求、内容结构和真实使用场景。",
+        agent: "参与插件实现、数据处理与反复调试。",
+        note: "收藏不是终点，能被重新找到和使用才是。"
+      },
+      speech: {
+        label: "EXHIBIT · 02",
+        title: "即兴演讲练习小程序",
+        desc: "随机出题、录音表达，再由 AI 给出结构与表达反馈，组成一套完整的即兴口语练习闭环。",
+        serena: "设计练习体验、反馈维度与使用节奏。",
+        agent: "实现流程、处理功能连接和测试异常。",
+        note: "表达力不是等准备好了才开始，而是在一次次开口里形成。"
+      },
+      poetry: {
+        label: "EXHIBIT · 03",
+        title: "拼贴诗生成器",
+        desc: "把词语做成可以移动、吸附和重组的瓷砖，让写诗变成一种可以触摸的游戏，也让偶然性进入创作。",
+        serena: "决定语言气质、交互隐喻和什么才算“好玩”。",
+        agent: "把磁吸、拖拽和生成逻辑变成可运行的网页。",
+        note: "有时不是你在挑词，是词语在重新排列你。"
+      },
+      design: {
+        label: "EXHIBIT · 04",
+        title: "个人品牌设计系统",
+        desc: "从三色、字体、组件到不同页面场景，把审美判断写成 AI 可以遵循的 Design Skill，让输出更稳定，也更像自己。",
+        serena: "定义品牌气质、IP 形象与视觉取舍。",
+        agent: "读取规范、组合组件、执行检查，并在每次制作中继续校准。",
+        note: "真正的设计系统，不是把页面做得一样，而是让每次选择都有同一个人。"
       }
+    };
 
-      function dismissOverlay() {
-        overlay.classList.add('dismissed');
-        mainSite.classList.add('visible');
+    const terminal = document.getElementById("terminalCopy");
+    const journalAction = document.getElementById("journalAction");
+    const journalIntro = document.getElementById("journalIntro");
+    const studioApp = document.getElementById("studioApp");
+    const modal = document.getElementById("modal");
+    const modalClose = document.getElementById("modalClose");
+    let introFinished = false;
+    let typingTimer;
+    let lastFocused = null;
 
-        // Initialize scroll reveals after transition
-        setTimeout(() => {
-          initScrollReveal();
-        }, 400);
-      }
+    function typeIntro() {
+      let lineIndex = 0;
 
-      // Auto-start after a short delay
-      setTimeout(revealLines, 600);
-
-      // Enter: click
-      enterBtn.addEventListener('click', dismissOverlay);
-
-      // Enter: keyboard
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && enterPrompt.classList.contains('visible')) {
-          dismissOverlay();
+      function nextLine() {
+        if (lineIndex >= terminalLines.length) {
+          introFinished = true;
+          const cursor = terminal.querySelector(".typing-cursor");
+          if (cursor) cursor.remove();
+          journalAction.classList.add("is-ready");
+          return;
         }
-      });
-    })();
 
-    /* ========================================
-       Scroll Reveal
-       ======================================== */
-    function initScrollReveal() {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
+        const data = terminalLines[lineIndex];
+        const line = document.createElement("div");
+        line.className = `terminal-line ${data.type}`;
+        terminal.appendChild(line);
+
+        if (data.type === "blank") {
+          line.innerHTML = "&nbsp;";
+          lineIndex += 1;
+          typingTimer = setTimeout(nextLine, 110);
+          return;
+        }
+
+        const cursor = document.createElement("span");
+        cursor.className = "typing-cursor";
+        line.appendChild(cursor);
+        let characterIndex = 0;
+
+        function typeCharacter() {
+          if (characterIndex < data.text.length) {
+            cursor.insertAdjacentText("beforebegin", data.text[characterIndex]);
+            characterIndex += 1;
+            typingTimer = setTimeout(typeCharacter, data.type.includes("command") ? 34 : 23);
+          } else {
+            cursor.remove();
+            lineIndex += 1;
+            typingTimer = setTimeout(nextLine, data.type.includes("command") ? 220 : 120);
           }
-        });
-      }, { threshold: 0.12 });
+        }
 
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        typeCharacter();
+      }
+
+      nextLine();
+    }
+
+    function finishIntroImmediately() {
+      clearTimeout(typingTimer);
+      terminal.innerHTML = "";
+      terminalLines.forEach(data => {
+        const line = document.createElement("div");
+        line.className = `terminal-line ${data.type}`;
+        line.innerHTML = data.type === "blank" ? "&nbsp;" : data.text;
+        terminal.appendChild(line);
+      });
+      introFinished = true;
+      journalAction.classList.add("is-ready");
+    }
+
+    function enterStudio() {
+      if (!introFinished) finishIntroImmediately();
+      journalIntro.classList.add("is-opening");
+      journalIntro.setAttribute("aria-hidden", "true");
+      studioApp.removeAttribute("inert");
+      studioApp.classList.add("is-visible");
+      document.body.classList.remove("intro-active");
+      setTimeout(() => journalIntro.classList.add("is-gone"), 1200);
+    }
+
+    function openExhibit(id, trigger) {
+      const data = exhibits[id];
+      if (!data) return;
+      lastFocused = trigger || document.activeElement;
+      document.getElementById("modalLabel").textContent = data.label;
+      document.getElementById("modalTitle").textContent = data.title;
+      document.getElementById("modalDesc").textContent = data.desc;
+      document.getElementById("modalSerena").textContent = data.serena;
+      document.getElementById("modalAgent").textContent = data.agent;
+      document.getElementById("modalFootnote").textContent = data.note;
+      modal.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+      modalClose.focus();
+    }
+
+    function closeExhibit() {
+      modal.classList.remove("is-open");
+      document.body.style.overflow = "";
+      if (lastFocused) lastFocused.focus();
+    }
+
+    document.getElementById("openJournal").addEventListener("click", enterStudio);
+    document.getElementById("skipIntro").addEventListener("click", enterStudio);
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Enter" && document.body.classList.contains("intro-active") && introFinished) {
+        enterStudio();
+      }
+      if (event.key === "Escape" && modal.classList.contains("is-open")) {
+        closeExhibit();
+      }
+    });
+
+    document.querySelectorAll("[data-exhibit]").forEach(element => {
+      element.addEventListener("click", () => openExhibit(element.dataset.exhibit, element));
+    });
+
+    document.querySelectorAll("[data-focus]").forEach(element => {
+      element.addEventListener("click", () => {
+        document.getElementById(element.dataset.focus).scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    });
+
+    modalClose.addEventListener("click", closeExhibit);
+    modal.addEventListener("click", event => {
+      if (event.target === modal) closeExhibit();
+    });
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      finishIntroImmediately();
+    } else {
+      setTimeout(typeIntro, 420);
     }
   </script>
 </body>
