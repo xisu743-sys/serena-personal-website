@@ -318,6 +318,12 @@
       outline: none;
     }
 
+    .nav-button.is-active {
+      color: var(--cream);
+      background: var(--blue-purple);
+      border-bottom-color: var(--magenta);
+    }
+
     .room-shell {
       position: relative;
       min-height: calc(100vh - 62px);
@@ -503,7 +509,7 @@
     }
 
     .writing-window::before {
-      content: "NOW WRITING · 19:26";
+      content: attr(data-time);
       position: absolute;
       top: 18px;
       left: 22px;
@@ -662,6 +668,113 @@
       font-family: var(--hand);
       font-size: 1rem;
       transform: rotate(-2deg);
+    }
+
+    /* 区域放大查看 */
+    .focus-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(21, 24, 33, .68);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .3s ease, visibility .3s ease;
+    }
+
+    .focus-backdrop.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .zone-focus-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 8;
+      display: none;
+      width: 40px;
+      height: 40px;
+      place-items: center;
+      padding: 0;
+      color: var(--cream);
+      border: 0;
+      border-radius: 50%;
+      background: var(--magenta);
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(26, 58, 82, .18);
+    }
+
+    .bookshelf-zone.is-focused,
+    .gallery-zone.is-focused {
+      position: fixed;
+      inset: clamp(78px, 9vh, 112px) clamp(22px, 7vw, 110px) clamp(24px, 6vh, 68px);
+      z-index: 510;
+      width: auto;
+      min-height: 0;
+      max-height: none;
+      margin: 0;
+      overflow: auto;
+      transform: none;
+      animation: focusZoneIn .38s cubic-bezier(.2, .8, .2, 1) both;
+    }
+
+    .bookshelf-zone.is-focused {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(150px, 1fr));
+      gap: clamp(18px, 3vw, 40px);
+      align-content: center;
+      padding: clamp(58px, 8vh, 86px) clamp(26px, 6vw, 74px) clamp(30px, 5vh, 58px);
+      border-top-width: 54px;
+      box-shadow: 20px 22px 0 rgba(212, 225, 87, .7);
+    }
+
+    .bookshelf-zone.is-focused .shelf {
+      min-height: clamp(190px, 32vh, 290px);
+      padding-inline: clamp(8px, 2vw, 24px);
+    }
+
+    .bookshelf-zone.is-focused .exhibit-book {
+      width: calc(var(--book-width, 31px) + 8px);
+      height: calc(var(--book-height, 94px) + 42px);
+      font-size: .78rem;
+    }
+
+    .gallery-zone.is-focused {
+      padding: clamp(64px, 9vh, 96px) clamp(30px, 7vw, 100px) clamp(38px, 6vh, 70px);
+      border-left-width: 58px;
+      box-shadow: -18px 20px 0 rgba(214, 60, 166, .2);
+    }
+
+    .gallery-zone.is-focused .gallery-grid {
+      width: min(960px, 100%);
+      min-height: 100%;
+      margin: auto;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: center;
+      gap: clamp(26px, 4vw, 58px);
+    }
+
+    .gallery-zone.is-focused .artwork:nth-child(n) {
+      min-height: clamp(220px, 36vh, 360px);
+      margin-top: 0;
+      padding: clamp(18px, 3vw, 34px);
+    }
+
+    .gallery-zone.is-focused .artwork-mark {
+      font-size: clamp(2.8rem, 6vw, 5.8rem);
+    }
+
+    .gallery-zone.is-focused .artwork strong {
+      font-size: clamp(.92rem, 1.6vw, 1.2rem);
+    }
+
+    .is-focused .zone-focus-close { display: grid; }
+    .is-focused .zone-label {
+      top: 17px;
+      left: clamp(18px, 4vw, 48px);
+      background: transparent;
+      font-size: 1.25rem;
     }
 
     /* 可点击物品统一提示 */
@@ -878,6 +991,30 @@
       .gallery-grid { grid-template-columns: 1fr 1fr; }
       .artwork:nth-child(n) { min-height: 138px; }
       .room-footer { flex-direction: column; margin-top: 34px; }
+      .bookshelf-zone.is-focused,
+      .gallery-zone.is-focused {
+        inset: 76px 12px 14px;
+      }
+      .bookshelf-zone.is-focused {
+        display: block;
+        padding: 62px 22px 28px;
+        border-top-width: 34px;
+      }
+      .bookshelf-zone.is-focused .shelf {
+        min-height: 150px;
+      }
+      .gallery-zone.is-focused {
+        padding: 64px 24px 30px;
+        border-left-width: 24px;
+      }
+      .gallery-zone.is-focused .gallery-grid {
+        min-height: auto;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px 18px;
+      }
+      .gallery-zone.is-focused .artwork:nth-child(n) {
+        min-height: 180px;
+      }
     }
 
     @media (max-width: 520px) {
@@ -912,6 +1049,10 @@
     }
 
     @keyframes cursorBlink { 50% { opacity: 0; } }
+    @keyframes focusZoneIn {
+      from { opacity: 0; transform: scale(.92) translateY(18px); }
+      to { opacity: 1; transform: none; }
+    }
   </style>
 </head>
 <body class="intro-active">
@@ -958,6 +1099,7 @@
       <div class="studio-grid">
         <section class="bookshelf-zone" id="bookshelf" aria-label="文字书架">
           <span class="zone-label">文字书架 / writings</span>
+          <button class="zone-focus-close" type="button" aria-label="关闭文字书架放大视图">×</button>
           <div class="shelf">
             <button class="exhibit exhibit-book" style="--book-height:96px;--book-color:#d4e157" type="button" data-exhibit="writing">创意写作</button>
             <button class="exhibit exhibit-book" style="--book-height:112px;--book-width:36px;--book-color:#5b6fe0;color:#fefcf6" type="button" data-exhibit="content">内容创作</button>
@@ -977,7 +1119,7 @@
         </section>
 
         <section class="writing-zone" aria-label="Serena 正在写作">
-          <div class="writing-window">
+          <div class="writing-window" id="writingWindow" data-time="NOW WRITING · --:--:--">
             <img src="assets/serena-writing.jpg" alt="蓝紫卷发、戴圆框眼镜的 Serena 伏在桌前写作，旁边有一个小小的蓝色 Agent 伙伴">
             <div class="desk-caption">她说自己只是创作者，但凌晨还在 debug 的时候，更像一个闷头造东西的产品人。</div>
           </div>
@@ -990,6 +1132,7 @@
 
         <section class="gallery-zone" id="gallery" aria-label="项目展墙">
           <span class="zone-label">项目展墙 / selected works</span>
+          <button class="zone-focus-close" type="button" aria-label="关闭项目展墙放大视图">×</button>
           <div class="gallery-grid">
             <button class="exhibit artwork" type="button" data-exhibit="xiaohongshu">
               <span class="artwork-mark">01</span>
@@ -1022,6 +1165,8 @@
       </footer>
     </main>
   </div>
+
+  <div class="focus-backdrop" id="focusBackdrop" aria-hidden="true"></div>
 
   <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <article class="exhibit-card">
@@ -1193,9 +1338,13 @@
     const studioApp = document.getElementById("studioApp");
     const modal = document.getElementById("modal");
     const modalClose = document.getElementById("modalClose");
+    const focusBackdrop = document.getElementById("focusBackdrop");
+    const writingWindow = document.getElementById("writingWindow");
     let introFinished = false;
     let typingTimer;
     let lastFocused = null;
+    let focusedZone = null;
+    let focusTrigger = null;
 
     function typeIntro() {
       let lineIndex = 0;
@@ -1278,14 +1427,60 @@
       document.getElementById("modalAgent").textContent = data.agent;
       document.getElementById("modalFootnote").textContent = data.note;
       modal.classList.add("is-open");
-      document.body.style.overflow = "hidden";
+      updateBodyLock();
       modalClose.focus();
     }
 
     function closeExhibit() {
       modal.classList.remove("is-open");
-      document.body.style.overflow = "";
+      updateBodyLock();
       if (lastFocused) lastFocused.focus();
+    }
+
+    function updateClock() {
+      const time = new Intl.DateTimeFormat("zh-CN", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false
+      }).format(new Date());
+      writingWindow.dataset.time = `NOW WRITING · ${time}`;
+    }
+
+    function updateBodyLock() {
+      document.body.style.overflow =
+        modal.classList.contains("is-open") || focusedZone ? "hidden" : "";
+    }
+
+    function openFocusedZone(id, trigger) {
+      const zone = document.getElementById(id);
+      if (!zone) return;
+      if (focusedZone) closeFocusedZone(false);
+      focusedZone = zone;
+      focusTrigger = trigger;
+      zone.classList.add("is-focused");
+      zone.setAttribute("aria-label", `${zone.getAttribute("aria-label")}，放大视图`);
+      focusBackdrop.classList.add("is-open");
+      focusBackdrop.setAttribute("aria-hidden", "false");
+      document.querySelectorAll("[data-focus]").forEach(button => {
+        button.classList.toggle("is-active", button.dataset.focus === id);
+      });
+      updateBodyLock();
+      zone.querySelector(".zone-focus-close").focus();
+    }
+
+    function closeFocusedZone(restoreFocus = true) {
+      if (!focusedZone) return;
+      const currentLabel = focusedZone.getAttribute("aria-label");
+      focusedZone.setAttribute("aria-label", currentLabel.replace("，放大视图", ""));
+      focusedZone.classList.remove("is-focused");
+      focusedZone = null;
+      focusBackdrop.classList.remove("is-open");
+      focusBackdrop.setAttribute("aria-hidden", "true");
+      document.querySelectorAll("[data-focus]").forEach(button => button.classList.remove("is-active"));
+      updateBodyLock();
+      if (restoreFocus && focusTrigger) focusTrigger.focus();
+      focusTrigger = null;
     }
 
     document.getElementById("openJournal").addEventListener("click", enterStudio);
@@ -1297,6 +1492,8 @@
       }
       if (event.key === "Escape" && modal.classList.contains("is-open")) {
         closeExhibit();
+      } else if (event.key === "Escape" && focusedZone) {
+        closeFocusedZone();
       }
     });
 
@@ -1306,9 +1503,19 @@
 
     document.querySelectorAll("[data-focus]").forEach(element => {
       element.addEventListener("click", () => {
-        document.getElementById(element.dataset.focus).scrollIntoView({ behavior: "smooth", block: "center" });
+        if (focusedZone && focusedZone.id === element.dataset.focus) {
+          closeFocusedZone();
+        } else {
+          openFocusedZone(element.dataset.focus, element);
+        }
       });
     });
+
+    document.querySelectorAll(".zone-focus-close").forEach(button => {
+      button.addEventListener("click", () => closeFocusedZone());
+    });
+
+    focusBackdrop.addEventListener("click", () => closeFocusedZone());
 
     modalClose.addEventListener("click", closeExhibit);
     modal.addEventListener("click", event => {
@@ -1320,6 +1527,9 @@
     } else {
       setTimeout(typeIntro, 420);
     }
+
+    updateClock();
+    setInterval(updateClock, 1000);
   </script>
 </body>
 </html>
