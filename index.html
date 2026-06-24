@@ -54,18 +54,20 @@
     button { color: inherit; }
     ::selection { color: var(--ink); background: var(--yellow-green); }
 
-    /* ---------- 札记入口 ---------- */
+    /* ---------- 私人频道入口 ---------- */
     .journal-intro {
       position: fixed;
       inset: 0;
       z-index: 1000;
-      display: grid;
-      place-items: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: clamp(20px, 4vw, 48px);
       overflow: hidden;
       background:
-        radial-gradient(circle at 16% 18%, rgba(212, 225, 87, .24), transparent 25%),
-        radial-gradient(circle at 87% 80%, rgba(91, 111, 224, .14), transparent 29%),
+        radial-gradient(circle at 18% 16%, rgba(212, 225, 87, .28), transparent 25%),
+        radial-gradient(circle at 82% 78%, rgba(91, 111, 224, .16), transparent 30%),
+        linear-gradient(135deg, rgba(254, 252, 246, .9), rgba(249, 250, 230, .82)),
         var(--cream-warm);
       perspective: 1400px;
       transition: opacity .65s ease, visibility .65s ease;
@@ -97,24 +99,47 @@
       pointer-events: none;
     }
 
+    .tv-entry {
+      position: relative;
+      width: min(1060px, 94vw);
+      min-height: min(660px, 86vh);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(170px, .34fr);
+      align-items: end;
+      gap: clamp(22px, 4vw, 58px);
+      isolation: isolate;
+    }
+
+    .tv-entry::before {
+      content: "SERENA CHANNEL";
+      position: absolute;
+      top: 7%;
+      left: 2%;
+      z-index: -1;
+      color: rgba(91, 111, 224, .075);
+      font-family: "Fraunces", serif;
+      font-size: clamp(3.6rem, 10vw, 9.5rem);
+      font-weight: 900;
+      line-height: .8;
+      letter-spacing: -.08em;
+      pointer-events: none;
+    }
+
     .journal-book {
       position: relative;
-      width: min(720px, 92vw);
-      min-height: min(610px, 82vh);
-      display: flex;
-      flex-direction: column;
-      padding: clamp(38px, 6vw, 68px) clamp(32px, 7vw, 82px);
-      overflow: hidden;
-      background:
-        linear-gradient(90deg, transparent 0 57px, rgba(214, 60, 166, .19) 57px 59px, transparent 59px),
-        repeating-linear-gradient(transparent 0 31px, rgba(91, 111, 224, .085) 31px 32px),
-        var(--paper);
-      border: 1px solid #e8e3d5;
-      border-radius: 5px 18px 18px 5px;
+      width: min(760px, 100%);
+      min-height: clamp(430px, 64vh, 560px);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) clamp(88px, 13vw, 126px);
+      gap: clamp(16px, 2.6vw, 26px);
+      padding: clamp(18px, 3vw, 28px);
+      overflow: visible;
+      background: linear-gradient(145deg, #e9ef9a, var(--yellow-green));
+      border: 4px solid var(--ink);
+      border-radius: clamp(34px, 5vw, 54px);
       box-shadow:
-        -14px 16px 0 #ece7d8,
-        -16px 18px 0 rgba(26, 58, 82, .1),
-        0 34px 80px rgba(26, 58, 82, .13);
+        16px 18px 0 rgba(91, 111, 224, .22),
+        0 34px 80px rgba(26, 58, 82, .16);
       transform-origin: 50% 50%;
       transition:
         transform 1.35s cubic-bezier(.2, .72, .18, 1),
@@ -123,9 +148,189 @@
     }
 
     .journal-intro.is-opening .journal-book {
-      transform: translateY(8vh) rotateX(7deg) scale(3.2);
+      transform: translateY(5vh) rotateX(3deg) scale(3.45);
       opacity: 0;
-      filter: blur(2px);
+      filter: blur(1.5px);
+    }
+
+    .tv-antenna {
+      position: absolute;
+      left: 18%;
+      top: clamp(-78px, -8vw, -46px);
+      width: min(260px, 34vw);
+      height: 86px;
+      pointer-events: none;
+    }
+
+    .tv-antenna::before,
+    .tv-antenna::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      width: 3px;
+      height: 92px;
+      background: var(--ink);
+      border-radius: 99px;
+      transform-origin: bottom center;
+    }
+
+    .tv-antenna::before {
+      left: 50%;
+      transform: rotate(-38deg);
+    }
+
+    .tv-antenna::after {
+      left: 52%;
+      transform: rotate(34deg);
+    }
+
+    .tv-antenna span {
+      position: absolute;
+      top: -5px;
+      width: 14px;
+      height: 14px;
+      border: 3px solid var(--ink);
+      border-radius: 50%;
+      background: var(--magenta);
+    }
+
+    .tv-antenna span:first-child { left: 8%; }
+    .tv-antenna span:last-child { right: 12%; background: var(--blue-purple); }
+
+    .tv-screen {
+      position: relative;
+      min-height: clamp(340px, 54vh, 470px);
+      display: flex;
+      flex-direction: column;
+      padding: clamp(22px, 4vw, 38px);
+      overflow: hidden;
+      color: #f7f5eb;
+      background:
+        linear-gradient(rgba(255,255,255,.035) 50%, rgba(26,58,82,.08) 50%) 0 0 / 100% 6px,
+        radial-gradient(circle at 28% 18%, rgba(212, 225, 87, .18), transparent 36%),
+        linear-gradient(145deg, #18213a, #111827 74%);
+      border: 4px solid var(--ink);
+      border-radius: clamp(24px, 4vw, 38px);
+      box-shadow: inset 0 0 0 5px rgba(254,252,246,.08), inset 0 -28px 60px rgba(0,0,0,.25);
+    }
+
+    .tv-screen::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 42%, transparent 36%, rgba(255,255,255,.05) 76%, rgba(255,255,255,.13));
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .tv-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      padding-top: clamp(18px, 3vw, 30px);
+    }
+
+    .tv-dial {
+      width: clamp(48px, 6vw, 64px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      color: var(--cream);
+      background: var(--blue-purple);
+      border: 3px solid var(--ink);
+      border-radius: 50%;
+      box-shadow: inset -6px -8px 0 rgba(26, 58, 82, .16);
+      font-family: "Fraunces", serif;
+      font-size: 1.1rem;
+      font-weight: 900;
+    }
+
+    .tv-dial:nth-child(2) {
+      width: clamp(36px, 4.5vw, 48px);
+      background: var(--magenta);
+      font-size: .82rem;
+    }
+
+    .tv-button-stack {
+      display: grid;
+      grid-template-columns: repeat(2, 13px);
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .tv-button-stack span {
+      width: 13px;
+      height: 13px;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      background: var(--cream);
+    }
+
+    .tv-speaker {
+      width: 100%;
+      display: grid;
+      gap: 8px;
+      margin-top: auto;
+      padding-bottom: 4px;
+    }
+
+    .tv-speaker span {
+      height: 3px;
+      border-radius: 99px;
+      background: rgba(26, 58, 82, .45);
+    }
+
+    .tv-feet {
+      position: absolute;
+      right: 24%;
+      bottom: -28px;
+      left: 12%;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    .tv-feet span {
+      width: 82px;
+      height: 28px;
+      background: var(--ink);
+      border-radius: 0 0 16px 16px;
+      transform: skewX(-16deg);
+    }
+
+    .tv-feet span:last-child { transform: skewX(16deg); }
+
+    .intro-companion {
+      position: relative;
+      align-self: end;
+      display: grid;
+      justify-items: center;
+      gap: 12px;
+      padding-bottom: clamp(26px, 5vh, 54px);
+    }
+
+    .intro-companion img {
+      width: clamp(120px, 18vw, 190px);
+      max-width: 100%;
+      filter: drop-shadow(10px 14px 0 rgba(91, 111, 224, .16));
+      transform: rotate(2deg);
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .intro-companion p {
+      width: max-content;
+      max-width: 210px;
+      margin: 0;
+      padding: 9px 14px;
+      color: var(--ink);
+      background: var(--paper);
+      border: 2px solid rgba(26, 58, 82, .14);
+      border-radius: 999px;
+      box-shadow: 7px 7px 0 rgba(212, 225, 87, .65);
+      font-family: var(--hand);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
     }
 
     .journal-meta {
@@ -133,9 +338,8 @@
       justify-content: space-between;
       align-items: center;
       gap: 16px;
-      margin: 0 0 clamp(34px, 6vh, 60px);
-      padding-left: 8px;
-      color: var(--ink-faint);
+      margin: 0 0 clamp(22px, 4vh, 34px);
+      color: rgba(247, 245, 235, .62);
       font-family: var(--mono);
       font-size: .68rem;
       letter-spacing: .1em;
@@ -143,7 +347,7 @@
     }
 
     .journal-meta strong {
-      color: var(--blue-purple);
+      color: var(--yellow-green);
       font-family: "Fraunces", serif;
       font-size: .9rem;
       font-style: italic;
@@ -153,8 +357,9 @@
     }
 
     .terminal-copy {
-      min-height: 310px;
-      padding-left: 8px;
+      position: relative;
+      z-index: 1;
+      min-height: 248px;
       font-family: var(--mono);
       font-size: clamp(.78rem, 2.2vw, .98rem);
       line-height: 1.95;
@@ -165,14 +370,14 @@
       white-space: pre-wrap;
     }
 
-    .terminal-line.command { color: var(--blue-purple); font-weight: 600; }
-    .terminal-line.output { color: var(--ink); }
-    .terminal-line.indent { padding-left: 1.25em; color: var(--ink-light); }
+    .terminal-line.command { color: #aeb8ff; font-weight: 600; }
+    .terminal-line.output { color: #f7f5eb; }
+    .terminal-line.indent { padding-left: 1.25em; color: rgba(247, 245, 235, .74); }
     .terminal-line.final {
       display: inline;
-      color: var(--magenta);
+      color: #ffd7f0;
       font-weight: 600;
-      background: linear-gradient(transparent 62%, rgba(212, 225, 87, .58) 62%);
+      background: linear-gradient(transparent 62%, rgba(214, 60, 166, .38) 62%);
     }
 
     .typing-cursor {
@@ -206,14 +411,22 @@
       display: inline-flex;
       align-items: center;
       gap: 14px;
-      padding: 12px 0 10px 20px;
+      padding: 10px 10px 10px 18px;
+      color: var(--ink);
       border: 0;
-      border-bottom: 2px solid var(--blue-purple);
-      background: transparent;
-      font-size: .88rem;
+      background: var(--yellow-green);
+      border-radius: 999px;
+      box-shadow: 6px 6px 0 rgba(91, 111, 224, .45);
+      font-size: .84rem;
       font-weight: 600;
       letter-spacing: .08em;
       cursor: pointer;
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+
+    .open-journal:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 3px 3px 0 rgba(91, 111, 224, .45);
     }
 
     .open-journal span {
@@ -227,10 +440,7 @@
       transition: transform .25s ease, background .25s ease;
     }
 
-    .open-journal:hover span {
-      background: var(--magenta);
-      transform: translate(3px, 2px);
-    }
+    .open-journal:hover span { background: var(--magenta); }
 
     .skip-intro {
       position: absolute;
@@ -1892,17 +2102,53 @@
     }
 
     @media (max-width: 520px) {
+      .tv-entry {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        align-items: center;
+        padding-top: 38px;
+      }
+      .tv-entry::before {
+        top: 0;
+        font-size: 4.2rem;
+      }
       .journal-book {
-        min-height: 590px;
-        padding: 32px 23px 34px 42px;
-        background:
-          linear-gradient(90deg, transparent 0 25px, rgba(214, 60, 166, .19) 25px 27px, transparent 27px),
-          repeating-linear-gradient(transparent 0 31px, rgba(91, 111, 224, .085) 31px 32px),
-          var(--paper);
+        min-height: 560px;
+        grid-template-columns: 1fr;
+        padding: 16px;
+        border-radius: 32px;
+      }
+      .tv-antenna {
+        top: -54px;
+        left: 26%;
+        width: 190px;
+      }
+      .tv-screen {
+        min-height: 430px;
+        padding: 24px 20px;
+      }
+      .tv-panel {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0 10px 6px;
+      }
+      .tv-speaker,
+      .tv-button-stack { display: none; }
+      .tv-feet {
+        right: 16%;
+        left: 16%;
+        bottom: -20px;
+      }
+      .tv-feet span {
+        width: 52px;
+        height: 20px;
+      }
+      .intro-companion {
+        display: none;
       }
       .journal-meta { align-items: flex-start; }
       .journal-meta span { display: none; }
-      .terminal-copy { min-height: 360px; padding-left: 0; font-size: .73rem; }
+      .terminal-copy { min-height: 300px; padding-left: 0; font-size: .71rem; }
       .journal-action { justify-content: center; }
       .skip-intro { top: 12px; right: 12px; }
       .room-title { font-size: 2rem; }
@@ -1940,21 +2186,51 @@
   </style>
 </head>
 <body class="intro-active">
-  <section class="journal-intro" id="journalIntro" aria-label="Serena 札记开场">
+  <section class="journal-intro" id="journalIntro" aria-label="Serena 私人频道开场">
     <button class="skip-intro" id="skipIntro" type="button">SKIP INTRO</button>
-    <div class="journal-book" id="journalBook">
-      <div class="journal-meta">
-        <strong>Serena's journal</strong>
-        <span>creative log · 2026</span>
+    <div class="tv-entry">
+      <div class="journal-book" id="journalBook">
+        <div class="tv-antenna" aria-hidden="true">
+          <span></span>
+          <span></span>
+        </div>
+
+        <div class="tv-screen">
+          <div class="journal-meta">
+            <strong>Serena Channel</strong>
+            <span>signal 2026 · personal broadcast</span>
+          </div>
+
+          <div class="terminal-copy" id="terminalCopy" aria-live="polite"></div>
+
+          <div class="journal-action" id="journalAction">
+            <button class="open-journal" id="openJournal" type="button">
+              进入频道
+              <span aria-hidden="true">↘</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="tv-panel" aria-hidden="true">
+          <span class="tv-dial">01</span>
+          <span class="tv-dial">OS</span>
+          <span class="tv-button-stack">
+            <span></span><span></span><span></span><span></span>
+          </span>
+          <span class="tv-speaker">
+            <span></span><span></span><span></span><span></span><span></span>
+          </span>
+        </div>
+
+        <div class="tv-feet" aria-hidden="true">
+          <span></span>
+          <span></span>
+        </div>
       </div>
 
-      <div class="terminal-copy" id="terminalCopy" aria-live="polite"></div>
-
-      <div class="journal-action" id="journalAction">
-        <button class="open-journal" id="openJournal" type="button">
-          翻开札记
-          <span aria-hidden="true">↘</span>
-        </button>
+      <div class="intro-companion" aria-hidden="true">
+        <img src="assets/serena-sticker.png" alt="">
+        <p>调到我的频道吧</p>
       </div>
     </div>
   </section>
@@ -1962,8 +2238,8 @@
   <div class="studio-app" id="studioApp" inert>
     <header class="app-header">
       <div class="app-brand">
-        <strong>Serena's Room</strong>
-        <span>CREATIVE ARCHIVE · OPEN</span>
+        <strong>Serena Channel</strong>
+        <span>CREATIVE ARCHIVE · ON AIR</span>
       </div>
       <button class="nav-button" type="button" data-exhibit="about">和 Agent 并肩前行的女生 ↗</button>
     </header>
