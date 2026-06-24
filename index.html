@@ -1678,6 +1678,338 @@
       vertical-align: 1px;
     }
 
+    /* ---------- Serena OS 首页 ---------- */
+    .journal-intro.os-intro {
+      background:
+        radial-gradient(circle at 18% 18%, rgba(212, 225, 87, .25), transparent 26%),
+        radial-gradient(circle at 86% 78%, rgba(91, 111, 224, .13), transparent 31%),
+        linear-gradient(180deg, #fefcf6, #faf6eb);
+    }
+
+    .os-intro .journal-book {
+      width: min(760px, 92vw);
+      min-height: min(560px, 80vh);
+      background:
+        linear-gradient(90deg, rgba(91, 111, 224, .12) 0 40px, transparent 40px),
+        repeating-linear-gradient(transparent 0 31px, rgba(91, 111, 224, .065) 31px 32px),
+        var(--paper);
+      border-radius: 22px;
+      box-shadow: 12px 14px 0 rgba(212, 225, 87, .55), 0 30px 80px rgba(26, 58, 82, .12);
+    }
+
+    .os-intro .journal-intro.is-opening .journal-book { transform: none; }
+
+    .os-intro.is-opening .journal-book {
+      transform: translateY(6vh) scale(2.75);
+      opacity: 0;
+      filter: blur(1.5px);
+    }
+
+    .os-intro .open-journal {
+      padding: 11px 16px;
+      color: var(--cream);
+      background: var(--blue-purple);
+      border: 0;
+      border-radius: 999px;
+      box-shadow: 5px 5px 0 rgba(214, 60, 166, .22);
+    }
+
+    .os-intro .open-journal span {
+      color: var(--ink);
+      background: var(--yellow-green);
+    }
+
+    #page-home.serena-os-page {
+      min-height: calc(100vh - 62px);
+      padding: clamp(26px, 4.5vw, 58px) clamp(18px, 4vw, 60px) 118px;
+      overflow: visible;
+      background:
+        radial-gradient(circle at 13% 14%, rgba(212, 225, 87, .24), transparent 26%),
+        radial-gradient(circle at 88% 80%, rgba(91, 111, 224, .1), transparent 30%),
+        linear-gradient(90deg, rgba(91, 111, 224, .045) 1px, transparent 1px),
+        linear-gradient(rgba(91, 111, 224, .04) 1px, transparent 1px),
+        var(--cream);
+      background-size: auto, auto, 34px 34px, 34px 34px, auto;
+    }
+
+    #page-home.serena-os-page::after {
+      content: "SERENA OS · HOME";
+      left: clamp(22px, 4vw, 60px);
+      bottom: 28px;
+      font-size: .58rem;
+      opacity: .44;
+      background: transparent;
+      border: 0;
+      transform: none;
+    }
+
+    .serena-os {
+      position: relative;
+      z-index: 2;
+      width: min(1280px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(300px, .78fr) minmax(0, 1.42fr);
+      gap: clamp(24px, 4vw, 56px);
+      align-items: start;
+    }
+
+    .os-profile {
+      position: sticky;
+      top: 88px;
+      min-height: calc(100vh - 184px);
+      display: flex;
+      flex-direction: column;
+      padding: clamp(28px, 4vw, 44px);
+      background: var(--paper);
+      border: 1px solid rgba(26, 58, 82, .12);
+      box-shadow: 10px 12px 0 rgba(212, 225, 87, .55);
+    }
+
+    .os-kicker {
+      margin: 0 0 28px;
+      width: fit-content;
+      padding: 5px 10px;
+      color: var(--ink);
+      background: var(--yellow-green);
+      font-family: var(--mono);
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .os-title {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(2.9rem, 7.2vw, 6.2rem);
+      font-weight: 900;
+      line-height: .92;
+      letter-spacing: -.09em;
+    }
+
+    .os-title em {
+      display: block;
+      color: var(--blue-purple);
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -.08em;
+    }
+
+    .os-summary {
+      max-width: 360px;
+      margin: 26px 0 0;
+      color: var(--ink-light);
+      font-size: .92rem;
+      line-height: 1.9;
+    }
+
+    .os-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 28px 0;
+    }
+
+    .os-tags span {
+      padding: 6px 10px;
+      color: var(--ink);
+      background: rgba(212, 225, 87, .46);
+      border: 1px solid rgba(26, 58, 82, .08);
+      border-radius: 999px;
+      font-size: .72rem;
+    }
+
+    .agent-dialogue {
+      margin-top: auto;
+      display: grid;
+      gap: 10px;
+    }
+
+    .agent-bubble,
+    .serena-bubble {
+      padding: 13px 15px;
+      font-size: .78rem;
+      line-height: 1.7;
+    }
+
+    .agent-bubble {
+      color: var(--cream);
+      background: var(--blue-purple);
+      border-radius: 18px 18px 18px 4px;
+    }
+
+    .serena-bubble {
+      color: var(--ink);
+      background: var(--yellow-green);
+      border-radius: 18px 18px 4px 18px;
+    }
+
+    .os-main {
+      display: grid;
+      gap: clamp(22px, 3vw, 34px);
+    }
+
+    .os-section {
+      background: rgba(255, 254, 248, .76);
+      border: 1px solid rgba(26, 58, 82, .1);
+      padding: clamp(22px, 3vw, 34px);
+    }
+
+    .os-section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .os-section h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(1.45rem, 3vw, 2.35rem);
+      line-height: 1.18;
+      letter-spacing: -.05em;
+    }
+
+    .os-section-head span {
+      color: var(--ink-faint);
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .12em;
+      white-space: nowrap;
+    }
+
+    .os-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .os-card {
+      position: relative;
+      min-height: 190px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: clamp(20px, 2.6vw, 28px);
+      color: var(--ink);
+      background: var(--paper);
+      border: 1px solid rgba(26, 58, 82, .1);
+      box-shadow: 6px 7px 0 rgba(26, 58, 82, .055);
+      text-align: left;
+      cursor: pointer;
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+
+    .os-card:hover,
+    .os-card:focus-visible {
+      transform: translateY(-5px);
+      box-shadow: 9px 10px 0 rgba(212, 225, 87, .55);
+      outline: none;
+    }
+
+    .os-card.feature {
+      grid-column: span 2;
+      min-height: 230px;
+      background:
+        linear-gradient(135deg, rgba(212, 225, 87, .24), transparent 42%),
+        var(--paper);
+    }
+
+    .os-card small {
+      color: var(--magenta);
+      font-family: var(--mono);
+      font-size: .58rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .os-card h3 {
+      margin: 18px 0 9px;
+      font-family: var(--serif);
+      font-size: clamp(1.12rem, 2.1vw, 1.6rem);
+      line-height: 1.28;
+      letter-spacing: -.04em;
+    }
+
+    .os-card p {
+      margin: 0;
+      color: var(--ink-light);
+      font-size: .8rem;
+      line-height: 1.75;
+    }
+
+    .os-card strong {
+      margin-top: auto;
+      padding-top: 22px;
+      color: var(--blue-purple);
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .1em;
+    }
+
+    .os-now {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .os-note {
+      padding: 18px;
+      background: var(--yellow-soft);
+      border: 1px solid rgba(26, 58, 82, .1);
+      color: var(--ink);
+      font-size: .82rem;
+      line-height: 1.75;
+      text-align: left;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .os-note:hover,
+    .os-note:focus-visible {
+      transform: translateY(-3px);
+      background: var(--paper);
+      outline: 3px solid rgba(91, 111, 224, .18);
+      outline-offset: 2px;
+    }
+
+    .os-note strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--blue-purple);
+      font-family: var(--hand);
+      font-size: 1.2rem;
+    }
+
+    .os-live {
+      color: var(--ink-faint);
+      font-family: var(--mono);
+      font-size: .62rem;
+      letter-spacing: .1em;
+    }
+
+    .pill-nav.os-nav {
+      border-radius: 0;
+      background: rgba(255, 254, 248, .94);
+      box-shadow: 0 12px 38px rgba(26, 58, 82, .12), 5px 5px 0 rgba(212, 225, 87, .48);
+    }
+
+    .os-nav .page-tab {
+      border-radius: 0;
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .05em;
+    }
+
+    .os-nav .page-tab.is-active {
+      color: var(--cream);
+      background: var(--blue-purple);
+    }
+
     /* ---------- 跨页面可拖动 Serena 贴纸 ---------- */
     .draggable-serena {
       position: fixed;
@@ -1756,6 +2088,17 @@
       .shortcut-b { right: 2%; }
       .shortcut-d { left: 3%; }
       .canvas-agent-note { right: 18%; bottom: 18%; }
+      .serena-os {
+        grid-template-columns: 1fr;
+      }
+      .os-profile {
+        position: relative;
+        top: auto;
+        min-height: auto;
+      }
+      .agent-dialogue {
+        margin-top: 28px;
+      }
     }
 
     @media (max-width: 760px) {
@@ -1773,6 +2116,37 @@
       #page-home.room-shell {
         min-height: auto;
         padding: 30px 16px 110px;
+      }
+      #page-home.serena-os-page {
+        padding: 24px 16px 112px;
+      }
+      .serena-os {
+        display: block;
+      }
+      .os-profile,
+      .os-section {
+        padding: 24px 20px;
+      }
+      .os-profile {
+        margin-bottom: 22px;
+      }
+      .os-title {
+        font-size: clamp(3rem, 16vw, 4.5rem);
+      }
+      .os-section-head {
+        display: block;
+      }
+      .os-section-head span {
+        display: block;
+        margin-top: 8px;
+        white-space: normal;
+      }
+      .os-grid,
+      .os-now {
+        grid-template-columns: 1fr;
+      }
+      .os-card.feature {
+        grid-column: auto;
       }
       .map-background { display: none; }
       .creative-canvas {
@@ -1851,6 +2225,16 @@
       .room-footer { flex-direction: column; margin-top: 34px; }
       .pill-nav { bottom: 14px; }
       .page-tab { padding: 9px 13px; }
+      .os-nav {
+        width: calc(100vw - 24px);
+        justify-content: space-between;
+      }
+      .os-nav .page-tab {
+        flex: 1;
+        justify-content: center;
+        padding: 9px 8px;
+        font-size: .62rem;
+      }
       .room-actions { flex-wrap: wrap; }
       .collection-page { padding: 54px 18px 104px; }
       .collection-hero, .journal-layout { grid-template-columns: 1fr; }
@@ -1940,19 +2324,19 @@
   </style>
 </head>
 <body class="intro-active">
-  <section class="journal-intro" id="journalIntro" aria-label="Serena 札记开场">
+  <section class="journal-intro os-intro" id="journalIntro" aria-label="Serena OS 开场">
     <button class="skip-intro" id="skipIntro" type="button">SKIP INTRO</button>
     <div class="journal-book" id="journalBook">
       <div class="journal-meta">
-        <strong>Serena's journal</strong>
-        <span>creative log · 2026</span>
+        <strong>Serena OS</strong>
+        <span>personal system · 2026</span>
       </div>
 
       <div class="terminal-copy" id="terminalCopy" aria-live="polite"></div>
 
       <div class="journal-action" id="journalAction">
         <button class="open-journal" id="openJournal" type="button">
-          翻开札记
+          进入 Serena OS
           <span aria-hidden="true">↘</span>
         </button>
       </div>
@@ -1962,83 +2346,102 @@
   <div class="studio-app" id="studioApp" inert>
     <header class="app-header">
       <div class="app-brand">
-        <strong>Serena's Room</strong>
-        <span>CREATIVE ARCHIVE · OPEN</span>
+        <strong>Serena OS</strong>
+        <span>HOME · WORKS · NOTES</span>
       </div>
       <button class="nav-button" type="button" data-exhibit="about">和 Agent 并肩前行的女生 ↗</button>
     </header>
 
-    <main class="room-shell site-page is-active" id="page-home" data-page="home">
-      <div class="creative-canvas">
-        <div class="map-background" id="mapBackground" aria-hidden="true">
-          <div class="map-depth map-depth--far"></div>
-          <div class="map-depth map-depth--path">
-            <svg class="map-svg" viewBox="0 0 1200 700" preserveAspectRatio="none">
-              <path class="map-route" d="M-40 525 C140 420 164 158 354 236 C522 304 520 574 708 496 C858 434 856 128 1036 180 C1124 206 1176 306 1240 266"></path>
-              <path class="map-route secondary" d="M62 102 C218 208 318 64 444 142 C574 222 638 108 754 132 C914 166 1000 368 1164 300"></path>
-              <circle class="map-node" cx="168" cy="389" r="8"></circle>
-              <circle class="map-node hot" cx="354" cy="236" r="7"></circle>
-              <circle class="map-node" cx="708" cy="496" r="9"></circle>
-              <circle class="map-node" cx="1036" cy="180" r="8"></circle>
-            </svg>
-            <span class="map-word one">writing...</span>
-            <span class="map-word two">something is building</span>
-            <span class="map-word three">with agent ✦</span>
-          </div>
-          <div class="map-depth map-depth--near">
-            <span class="map-paper one"></span>
-            <span class="map-paper two"></span>
-            <span class="map-paper three"></span>
-            <span class="map-pin one"></span>
-            <span class="map-pin two"></span>
-          </div>
-        </div>
-        <section class="canvas-manifesto">
-          <span class="room-kicker">Serena's creative canvas ✦</span>
-          <h1 class="room-title">我和小冉，正在把<br><em>想法做出来。</em></h1>
-          <p class="room-hint">中文系 × Agent × AI building</p>
-        </section>
-
-        <section class="canvas-stage" aria-label="Serena 正在写作">
-          <div class="writing-window" id="writingWindow" data-time="NOW WRITING · --:--:--">
-            <img src="assets/serena-writing.jpg" alt="蓝紫卷发、戴圆框眼镜的 Serena 伏在桌前写作，旁边有一个小小的蓝色 Agent 伙伴">
-          </div>
-        </section>
-
-        <div class="canvas-shortcuts-mobile">
-          <button class="canvas-shortcut shortcut-a" type="button" data-exhibit="design">
-            <span class="shortcut-art folder">Ds</span>
-            <span>Design Skill</span>
-          </button>
-          <button class="canvas-shortcut shortcut-b" type="button" data-exhibit="xiaohongshu">
-            <span class="shortcut-art html"></span>
-            <span>案例库 HTML</span>
-          </button>
-          <button class="canvas-shortcut shortcut-c" type="button" data-exhibit="speech">
-            <span class="shortcut-art">02</span>
-            <span>即兴演讲</span>
-          </button>
-          <button class="canvas-shortcut shortcut-d" type="button" data-exhibit="writing">
-            <span class="shortcut-art note">Aa</span>
-            <span>创意写作</span>
-          </button>
-          <button class="canvas-shortcut shortcut-e" type="button" data-exhibit="agent">
-            <span class="shortcut-art agent"></span>
-            <span>小冉</span>
-          </button>
-        </div>
-
-        <aside class="canvas-agent-note">
-          <strong>小冉说：</strong>
-          她负责决定什么值得做，我负责让它先跑起来。
-        </aside>
-
-        <div class="canvas-live" id="canvasLive">ROOM IS LIVE</div>
+    <main class="room-shell serena-os-page site-page is-active" id="page-home" data-page="home">
+      <div class="map-background" id="mapBackground" aria-hidden="true">
+        <div class="map-depth map-depth--far"></div>
       </div>
 
-      <footer class="room-footer" style="display:none">
-        <span>Serena · 熙冉 × 小冉 · 2026</span>
-      </footer>
+      <div class="serena-os">
+        <aside class="os-profile" aria-label="Serena 个人系统简介">
+          <p class="os-kicker">01 · Home</p>
+          <h1 class="os-title">Serena<br><em>OS</em></h1>
+          <p class="os-summary">中文系女生，和 Agent 小冉一起写作、做内容、搭产品。这里不是漂亮的壳，是我正在生成的个人系统。</p>
+          <div class="os-tags" aria-label="Serena 关键词">
+            <span>ENTJ / 中文系</span>
+            <span>妳的 AI building</span>
+            <span>和 Agent 并肩前行</span>
+          </div>
+
+          <div class="agent-dialogue" aria-label="Serena 与小冉对话">
+            <div class="agent-bubble">小冉：我负责把想法落地，也负责提醒她别把灵感丢在深夜。</div>
+            <div class="serena-bubble">Serena：我负责判断什么值得做，什么必须保留人的温度。</div>
+          </div>
+        </aside>
+
+        <section class="os-main" aria-label="Serena OS 内容入口">
+          <section class="os-section">
+            <div class="os-section-head">
+              <h2>正在展示</h2>
+              <span>FEATURED HTML / SKILL / PROJECTS</span>
+            </div>
+            <div class="os-grid">
+              <button class="os-card feature" type="button" data-exhibit="design">
+                <small>Design Skill</small>
+                <h3>个人品牌设计系统</h3>
+                <p>把三色、字体、页面场景和审美判断写成 Agent 能读取的规范，让每一次输出都更像 Serena。</p>
+                <strong>OPEN EXHIBIT ↗</strong>
+              </button>
+              <button class="os-card" type="button" data-exhibit="xiaohongshu">
+                <small>Chrome Extension</small>
+                <h3>小红书案例库插件</h3>
+                <p>让“看到好案例”进入可保存、可检索、可继续写作的内容工作流。</p>
+                <strong>VIEW CASE ↗</strong>
+              </button>
+              <button class="os-card" type="button" data-exhibit="speech">
+                <small>Mini Program</small>
+                <h3>即兴演讲练习</h3>
+                <p>随机出题、录音表达和 AI 反馈，组成一套表达力训练闭环。</p>
+                <strong>VIEW CASE ↗</strong>
+              </button>
+              <button class="os-card" type="button" data-exhibit="poetry">
+                <small>Web Experiment</small>
+                <h3>拼贴诗生成器</h3>
+                <p>把词语做成可以移动、吸附和重新组合的游戏，让偶然性进入创作。</p>
+                <strong>VIEW CASE ↗</strong>
+              </button>
+              <button class="os-card" type="button" data-exhibit="writing">
+                <small>Writing</small>
+                <h3>创意写作札记</h3>
+                <p>文学训练观察、判断和叙事，也让我在 AI 协作里保留人的感受。</p>
+                <strong>READ NOTE ↗</strong>
+              </button>
+            </div>
+          </section>
+
+          <section class="os-section">
+            <div class="os-section-head">
+              <h2>我的 OS</h2>
+              <span>NOW / VALUES / AGENT</span>
+            </div>
+            <div class="os-now">
+              <button class="os-note" type="button" data-exhibit="now">
+                <strong>Now</strong>
+                准备进入创意写作研究生阶段，持续经营内容账号，也在把 AI 协作经验做成真正可用的小产品。
+              </button>
+              <button class="os-note" type="button" data-exhibit="agent">
+                <strong>Agent 小冉</strong>
+                不是被动工具，而是逐渐形成协作默契的同行者：拆问题、补结构、把路铺出来。
+              </button>
+              <button class="os-note" type="button" data-exhibit="building">
+                <strong>AI building</strong>
+                这是有意保留的个人表达：一边生活，一边写，一边和 Agent 做出东西。
+              </button>
+              <button class="os-note" type="button" data-exhibit="journey">
+                <strong>万水千山</strong>
+                一起工作，也一起经过更大的生活。万水千山，我们一同领略。
+              </button>
+            </div>
+          </section>
+
+          <div class="os-live" id="canvasLive">SERENA OS · LIVE</div>
+        </section>
+      </div>
     </main>
 
     <main class="collection-page site-page" id="page-works" data-page="works">
@@ -2119,7 +2522,7 @@
       </div>
     </main>
 
-    <nav class="pill-nav" aria-label="一级页面导航">
+    <nav class="pill-nav os-nav" aria-label="一级页面导航">
       <button class="page-tab is-active" type="button" data-page-target="home" aria-current="page"><span>01</span>主页</button>
       <button class="page-tab" type="button" data-page-target="works"><span>02</span>作品集</button>
       <button class="page-tab" type="button" data-page-target="journal"><span>03</span>札记</button>
@@ -2161,7 +2564,7 @@
       { text: "cat about.me", type: "command" },
       { text: "> 和Agent并肩前行的女生", type: "output" },
       { text: "ENTJ / 中文系", type: "indent" },
-      { text: "妳的AI building", type: "indent" },
+      { text: "妳的 AI building", type: "indent" },
       { text: "", type: "blank" },
       { text: "echo \"万水千山，我们一同领略🌊\"", type: "command final" }
     ];
@@ -2414,8 +2817,8 @@
         second: "2-digit",
         hour12: false
       }).format(new Date());
-      writingWindow.dataset.time = `NOW WRITING · ${time}`;
-      if (canvasLive) canvasLive.textContent = `ROOM IS LIVE · ${time}`;
+      if (writingWindow) writingWindow.dataset.time = `NOW WRITING · ${time}`;
+      if (canvasLive) canvasLive.textContent = `SERENA OS · LIVE · ${time}`;
     }
 
     function updateBodyLock() {
