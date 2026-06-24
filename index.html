@@ -2010,6 +2010,350 @@
       background: var(--blue-purple);
     }
 
+    /* ---------- Serena Cosmos 首页 ---------- */
+    #page-home.cosmos-home {
+      min-height: calc(100vh - 62px);
+      padding: 0 0 120px;
+      overflow: hidden auto;
+      background:
+        radial-gradient(circle at 20% 18%, rgba(212, 225, 87, .26), transparent 28%),
+        radial-gradient(circle at 78% 18%, rgba(91, 111, 224, .12), transparent 26%),
+        radial-gradient(circle at 78% 72%, rgba(214, 60, 166, .08), transparent 24%),
+        var(--cream);
+    }
+
+    #page-home.cosmos-home::after {
+      content: "SERENA × AGENT × BUILDING";
+      left: clamp(20px, 4vw, 60px);
+      bottom: 28px;
+      color: var(--blue-purple);
+      background: transparent;
+      border: 0;
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .16em;
+      opacity: .44;
+      transform: none;
+    }
+
+    .cosmos-shell {
+      position: relative;
+      width: min(1320px, 100%);
+      margin: 0 auto;
+      padding: clamp(34px, 6vw, 82px) clamp(18px, 4vw, 58px) 0;
+    }
+
+    .cosmos-hero {
+      position: relative;
+      min-height: max(720px, calc(100vh - 62px));
+      isolation: isolate;
+    }
+
+    .cosmos-title {
+      position: absolute;
+      left: 0;
+      top: clamp(10px, 4vh, 38px);
+      z-index: 4;
+      width: min(520px, 46vw);
+    }
+
+    .cosmos-kicker {
+      display: inline-block;
+      margin: 0 0 18px;
+      padding: 5px 11px;
+      color: var(--ink);
+      background: var(--yellow-green);
+      font-family: var(--mono);
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .cosmos-title h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(3.2rem, 9vw, 8.6rem);
+      font-weight: 900;
+      line-height: .86;
+      letter-spacing: -.1em;
+    }
+
+    .cosmos-title h1 em {
+      display: block;
+      color: var(--blue-purple);
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .cosmos-title p {
+      max-width: 410px;
+      margin: 24px 0 0;
+      color: var(--ink-light);
+      font-size: .92rem;
+      line-height: 1.9;
+    }
+
+    .cosmos-center {
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      z-index: 3;
+      width: clamp(230px, 27vw, 360px);
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .cosmos-orbit {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: clamp(420px, 60vw, 820px);
+      aspect-ratio: 1;
+      border: 1px dashed rgba(91, 111, 224, .22);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotate(-8deg);
+      pointer-events: none;
+    }
+
+    .cosmos-orbit::before,
+    .cosmos-orbit::after {
+      content: "";
+      position: absolute;
+      inset: 13%;
+      border: 1px dashed rgba(214, 60, 166, .14);
+      border-radius: inherit;
+    }
+
+    .cosmos-orbit::after {
+      inset: -10%;
+      border-color: rgba(212, 225, 87, .45);
+      transform: rotate(18deg);
+    }
+
+    .cosmos-avatar {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      filter: drop-shadow(14px 18px 0 rgba(212, 225, 87, .48));
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .agent-core {
+      position: absolute;
+      right: -20px;
+      bottom: 18%;
+      z-index: 3;
+      width: clamp(72px, 8vw, 108px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      color: var(--cream);
+      background: var(--blue-purple);
+      border-radius: 34% 42% 32% 44%;
+      box-shadow: 8px 9px 0 rgba(214, 60, 166, .18);
+      font-family: "Fraunces", serif;
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      font-style: italic;
+    }
+
+    .agent-core::after {
+      content: "小冉";
+      position: absolute;
+      left: 50%;
+      bottom: -27px;
+      min-width: max-content;
+      color: var(--ink);
+      font-family: var(--hand);
+      font-size: 1.05rem;
+      transform: translateX(-50%) rotate(-4deg);
+    }
+
+    .cosmos-node {
+      position: absolute;
+      z-index: 5;
+      width: clamp(150px, 16vw, 230px);
+      min-height: 132px;
+      padding: 18px 18px 16px;
+      color: var(--ink);
+      background: rgba(255, 254, 248, .92);
+      border: 1px solid rgba(26, 58, 82, .12);
+      box-shadow: 7px 8px 0 rgba(26, 58, 82, .06);
+      text-align: left;
+      cursor: pointer;
+      transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+    }
+
+    .cosmos-node:hover,
+    .cosmos-node:focus-visible {
+      transform: translateY(-7px) rotate(0deg);
+      box-shadow: 10px 12px 0 rgba(212, 225, 87, .55);
+      outline: none;
+      background: var(--paper);
+    }
+
+    .cosmos-node small {
+      display: block;
+      color: var(--magenta);
+      font-family: var(--mono);
+      font-size: .56rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .cosmos-node strong {
+      display: block;
+      margin: 14px 0 7px;
+      font-family: var(--serif);
+      font-size: clamp(1rem, 1.5vw, 1.28rem);
+      line-height: 1.25;
+      letter-spacing: -.03em;
+    }
+
+    .cosmos-node span {
+      display: block;
+      color: var(--ink-light);
+      font-size: .72rem;
+      line-height: 1.65;
+    }
+
+    .node-design { left: 48%; top: 4%; transform: rotate(2deg); }
+    .node-xhs { right: 4%; top: 23%; transform: rotate(-2deg); }
+    .node-speech { right: 10%; bottom: 18%; transform: rotate(2.5deg); }
+    .node-poetry { left: 12%; bottom: 12%; transform: rotate(-2deg); }
+    .node-writing { left: 3%; top: 34%; transform: rotate(1.5deg); }
+    .node-agent { left: 33%; bottom: 1%; transform: rotate(1deg); }
+
+    .cosmos-note {
+      position: absolute;
+      right: 0;
+      top: clamp(20px, 5vh, 60px);
+      z-index: 4;
+      max-width: 270px;
+      padding: 15px 17px;
+      color: var(--cream);
+      background: var(--blue-purple);
+      font-size: .78rem;
+      line-height: 1.7;
+      transform: rotate(1.2deg);
+    }
+
+    .cosmos-note strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--yellow-green);
+      font-family: var(--hand);
+      font-size: 1.25rem;
+    }
+
+    .cosmos-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      position: absolute;
+      left: 0;
+      bottom: 18px;
+      z-index: 4;
+      max-width: 420px;
+    }
+
+    .cosmos-strip span {
+      padding: 7px 11px;
+      color: var(--ink);
+      background: rgba(212, 225, 87, .52);
+      border: 1px solid rgba(26, 58, 82, .08);
+      border-radius: 999px;
+      font-size: .72rem;
+    }
+
+    .cosmos-section {
+      position: relative;
+      z-index: 4;
+      width: min(1080px, 100%);
+      margin: clamp(44px, 8vh, 88px) auto 0;
+      padding: clamp(26px, 4vw, 42px);
+      background: rgba(255, 254, 248, .86);
+      border: 1px solid rgba(26, 58, 82, .1);
+      box-shadow: 9px 10px 0 rgba(212, 225, 87, .45);
+    }
+
+    .cosmos-section h2 {
+      margin: 0 0 20px;
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 4vw, 3rem);
+      line-height: 1.12;
+      letter-spacing: -.06em;
+    }
+
+    .dialogue-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .dialogue-card {
+      padding: 18px;
+      font-size: .84rem;
+      line-height: 1.8;
+    }
+
+    .dialogue-card.agent {
+      color: var(--cream);
+      background: var(--blue-purple);
+    }
+
+    .dialogue-card.serena {
+      color: var(--ink);
+      background: var(--yellow-green);
+    }
+
+    .workwith-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .workwith-card {
+      padding: 18px;
+      background: var(--paper);
+      border: 1px solid rgba(26, 58, 82, .1);
+      font-size: .8rem;
+      line-height: 1.7;
+    }
+
+    .workwith-card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--blue-purple);
+      font-family: var(--serif);
+      font-size: 1.12rem;
+      line-height: 1.25;
+    }
+
+    .cosmos-terminal {
+      margin-top: clamp(36px, 7vh, 76px);
+      padding: clamp(22px, 3vw, 32px);
+      color: #f7f5eb;
+      background:
+        linear-gradient(rgba(255,255,255,.035) 50%, rgba(26,58,82,.08) 50%) 0 0 / 100% 7px,
+        #151821;
+      font-family: var(--mono);
+      font-size: .8rem;
+      line-height: 1.9;
+    }
+
+    .cosmos-terminal span { color: var(--yellow-green); }
+    .cosmos-terminal em { color: #ffd7f0; font-style: normal; }
+
+    .cosmos-time {
+      margin-top: 12px;
+      color: rgba(247, 245, 235, .58);
+      font-size: .68rem;
+      letter-spacing: .1em;
+    }
+
     /* ---------- 跨页面可拖动 Serena 贴纸 ---------- */
     .draggable-serena {
       position: fixed;
@@ -2099,6 +2443,22 @@
       .agent-dialogue {
         margin-top: 28px;
       }
+      .cosmos-hero {
+        min-height: 860px;
+      }
+      .cosmos-title {
+        width: min(470px, 58vw);
+      }
+      .cosmos-note {
+        top: auto;
+        bottom: 170px;
+        right: 3%;
+      }
+      .node-design { left: 51%; top: 9%; }
+      .node-xhs { right: 2%; top: 31%; }
+      .node-writing { left: 0; top: 40%; }
+      .node-poetry { left: 8%; bottom: 20%; }
+      .node-agent { left: 37%; bottom: 4%; }
     }
 
     @media (max-width: 760px) {
@@ -2147,6 +2507,63 @@
       }
       .os-card.feature {
         grid-column: auto;
+      }
+      #page-home.cosmos-home {
+        padding-bottom: 112px;
+      }
+      .cosmos-shell {
+        padding: 28px 16px 0;
+      }
+      .cosmos-hero {
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .cosmos-title,
+      .cosmos-center,
+      .cosmos-node,
+      .cosmos-note,
+      .cosmos-strip {
+        position: relative;
+        inset: auto;
+        left: auto;
+        right: auto;
+        top: auto;
+        bottom: auto;
+        width: 100%;
+        max-width: none;
+        transform: none;
+      }
+      .cosmos-title {
+        order: 1;
+      }
+      .cosmos-title h1 {
+        font-size: clamp(3.4rem, 18vw, 5.6rem);
+      }
+      .cosmos-note {
+        order: 3;
+      }
+      .cosmos-center {
+        order: 2;
+        width: min(250px, 68vw);
+        align-self: center;
+        margin: 10px 0 16px;
+      }
+      .cosmos-orbit {
+        width: 132%;
+      }
+      .cosmos-node {
+        order: 4;
+        min-height: auto;
+      }
+      .cosmos-strip {
+        order: 5;
+        margin-top: 8px;
+      }
+      .dialogue-grid,
+      .workwith-grid {
+        grid-template-columns: 1fr;
       }
       .map-background { display: none; }
       .creative-canvas {
@@ -2352,95 +2769,96 @@
       <button class="nav-button" type="button" data-exhibit="about">和 Agent 并肩前行的女生 ↗</button>
     </header>
 
-    <main class="room-shell serena-os-page site-page is-active" id="page-home" data-page="home">
-      <div class="map-background" id="mapBackground" aria-hidden="true">
-        <div class="map-depth map-depth--far"></div>
-      </div>
+    <main class="room-shell cosmos-home site-page is-active" id="page-home" data-page="home">
+      <div class="cosmos-shell">
+        <section class="cosmos-hero" aria-label="Serena 与小冉的创作宇宙">
+          <div class="cosmos-title">
+            <p class="cosmos-kicker">01 · Home / with Agent</p>
+            <h1>Serena<br><em>熙冉</em></h1>
+            <p>中文系女生，和 Agent 小冉一起写作、做内容、搭产品。这里不是作品陈列柜，而是一片正在生成的创作宇宙。</p>
+          </div>
 
-      <div class="serena-os">
-        <aside class="os-profile" aria-label="Serena 个人系统简介">
-          <p class="os-kicker">01 · Home</p>
-          <h1 class="os-title">Serena<br><em>OS</em></h1>
-          <p class="os-summary">中文系女生，和 Agent 小冉一起写作、做内容、搭产品。这里不是漂亮的壳，是我正在生成的个人系统。</p>
-          <div class="os-tags" aria-label="Serena 关键词">
+          <div class="cosmos-note">
+            <strong>小冉说：</strong>
+            她负责判断什么值得做，我负责让想法先跑起来。我们不是把页面填满，是把路径点亮。
+          </div>
+
+          <div class="cosmos-center" aria-hidden="true">
+            <div class="cosmos-orbit"></div>
+            <img class="cosmos-avatar" src="assets/serena-sticker.png" alt="">
+            <div class="agent-core">✦</div>
+          </div>
+
+          <button class="cosmos-node node-design" type="button" data-exhibit="design">
+            <small>Design Skill</small>
+            <strong>个人品牌设计系统</strong>
+            <span>把审美判断写成 Agent 可以读取的规则。</span>
+          </button>
+          <button class="cosmos-node node-xhs" type="button" data-exhibit="xiaohongshu">
+            <small>HTML / Workflow</small>
+            <strong>小红书案例库插件</strong>
+            <span>让好案例进入个人内容工作流。</span>
+          </button>
+          <button class="cosmos-node node-speech" type="button" data-exhibit="speech">
+            <small>Mini Program</small>
+            <strong>即兴演讲练习</strong>
+            <span>随机出题、录音表达、AI 反馈。</span>
+          </button>
+          <button class="cosmos-node node-poetry" type="button" data-exhibit="poetry">
+            <small>Web Experiment</small>
+            <strong>拼贴诗生成器</strong>
+            <span>让词语可以移动、吸附、重组。</span>
+          </button>
+          <button class="cosmos-node node-writing" type="button" data-exhibit="writing">
+            <small>Writing</small>
+            <strong>创意写作札记</strong>
+            <span>在 AI 协作里保留人的观察与感受。</span>
+          </button>
+          <button class="cosmos-node node-agent" type="button" data-exhibit="agent">
+            <small>Agent</small>
+            <strong>小冉，同行者</strong>
+            <span>拆问题、补结构、把路铺出来。</span>
+          </button>
+
+          <div class="cosmos-strip" aria-label="Serena 关键词">
             <span>ENTJ / 中文系</span>
             <span>妳的 AI building</span>
             <span>和 Agent 并肩前行</span>
           </div>
-
-          <div class="agent-dialogue" aria-label="Serena 与小冉对话">
-            <div class="agent-bubble">小冉：我负责把想法落地，也负责提醒她别把灵感丢在深夜。</div>
-            <div class="serena-bubble">Serena：我负责判断什么值得做，什么必须保留人的温度。</div>
-          </div>
-        </aside>
-
-        <section class="os-main" aria-label="Serena OS 内容入口">
-          <section class="os-section">
-            <div class="os-section-head">
-              <h2>正在展示</h2>
-              <span>FEATURED HTML / SKILL / PROJECTS</span>
-            </div>
-            <div class="os-grid">
-              <button class="os-card feature" type="button" data-exhibit="design">
-                <small>Design Skill</small>
-                <h3>个人品牌设计系统</h3>
-                <p>把三色、字体、页面场景和审美判断写成 Agent 能读取的规范，让每一次输出都更像 Serena。</p>
-                <strong>OPEN EXHIBIT ↗</strong>
-              </button>
-              <button class="os-card" type="button" data-exhibit="xiaohongshu">
-                <small>Chrome Extension</small>
-                <h3>小红书案例库插件</h3>
-                <p>让“看到好案例”进入可保存、可检索、可继续写作的内容工作流。</p>
-                <strong>VIEW CASE ↗</strong>
-              </button>
-              <button class="os-card" type="button" data-exhibit="speech">
-                <small>Mini Program</small>
-                <h3>即兴演讲练习</h3>
-                <p>随机出题、录音表达和 AI 反馈，组成一套表达力训练闭环。</p>
-                <strong>VIEW CASE ↗</strong>
-              </button>
-              <button class="os-card" type="button" data-exhibit="poetry">
-                <small>Web Experiment</small>
-                <h3>拼贴诗生成器</h3>
-                <p>把词语做成可以移动、吸附和重新组合的游戏，让偶然性进入创作。</p>
-                <strong>VIEW CASE ↗</strong>
-              </button>
-              <button class="os-card" type="button" data-exhibit="writing">
-                <small>Writing</small>
-                <h3>创意写作札记</h3>
-                <p>文学训练观察、判断和叙事，也让我在 AI 协作里保留人的感受。</p>
-                <strong>READ NOTE ↗</strong>
-              </button>
-            </div>
-          </section>
-
-          <section class="os-section">
-            <div class="os-section-head">
-              <h2>我的 OS</h2>
-              <span>NOW / VALUES / AGENT</span>
-            </div>
-            <div class="os-now">
-              <button class="os-note" type="button" data-exhibit="now">
-                <strong>Now</strong>
-                准备进入创意写作研究生阶段，持续经营内容账号，也在把 AI 协作经验做成真正可用的小产品。
-              </button>
-              <button class="os-note" type="button" data-exhibit="agent">
-                <strong>Agent 小冉</strong>
-                不是被动工具，而是逐渐形成协作默契的同行者：拆问题、补结构、把路铺出来。
-              </button>
-              <button class="os-note" type="button" data-exhibit="building">
-                <strong>AI building</strong>
-                这是有意保留的个人表达：一边生活，一边写，一边和 Agent 做出东西。
-              </button>
-              <button class="os-note" type="button" data-exhibit="journey">
-                <strong>万水千山</strong>
-                一起工作，也一起经过更大的生活。万水千山，我们一同领略。
-              </button>
-            </div>
-          </section>
-
-          <div class="os-live" id="canvasLive">SERENA OS · LIVE</div>
         </section>
+
+        <section class="cosmos-section" aria-label="Serena 与小冉对话">
+          <h2>不是工具，是同行者。</h2>
+          <div class="dialogue-grid">
+            <div class="dialogue-card agent">小冉：我会整理混乱、补上结构、跑出原型，也会提醒她——这个想法不是没用，只是还没找到形状。</div>
+            <div class="dialogue-card serena">Serena：我负责感受、判断、讲故事，也负责决定哪些东西不能被效率吃掉。</div>
+          </div>
+        </section>
+
+        <section class="cosmos-section" aria-label="合作与入口">
+          <h2>Work with me / Find me</h2>
+          <div class="workwith-grid">
+            <button class="workwith-card" type="button" data-exhibit="contact">
+              <strong>小红书内容与案例库</strong>
+              记录 AI 协作、内容创作和个人 building 的过程。
+            </button>
+            <button class="workwith-card" type="button" data-exhibit="archive">
+              <strong>HTML / Skill / 自动化</strong>
+              把想法做成可打开、可复用、可继续迭代的页面和工具。
+            </button>
+            <button class="workwith-card" type="button" data-exhibit="journey">
+              <strong>万水千山</strong>
+              一起工作，也一起经过更大的生活。
+            </button>
+          </div>
+        </section>
+
+        <div class="cosmos-terminal" aria-live="polite">
+          <div><span>$</span> whoami → Serena_熙冉</div>
+          <div><span>$</span> cat about.me → 和Agent并肩前行的女生 / ENTJ / 中文系 / 妳的 AI building</div>
+          <div><span>$</span> echo <em>"万水千山，我们一同领略🌊"</em></div>
+          <div class="cosmos-time" id="canvasLive">SERENA COSMOS · LIVE</div>
+        </div>
       </div>
     </main>
 
@@ -2818,7 +3236,7 @@
         hour12: false
       }).format(new Date());
       if (writingWindow) writingWindow.dataset.time = `NOW WRITING · ${time}`;
-      if (canvasLive) canvasLive.textContent = `SERENA OS · LIVE · ${time}`;
+      if (canvasLive) canvasLive.textContent = `SERENA COSMOS · LIVE · ${time}`;
     }
 
     function updateBodyLock() {
