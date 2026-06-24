@@ -1308,14 +1308,13 @@
       line-height: 1.85;
     }
 
-    /* ---------- 主页：Serena 的气泡水宇宙 ---------- */
+    /* ---------- 主页：Serena 创作画布 ---------- */
     #page-home.room-shell {
       min-height: max(760px, calc(100vh - 62px));
       padding: 0;
       background:
-        radial-gradient(circle at 16% 12%, rgba(212, 225, 87, .46), transparent 28%),
-        radial-gradient(circle at 84% 76%, rgba(91, 111, 224, .2), transparent 32%),
-        linear-gradient(145deg, #fffef8 0%, #f6f8dc 44%, #edf3ff 100%);
+        radial-gradient(circle at 50% 42%, rgba(212, 225, 87, .15), transparent 31%),
+        var(--cream);
     }
 
     #page-home.room-shell::before {
@@ -1346,144 +1345,152 @@
       min-height: max(700px, calc(100vh - 62px));
       margin: auto;
       overflow: hidden;
-      isolation: isolate;
-      --flow-x: 0px;
-      --flow-y: 0px;
     }
 
     .map-background {
       position: absolute;
-      inset: -5%;
+      inset: 0;
       z-index: 0;
       overflow: hidden;
       pointer-events: none;
-      transform: translate3d(calc(var(--px, 0) * -5px), calc(var(--py, 0) * -4px), 0);
-      transition: transform .8s cubic-bezier(.2, .8, .2, 1);
     }
 
-    .liquid-light {
+    .map-depth {
       position: absolute;
-      border-radius: 50%;
-      filter: blur(6px);
+      inset: -5%;
       will-change: transform;
+      transition: transform .75s cubic-bezier(.2, .8, .2, 1);
     }
 
-    .liquid-light.one {
-      left: -8%;
-      top: 4%;
-      width: 53%;
-      height: 66%;
+    .map-depth--far {
+      transform: translate3d(calc(var(--px, 0) * -4px), calc(var(--py, 0) * -3px), 0);
       background:
-        radial-gradient(circle at 58% 48%, rgba(255,255,255,.9), transparent 7%),
-        radial-gradient(ellipse at 54% 52%, rgba(212, 225, 87, .52), rgba(212, 225, 87, .08) 58%, transparent 70%);
-      transform: translate3d(calc(var(--px, 0) * 12px), calc(var(--py, 0) * 8px), 0) rotate(-12deg);
-      animation: liquidDriftOne 13s ease-in-out infinite alternate;
+        radial-gradient(ellipse at 14% 24%, rgba(212, 225, 87, .29), transparent 24%),
+        radial-gradient(ellipse at 86% 75%, rgba(212, 225, 87, .2), transparent 25%),
+        radial-gradient(circle at 69% 19%, rgba(91, 111, 224, .08), transparent 18%);
     }
 
-    .liquid-light.two {
-      right: -11%;
-      bottom: -7%;
-      width: 56%;
-      height: 74%;
-      background:
-        radial-gradient(circle at 38% 37%, rgba(255,255,255,.8), transparent 6%),
-        radial-gradient(ellipse at 50% 50%, rgba(91, 111, 224, .3), rgba(91, 111, 224, .05) 62%, transparent 72%);
-      transform: translate3d(calc(var(--px, 0) * -15px), calc(var(--py, 0) * -10px), 0) rotate(18deg);
-      animation: liquidDriftTwo 16s ease-in-out infinite alternate;
+    .map-depth--path {
+      transform: translate3d(calc(var(--px, 0) * 7px), calc(var(--py, 0) * 5px), 0);
     }
 
-    .liquid-ribbon {
+    .map-depth--near {
+      transform: translate3d(calc(var(--px, 0) * 12px), calc(var(--py, 0) * 9px), 0);
+    }
+
+    .map-svg {
       position: absolute;
-      left: 15%;
-      top: 43%;
-      width: 75%;
-      height: 27%;
-      border: 2px solid rgba(255, 255, 255, .74);
-      border-left-color: transparent;
-      border-right-color: rgba(91, 111, 224, .12);
-      border-radius: 48% 52% 43% 57%;
-      box-shadow:
-        inset 0 12px 26px rgba(255,255,255,.46),
-        0 20px 70px rgba(91, 111, 224, .05);
-      opacity: .8;
-      transform: translate3d(calc(var(--px, 0) * 7px), calc(var(--py, 0) * 5px), 0) rotate(-7deg);
-      animation: liquidRibbon 10s ease-in-out infinite alternate;
+      inset: 7% 2% 4%;
+      width: 96%;
+      height: 89%;
+      overflow: visible;
     }
 
-    .ambient-bubble {
-      position: absolute;
-      width: var(--size);
-      height: var(--size);
-      left: var(--left);
-      bottom: -14%;
-      border: 1px solid rgba(91, 111, 224, .22);
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 30% 24%, rgba(255,255,255,.96) 0 5%, transparent 7%),
-        radial-gradient(circle at 62% 72%, rgba(212,225,87,.22), transparent 45%),
-        rgba(255,255,255,.18);
-      box-shadow:
-        inset 3px 4px 10px rgba(255,255,255,.72),
-        inset -5px -7px 13px rgba(91,111,224,.08);
-      opacity: var(--opacity, .55);
-      animation: bubbleRise var(--duration) linear infinite;
-      animation-delay: var(--delay);
+    .map-route {
+      fill: none;
+      stroke: var(--blue-purple);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-dasharray: 4 12;
+      opacity: .22;
     }
 
-    .spark-word {
+    .map-route.secondary {
+      stroke: var(--ink);
+      stroke-width: 1.2;
+      stroke-dasharray: 2 15;
+      opacity: .12;
+    }
+
+    .map-node {
+      fill: var(--cream);
+      stroke: var(--blue-purple);
+      stroke-width: 2;
+      opacity: .52;
+    }
+
+    .map-node.hot {
+      fill: var(--magenta);
+      stroke: var(--magenta);
+      opacity: .7;
+    }
+
+    .map-word {
       position: absolute;
       color: var(--blue-purple);
       font-family: var(--hand);
-      font-size: clamp(.82rem, 1.4vw, 1.12rem);
-      opacity: .34;
+      font-size: clamp(.9rem, 1.5vw, 1.25rem);
+      opacity: .32;
       white-space: nowrap;
-      animation: wordFloat 6s ease-in-out infinite alternate;
     }
 
-    .spark-word.one { left: 12%; top: 47%; transform: rotate(-8deg); }
-    .spark-word.two { right: 12%; top: 31%; transform: rotate(6deg); animation-delay: -2s; }
-    .spark-word.three { left: 58%; bottom: 10%; transform: rotate(-3deg); animation-delay: -4s; }
+    .map-word.one { left: 12%; top: 40%; transform: rotate(-8deg); }
+    .map-word.two { right: 14%; top: 28%; transform: rotate(6deg); }
+    .map-word.three { left: 61%; bottom: 12%; transform: rotate(-3deg); }
+
+    .map-paper {
+      position: absolute;
+      width: 34px;
+      height: 46px;
+      background: rgba(255, 254, 248, .76);
+      border: 1px solid rgba(26, 58, 82, .09);
+      box-shadow: 3px 4px 0 rgba(26, 58, 82, .04);
+    }
+
+    .map-paper::before {
+      content: "";
+      position: absolute;
+      left: 7px;
+      right: 7px;
+      top: 12px;
+      height: 1px;
+      background: rgba(91, 111, 224, .16);
+      box-shadow: 0 7px rgba(91, 111, 224, .12), 0 14px rgba(91, 111, 224, .1);
+    }
+
+    .map-paper.one { left: 25%; top: 12%; transform: rotate(-12deg); }
+    .map-paper.two { right: 29%; top: 9%; transform: rotate(9deg); background: rgba(243, 246, 206, .72); }
+    .map-paper.three { right: 9%; bottom: 25%; transform: rotate(-8deg); }
+
+    .map-pin {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--magenta);
+      border-radius: 50%;
+      box-shadow: 0 0 0 7px rgba(214, 60, 166, .09);
+    }
+
+    .map-pin.one { left: 37%; bottom: 14%; }
+    .map-pin.two { right: 19%; top: 48%; }
 
     .canvas-stage {
       position: absolute;
       left: 50%;
       top: 51%;
-      width: clamp(500px, 55vw, 790px);
-      padding: clamp(12px, 1.5vw, 20px);
-      border: 1px solid rgba(255,255,255,.92);
-      border-radius: 45% 55% 48% 52% / 54% 46% 54% 46%;
-      background:
-        radial-gradient(circle at 27% 18%, rgba(255,255,255,.96) 0 2.5%, transparent 3%),
-        linear-gradient(145deg, rgba(255,255,255,.65), rgba(231,239,255,.25));
-      box-shadow:
-        inset 10px 12px 30px rgba(255,255,255,.8),
-        inset -12px -16px 34px rgba(91,111,224,.1),
-        0 30px 80px rgba(49,73,131,.13);
+      width: clamp(520px, 58vw, 850px);
       transform: translate(-50%, -50%);
-      transition: transform .45s cubic-bezier(.2,.8,.2,1), border-radius .8s ease;
-      animation: mainBubbleFloat 5.5s ease-in-out infinite alternate;
     }
 
     .canvas-stage::before {
       content: "";
       position: absolute;
-      right: 13%;
-      top: 9%;
-      width: 14%;
-      height: 5%;
-      background: rgba(255,255,255,.75);
-      filter: blur(2px);
+      left: 7%;
+      right: 7%;
+      bottom: -18px;
+      height: 40px;
+      z-index: -1;
+      background: rgba(26, 58, 82, .1);
+      filter: blur(18px);
       border-radius: 50%;
-      transform: rotate(18deg);
     }
 
     .canvas-stage .writing-window {
       max-width: none;
       border: 0;
-      border-radius: 40% 60% 45% 55% / 57% 43% 57% 43%;
-      box-shadow: 0 16px 38px rgba(26, 58, 82, .12);
+      border-radius: 4px;
+      box-shadow: 0 24px 70px rgba(26, 58, 82, .13);
       transform: rotate(-.5deg);
-      overflow: hidden;
     }
 
     .canvas-stage .writing-window::before {
@@ -1500,14 +1507,13 @@
       z-index: 5;
       width: clamp(238px, 24vw, 340px);
       padding: clamp(21px, 2.7vw, 30px) clamp(23px, 2.8vw, 32px);
-      background: rgba(255,255,255,.47);
-      border: 1px solid rgba(255,255,255,.85);
-      border-radius: 34px 46px 39px 31px;
-      box-shadow:
-        inset 5px 6px 16px rgba(255,255,255,.72),
-        0 14px 38px rgba(91,111,224,.08);
-      backdrop-filter: blur(12px);
-      transform: rotate(-1deg);
+      background:
+        linear-gradient(90deg, transparent 0 21px, rgba(214, 60, 166, .13) 21px 23px, transparent 23px),
+        repeating-linear-gradient(transparent 0 31px, rgba(91, 111, 224, .055) 31px 32px),
+        var(--paper);
+      border: 1px solid #e9e3d5;
+      box-shadow: 5px 6px 0 rgba(212, 225, 87, .42);
+      transform: rotate(-1.4deg);
     }
 
     .canvas-manifesto .room-kicker { font-size: .88rem; }
@@ -1530,56 +1536,34 @@
       flex-direction: column;
       align-items: center;
       gap: 7px;
-      width: 132px;
-      height: 132px;
-      justify-content: center;
+      min-width: 86px;
       padding: 0;
       color: var(--ink);
-      border: 1px solid rgba(255,255,255,.94);
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 29% 22%, rgba(255,255,255,.98) 0 4%, transparent 5%),
-        radial-gradient(circle at 58% 72%, rgba(212,225,87,.2), transparent 50%),
-        rgba(255,255,255,.38);
-      box-shadow:
-        inset 5px 7px 16px rgba(255,255,255,.88),
-        inset -7px -9px 20px rgba(91,111,224,.09),
-        0 17px 36px rgba(61,81,138,.1);
-      backdrop-filter: blur(8px);
+      border: 0;
+      background: transparent;
       font-size: .68rem;
       font-weight: 600;
       text-align: center;
       cursor: pointer;
-      transform: translate3d(var(--bubble-x, 0), var(--bubble-y, 0), 0) rotate(var(--bubble-rotate, 0deg));
-      transition: transform .5s cubic-bezier(.2,.8,.2,1), background .25s ease, box-shadow .25s ease;
-      animation: contentBubbleFloat var(--float-time, 5s) ease-in-out infinite alternate;
+      transition: transform .25s ease;
     }
 
     .canvas-shortcut:hover,
     .canvas-shortcut:focus-visible {
-      transform: translate3d(var(--bubble-x, 0), calc(var(--bubble-y, 0) - 9px), 0) scale(1.07);
+      transform: translateY(-8px) rotate(-1deg);
       outline: none;
-      background:
-        radial-gradient(circle at 29% 22%, rgba(255,255,255,.98) 0 4%, transparent 5%),
-        radial-gradient(circle at 58% 72%, rgba(212,225,87,.34), transparent 54%),
-        rgba(255,255,255,.63);
-      box-shadow:
-        inset 5px 7px 18px rgba(255,255,255,.95),
-        inset -7px -9px 22px rgba(91,111,224,.14),
-        0 24px 44px rgba(61,81,138,.16);
     }
 
     .shortcut-art {
       position: relative;
       display: grid;
       place-items: center;
-      width: 52px;
-      height: 52px;
+      width: 76px;
+      height: 76px;
       color: var(--ink);
-      background: rgba(255,255,255,.52);
-      border: 1px solid rgba(91,111,224,.12);
-      border-radius: 45%;
-      box-shadow: none;
+      background: var(--paper);
+      border: 1px solid rgba(26, 58, 82, .12);
+      box-shadow: 6px 7px 0 rgba(26, 58, 82, .08);
       font-family: "Fraunces", var(--serif);
       font-size: 1.7rem;
       font-style: italic;
@@ -1588,27 +1572,27 @@
     }
 
     .canvas-shortcut:hover .shortcut-art {
-      color: white;
+      color: var(--cream);
       background: var(--blue-purple);
     }
 
     .shortcut-art.folder {
-      width: 58px;
-      height: 45px;
-      margin-top: 8px;
-      background: rgba(212,225,87,.75);
-      border-radius: 8px;
+      width: 90px;
+      height: 62px;
+      margin-top: 14px;
+      background: var(--yellow-green);
+      border-radius: 3px;
     }
 
     .shortcut-art.folder::before {
       content: "";
       position: absolute;
       left: 0;
-      top: -8px;
-      width: 28px;
-      height: 10px;
-      background: inherit;
-      border-radius: 6px 6px 0 0;
+      top: -13px;
+      width: 42px;
+      height: 16px;
+      background: var(--yellow-green);
+      border-radius: 3px 3px 0 0;
     }
 
     .canvas-shortcut:hover .shortcut-art.folder,
@@ -1644,11 +1628,11 @@
       font-style: normal;
     }
 
-    .shortcut-a { right: 6%; top: 10%; --float-time: 5.4s; }
-    .shortcut-b { right: 3%; top: 42%; --float-time: 6.2s; animation-delay: -2s; }
-    .shortcut-c { right: 12%; bottom: 7%; --float-time: 4.8s; animation-delay: -1s; }
-    .shortcut-d { left: 5%; bottom: 12%; --float-time: 5.8s; animation-delay: -3s; }
-    .shortcut-e { left: 26%; bottom: 3%; --float-time: 5.1s; animation-delay: -2.5s; }
+    .shortcut-a { right: 7%; top: 13%; transform: rotate(2deg); }
+    .shortcut-b { right: 4%; top: 42%; transform: rotate(-2deg); }
+    .shortcut-c { right: 12%; bottom: 10%; transform: rotate(2deg); }
+    .shortcut-d { left: 7%; bottom: 14%; transform: rotate(-2deg); }
+    .shortcut-e { left: 27%; bottom: 5%; transform: rotate(1deg); }
 
     .canvas-agent-note {
       position: absolute;
@@ -1658,11 +1642,7 @@
       max-width: 210px;
       padding: 11px 15px;
       color: var(--cream);
-      background: rgba(91,111,224,.88);
-      border: 1px solid rgba(255,255,255,.55);
-      border-radius: 22px 26px 18px 24px;
-      box-shadow: 0 13px 30px rgba(91,111,224,.15);
-      backdrop-filter: blur(8px);
+      background: var(--blue-purple);
       font-size: .68rem;
       line-height: 1.55;
       transform: rotate(1.5deg);
@@ -1698,19 +1678,6 @@
       vertical-align: 1px;
     }
 
-    .drag-bubble {
-      position: fixed;
-      z-index: 430;
-      width: var(--trail-size, 16px);
-      height: var(--trail-size, 16px);
-      border: 1px solid rgba(91,111,224,.28);
-      border-radius: 50%;
-      background: rgba(255,255,255,.42);
-      box-shadow: inset 2px 2px 5px rgba(255,255,255,.9);
-      pointer-events: none;
-      animation: trailBubble 1.35s ease-out forwards;
-    }
-
     /* ---------- 跨页面可拖动 Serena 贴纸 ---------- */
     .draggable-serena {
       position: fixed;
@@ -1718,7 +1685,7 @@
       top: 0;
       z-index: 440;
       height: clamp(168px, 22vh, 220px);
-      aspect-ratio: 519 / 1134;
+      aspect-ratio: 540 / 1147;
       width: auto;
       padding: 0;
       border: 0;
@@ -1807,13 +1774,7 @@
         min-height: auto;
         padding: 30px 16px 110px;
       }
-      .map-background {
-        display: block;
-        inset: -30px -16px;
-        opacity: .72;
-      }
-      .liquid-light { filter: blur(16px); }
-      .spark-word { display: none; }
+      .map-background { display: none; }
       .creative-canvas {
         min-height: auto;
         display: flex;
@@ -1959,48 +1920,11 @@
         animation-iteration-count: 1 !important;
         transition-duration: .01ms !important;
       }
-      .map-background,
-      .liquid-light,
-      .liquid-ribbon { transform: none !important; }
+      .map-depth { transform: none !important; }
       .draggable-serena { transition: none !important; }
     }
 
     @keyframes cursorBlink { 50% { opacity: 0; } }
-    @keyframes liquidDriftOne {
-      from { border-radius: 44% 56% 58% 42%; }
-      to { border-radius: 58% 42% 40% 60%; }
-    }
-    @keyframes liquidDriftTwo {
-      from { border-radius: 54% 46% 42% 58%; }
-      to { border-radius: 40% 60% 61% 39%; }
-    }
-    @keyframes liquidRibbon {
-      from { border-radius: 48% 52% 43% 57%; }
-      to { border-radius: 57% 43% 55% 45%; }
-    }
-    @keyframes bubbleRise {
-      0% { transform: translate3d(0, 0, 0) scale(.78); }
-      42% { transform: translate3d(16px, -46vh, 0) scale(.92); }
-      75% { transform: translate3d(-12px, -82vh, 0) scale(1); }
-      100% { transform: translate3d(8px, -125vh, 0) scale(.88); opacity: 0; }
-    }
-    @keyframes wordFloat {
-      from { translate: 0 -4px; }
-      to { translate: 5px 7px; }
-    }
-    @keyframes mainBubbleFloat {
-      from { translate: 0 -4px; border-radius: 45% 55% 48% 52% / 54% 46% 54% 46%; }
-      to { translate: 0 5px; border-radius: 52% 48% 55% 45% / 46% 54% 47% 53%; }
-    }
-    @keyframes contentBubbleFloat {
-      from { margin-top: -4px; }
-      to { margin-top: 5px; }
-    }
-    @keyframes trailBubble {
-      0% { opacity: .78; transform: translate(-50%, -50%) scale(.5); }
-      55% { opacity: .56; }
-      100% { opacity: 0; transform: translate(calc(-50% + var(--trail-x, 5px)), calc(-50% - 56px)) scale(1.4); }
-    }
     @keyframes focusZoneIn {
       from { opacity: 0; transform: scale(.92) translateY(18px); }
       to { opacity: 1; transform: none; }
@@ -2047,25 +1971,32 @@
     <main class="room-shell site-page is-active" id="page-home" data-page="home">
       <div class="creative-canvas">
         <div class="map-background" id="mapBackground" aria-hidden="true">
-          <span class="liquid-light one"></span>
-          <span class="liquid-light two"></span>
-          <span class="liquid-ribbon"></span>
-          <span class="ambient-bubble" style="--size:24px;--left:7%;--duration:12s;--delay:-3s;--opacity:.42"></span>
-          <span class="ambient-bubble" style="--size:48px;--left:18%;--duration:17s;--delay:-11s;--opacity:.32"></span>
-          <span class="ambient-bubble" style="--size:16px;--left:31%;--duration:10s;--delay:-6s;--opacity:.52"></span>
-          <span class="ambient-bubble" style="--size:34px;--left:42%;--duration:14s;--delay:-1s;--opacity:.38"></span>
-          <span class="ambient-bubble" style="--size:19px;--left:54%;--duration:11s;--delay:-8s;--opacity:.48"></span>
-          <span class="ambient-bubble" style="--size:62px;--left:67%;--duration:19s;--delay:-13s;--opacity:.25"></span>
-          <span class="ambient-bubble" style="--size:27px;--left:79%;--duration:13s;--delay:-4s;--opacity:.43"></span>
-          <span class="ambient-bubble" style="--size:13px;--left:91%;--duration:9s;--delay:-7s;--opacity:.56"></span>
-          <span class="spark-word one">writing...</span>
-          <span class="spark-word two">something is bubbling</span>
-          <span class="spark-word three">with agent ✦</span>
+          <div class="map-depth map-depth--far"></div>
+          <div class="map-depth map-depth--path">
+            <svg class="map-svg" viewBox="0 0 1200 700" preserveAspectRatio="none">
+              <path class="map-route" d="M-40 525 C140 420 164 158 354 236 C522 304 520 574 708 496 C858 434 856 128 1036 180 C1124 206 1176 306 1240 266"></path>
+              <path class="map-route secondary" d="M62 102 C218 208 318 64 444 142 C574 222 638 108 754 132 C914 166 1000 368 1164 300"></path>
+              <circle class="map-node" cx="168" cy="389" r="8"></circle>
+              <circle class="map-node hot" cx="354" cy="236" r="7"></circle>
+              <circle class="map-node" cx="708" cy="496" r="9"></circle>
+              <circle class="map-node" cx="1036" cy="180" r="8"></circle>
+            </svg>
+            <span class="map-word one">writing...</span>
+            <span class="map-word two">something is building</span>
+            <span class="map-word three">with agent ✦</span>
+          </div>
+          <div class="map-depth map-depth--near">
+            <span class="map-paper one"></span>
+            <span class="map-paper two"></span>
+            <span class="map-paper three"></span>
+            <span class="map-pin one"></span>
+            <span class="map-pin two"></span>
+          </div>
         </div>
         <section class="canvas-manifesto">
-          <span class="room-kicker">Serena's sparkling world ✦</span>
+          <span class="room-kicker">Serena's creative canvas ✦</span>
           <h1 class="room-title">我和小冉，正在把<br><em>想法做出来。</em></h1>
-          <p class="room-hint">每一个冒出来的念头，都可能成为下一件作品。</p>
+          <p class="room-hint">中文系 × Agent × AI building</p>
         </section>
 
         <section class="canvas-stage" aria-label="Serena 正在写作">
@@ -2099,7 +2030,7 @@
 
         <aside class="canvas-agent-note">
           <strong>小冉说：</strong>
-          她负责让灵感冒泡，我负责接住它们。
+          她负责决定什么值得做，我负责让它先跑起来。
         </aside>
 
         <div class="canvas-live" id="canvasLive">ROOM IS LIVE</div>
@@ -2484,7 +2415,7 @@
         hour12: false
       }).format(new Date());
       writingWindow.dataset.time = `NOW WRITING · ${time}`;
-      if (canvasLive) canvasLive.textContent = `SPARKLING LIVE · ${time}`;
+      if (canvasLive) canvasLive.textContent = `ROOM IS LIVE · ${time}`;
     }
 
     function updateBodyLock() {
@@ -2668,22 +2599,6 @@
     });
 
     let stickerDrag = null;
-    let lastTrailAt = 0;
-
-    function releaseDragBubble(x, y) {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      const now = performance.now();
-      if (now - lastTrailAt < 58) return;
-      lastTrailAt = now;
-      const bubble = document.createElement("span");
-      bubble.className = "drag-bubble";
-      bubble.style.left = `${x}px`;
-      bubble.style.top = `${y}px`;
-      bubble.style.setProperty("--trail-size", `${10 + Math.random() * 15}px`);
-      bubble.style.setProperty("--trail-x", `${-12 + Math.random() * 24}px`);
-      document.body.appendChild(bubble);
-      bubble.addEventListener("animationend", () => bubble.remove(), { once: true });
-    }
 
     draggableSerena.addEventListener("pointerdown", event => {
       if (event.button !== 0 && event.pointerType === "mouse") return;
@@ -2712,7 +2627,6 @@
       stickerDrag.lastClientX = event.clientX;
       const tilt = Math.max(-6, Math.min(6, directionalDelta * .75));
       placeSticker(stickerDrag.startX + dx, stickerDrag.startY + dy, tilt);
-      releaseDragBubble(event.clientX, event.clientY + 18);
     });
 
     function finishStickerDrag(event) {
@@ -2768,24 +2682,11 @@
         const py = (event.clientY - rect.top) / rect.height - .5;
         mapBackground.style.setProperty("--px", px.toFixed(3));
         mapBackground.style.setProperty("--py", py.toFixed(3));
-        document.querySelectorAll(".canvas-shortcut").forEach(bubble => {
-          const bubbleRect = bubble.getBoundingClientRect();
-          const dx = bubbleRect.left + bubbleRect.width / 2 - event.clientX;
-          const dy = bubbleRect.top + bubbleRect.height / 2 - event.clientY;
-          const distance = Math.hypot(dx, dy);
-          const strength = Math.max(0, 1 - distance / 260);
-          bubble.style.setProperty("--bubble-x", `${distance ? dx / distance * strength * 13 : 0}px`);
-          bubble.style.setProperty("--bubble-y", `${distance ? dy / distance * strength * 10 : 0}px`);
-        });
       }, { passive: true });
 
       document.getElementById("page-home").addEventListener("pointerleave", () => {
         mapBackground.style.setProperty("--px", "0");
         mapBackground.style.setProperty("--py", "0");
-        document.querySelectorAll(".canvas-shortcut").forEach(bubble => {
-          bubble.style.setProperty("--bubble-x", "0px");
-          bubble.style.setProperty("--bubble-y", "0px");
-        });
       });
     }
 
