@@ -246,323 +246,6 @@
       cursor: pointer;
     }
 
-    /* ---------- 气泡实验装置入口 ---------- */
-    .journal-intro {
-      background:
-        linear-gradient(rgba(91,111,224,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(91,111,224,.035) 1px, transparent 1px),
-        radial-gradient(circle at 18% 14%, rgba(212,225,87,.2), transparent 28%),
-        radial-gradient(circle at 82% 84%, rgba(91,111,224,.12), transparent 30%),
-        #faf9f1;
-      background-size: 34px 34px, 34px 34px, auto, auto, auto;
-    }
-
-    .journal-intro::before {
-      top: 8%;
-      left: 7%;
-      width: 90px;
-      border-width: 1px;
-      border-color: rgba(91,111,224,.22);
-      border-radius: 50%;
-      opacity: 1;
-      box-shadow:
-        34px 52px 0 -29px rgba(214,60,166,.34),
-        78px 5px 0 -38px rgba(91,111,224,.35);
-    }
-
-    .journal-intro::after {
-      right: 6%;
-      bottom: 8%;
-      width: 140px;
-      border-width: 1px;
-      border-color: rgba(212,225,87,.48);
-      border-radius: 50%;
-      opacity: 1;
-      box-shadow:
-        -50px -38px 0 -54px rgba(91,111,224,.4),
-        -94px 12px 0 -62px rgba(214,60,166,.34);
-    }
-
-    .journal-book {
-      width: min(930px, 92vw);
-      min-height: min(600px, 84vh);
-      display: grid;
-      grid-template-columns: minmax(220px, .72fr) minmax(420px, 1.28fr);
-      gap: clamp(28px, 5vw, 64px);
-      align-items: center;
-      padding: clamp(34px, 5vw, 58px);
-      overflow: visible;
-      background: rgba(255,254,248,.64);
-      border: 1px solid rgba(26,58,82,.12);
-      border-radius: 34px;
-      box-shadow:
-        inset 0 1px rgba(255,255,255,.92),
-        0 30px 90px rgba(26,58,82,.11);
-      backdrop-filter: blur(18px);
-    }
-
-    .journal-intro.is-opening .journal-book {
-      transform: scale(.9);
-      opacity: 0;
-      filter: blur(8px);
-      transition:
-        transform .9s cubic-bezier(.2,.75,.15,1),
-        opacity .45s ease .28s,
-        filter .7s ease;
-    }
-
-    .experiment-unit {
-      position: relative;
-      min-height: 470px;
-      display: grid;
-      place-items: center;
-    }
-
-    .experiment-label {
-      position: absolute;
-      left: 0;
-      top: 0;
-      color: var(--blue-purple);
-      font-family: var(--mono);
-      font-size: .62rem;
-      letter-spacing: .15em;
-      writing-mode: vertical-rl;
-    }
-
-    .glass-chamber {
-      position: relative;
-      width: 174px;
-      height: 390px;
-      overflow: hidden;
-      border: 2px solid rgba(91,111,224,.32);
-      border-top-width: 10px;
-      border-radius: 31px 31px 52px 52px;
-      background:
-        linear-gradient(90deg, rgba(255,255,255,.58), transparent 20% 78%, rgba(255,255,255,.45)),
-        rgba(232,234,253,.24);
-      box-shadow:
-        inset 13px 0 20px rgba(255,255,255,.72),
-        inset -10px -8px 24px rgba(91,111,224,.08),
-        9px 15px 0 rgba(212,225,87,.23);
-    }
-
-    .glass-chamber::before {
-      content: "";
-      position: absolute;
-      left: 26px;
-      top: 34px;
-      width: 8px;
-      height: 225px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.67);
-      transform: rotate(2deg);
-      z-index: 3;
-    }
-
-    .glass-chamber::after {
-      content: "SERENA × AGENT";
-      position: absolute;
-      left: 50%;
-      top: 25px;
-      color: rgba(26,58,82,.36);
-      font-family: var(--mono);
-      font-size: .52rem;
-      letter-spacing: .12em;
-      transform: translateX(-50%);
-      white-space: nowrap;
-      z-index: 4;
-    }
-
-    .chamber-liquid {
-      position: absolute;
-      inset: 42% -10px -8px;
-      background:
-        radial-gradient(circle at 38% 25%, rgba(255,255,255,.72) 0 3%, transparent 4%),
-        linear-gradient(165deg, rgba(212,225,87,.78), rgba(212,225,87,.42) 42%, rgba(91,111,224,.28));
-      border-radius: 48% 52% 0 0;
-      animation: liquidIdle 4.8s ease-in-out infinite alternate;
-      transition: inset 1s cubic-bezier(.2,.8,.2,1), filter .5s ease;
-    }
-
-    .chamber-bubble {
-      position: absolute;
-      left: var(--bubble-left);
-      bottom: var(--bubble-bottom);
-      width: var(--bubble-size);
-      height: var(--bubble-size);
-      border: 1px solid rgba(91,111,224,.38);
-      border-radius: 50%;
-      background: rgba(255,255,255,.34);
-      box-shadow: inset 2px 2px 4px rgba(255,255,255,.88);
-      opacity: .55;
-      animation: chamberBubble 3.6s ease-in-out infinite;
-      animation-delay: var(--bubble-delay);
-      z-index: 2;
-    }
-
-    .reaction-button {
-      position: absolute;
-      left: 50%;
-      bottom: -20px;
-      width: 46px;
-      height: 46px;
-      border: 7px solid var(--paper);
-      border-radius: 50%;
-      background: var(--magenta);
-      box-shadow: 0 6px 0 #a72b80, 0 10px 20px rgba(214,60,166,.25);
-      transform: translateX(-50%);
-      z-index: 6;
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-
-    .journal-intro.is-ready .reaction-button {
-      animation: reactionPulse 1.7s ease-in-out infinite;
-    }
-
-    .reaction-wire {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-
-    .reaction-wire::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: -67px;
-      width: 1px;
-      height: 48px;
-      background: rgba(91,111,224,.35);
-    }
-
-    .terminal-console {
-      position: relative;
-      min-width: 0;
-      padding: clamp(25px, 4vw, 42px);
-      color: #eef0ff;
-      background:
-        radial-gradient(circle at 88% 14%, rgba(91,111,224,.28), transparent 30%),
-        #182538;
-      border: 1px solid rgba(91,111,224,.38);
-      border-radius: 24px;
-      box-shadow:
-        0 18px 44px rgba(26,58,82,.18),
-        inset 0 0 0 7px rgba(255,255,255,.025);
-    }
-
-    .terminal-console::before {
-      content: "";
-      position: absolute;
-      top: 17px;
-      right: 21px;
-      width: 7px;
-      height: 7px;
-      background: var(--yellow-green);
-      border-radius: 50%;
-      box-shadow: 0 0 0 5px rgba(212,225,87,.1);
-      animation: cursorBlink 1.4s step-end infinite;
-    }
-
-    .journal-meta {
-      margin: 0 0 27px;
-      padding: 0 18px 14px 0;
-      border-bottom: 1px solid rgba(232,234,253,.13);
-      color: rgba(232,234,253,.48);
-    }
-
-    .journal-meta strong {
-      color: var(--yellow-green);
-      font-family: var(--mono);
-      font-size: .68rem;
-      font-style: normal;
-      letter-spacing: .13em;
-      text-transform: uppercase;
-    }
-
-    .terminal-copy {
-      min-height: 294px;
-      padding: 0;
-      color: #eef0ff;
-      font-size: clamp(.76rem, 1.5vw, .92rem);
-    }
-
-    .terminal-line.command { color: #9eabff; }
-    .terminal-line.output { color: #f7f5eb; }
-    .terminal-line.indent { color: rgba(238,240,255,.7); }
-    .terminal-line.final {
-      color: #ff8ad1;
-      background: linear-gradient(transparent 68%, rgba(212,225,87,.18) 68%);
-    }
-
-    .journal-action {
-      position: absolute;
-      right: 2px;
-      bottom: -66px;
-      width: max-content;
-      padding: 0;
-    }
-
-    .open-journal {
-      gap: 12px;
-      padding: 10px 12px 10px 18px;
-      color: var(--ink);
-      border: 1px solid rgba(26,58,82,.14);
-      border-radius: 999px;
-      background: var(--paper);
-      box-shadow: 0 8px 22px rgba(26,58,82,.09);
-      letter-spacing: .04em;
-    }
-
-    .open-journal span {
-      color: var(--ink);
-      background: var(--yellow-green);
-    }
-
-    .open-journal:hover span {
-      color: white;
-      background: var(--magenta);
-      transform: rotate(12deg) scale(1.05);
-    }
-
-    .reaction-portal {
-      position: absolute;
-      left: 50%;
-      top: 51%;
-      z-index: 20;
-      width: 22px;
-      height: 22px;
-      border: 1px solid rgba(255,255,255,.9);
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 34% 26%, white 0 4%, transparent 5%),
-        radial-gradient(circle at 50% 55%, rgba(212,225,87,.76), rgba(91,111,224,.52) 58%, rgba(214,60,166,.38));
-      box-shadow:
-        inset 4px 5px 10px rgba(255,255,255,.78),
-        0 0 0 0 rgba(91,111,224,.12);
-      opacity: 0;
-      pointer-events: none;
-      transform: translate(-50%,-50%) scale(.2);
-    }
-
-    .journal-intro.is-opening .chamber-liquid {
-      inset: 12% -14px -8px;
-      filter: saturate(1.25);
-    }
-
-    .journal-intro.is-opening .chamber-bubble {
-      animation-duration: .65s;
-    }
-
-    .journal-intro.is-opening .reaction-button {
-      transform: translateX(-50%) translateY(6px);
-      box-shadow: 0 1px 0 #a72b80;
-    }
-
-    .journal-intro.is-opening .reaction-portal {
-      opacity: 1;
-      animation: portalDive 1.45s cubic-bezier(.58,.02,.4,1) forwards;
-    }
-
     /* ---------- 创作房间 App ---------- */
     .studio-app {
       min-height: 100vh;
@@ -2109,49 +1792,6 @@
     }
 
     @media (max-width: 760px) {
-      .journal-book {
-        width: min(560px, 92vw);
-        min-height: min(690px, 90vh);
-        max-height: 94vh;
-        grid-template-columns: 1fr;
-        grid-template-rows: 165px 1fr;
-        gap: 18px;
-        padding: 25px;
-        overflow: auto;
-      }
-      .experiment-unit { min-height: 165px; }
-      .experiment-label {
-        left: 6px;
-        top: 50%;
-        writing-mode: horizontal-tb;
-        transform: rotate(-90deg) translate(-50%, -50%);
-        transform-origin: left top;
-      }
-      .glass-chamber {
-        width: 112px;
-        height: 145px;
-        border-top-width: 7px;
-        border-radius: 20px 20px 32px 32px;
-        box-shadow:
-          inset 8px 0 14px rgba(255,255,255,.72),
-          inset -7px -6px 18px rgba(91,111,224,.08),
-          6px 8px 0 rgba(212,225,87,.23);
-      }
-      .glass-chamber::before { left: 17px; top: 22px; width: 5px; height: 82px; }
-      .glass-chamber::after { top: 13px; font-size: .4rem; }
-      .reaction-button {
-        bottom: -15px;
-        width: 35px;
-        height: 35px;
-        border-width: 5px;
-      }
-      .reaction-wire::before { bottom: -45px; height: 31px; }
-      .terminal-console { align-self: stretch; padding: 25px 23px; }
-      .terminal-copy { min-height: 295px; }
-      .journal-action {
-        position: static;
-        margin: 18px 0 0 auto;
-      }
       .app-header {
         height: auto;
         min-height: 58px;
@@ -2292,15 +1932,17 @@
 
     @media (max-width: 520px) {
       .journal-book {
-        min-height: min(680px, 92vh);
-        padding: 20px;
-        border-radius: 25px;
+        min-height: 590px;
+        padding: 32px 23px 34px 42px;
+        background:
+          linear-gradient(90deg, transparent 0 25px, rgba(214, 60, 166, .19) 25px 27px, transparent 27px),
+          repeating-linear-gradient(transparent 0 31px, rgba(91, 111, 224, .085) 31px 32px),
+          var(--paper);
       }
       .journal-meta { align-items: flex-start; }
       .journal-meta span { display: none; }
-      .terminal-copy { min-height: 300px; padding-left: 0; font-size: .71rem; }
+      .terminal-copy { min-height: 360px; padding-left: 0; font-size: .73rem; }
       .journal-action { justify-content: center; }
-      .open-journal { font-size: .78rem; }
       .skip-intro { top: 12px; right: 12px; }
       .room-title { font-size: 2rem; }
       .writing-window::before { top: 10px; left: 10px; }
@@ -2324,29 +1966,6 @@
     }
 
     @keyframes cursorBlink { 50% { opacity: 0; } }
-    @keyframes liquidIdle {
-      from { border-radius: 48% 52% 0 0; transform: translateY(-2px) rotate(-1deg); }
-      to { border-radius: 56% 44% 0 0; transform: translateY(3px) rotate(1deg); }
-    }
-    @keyframes chamberBubble {
-      0%, 100% { opacity: .2; transform: translateY(18px) scale(.65); }
-      55% { opacity: .72; }
-      88% { opacity: .25; transform: translateY(-88px) scale(1.08); }
-    }
-    @keyframes reactionPulse {
-      50% {
-        box-shadow:
-          0 6px 0 #a72b80,
-          0 10px 20px rgba(214,60,166,.25),
-          0 0 0 9px rgba(214,60,166,.1);
-      }
-    }
-    @keyframes portalDive {
-      0% { transform: translate(-50%,-50%) scale(.2); opacity: 0; }
-      15% { opacity: 1; }
-      58% { transform: translate(-50%,-50%) scale(7); }
-      100% { transform: translate(-50%,-50%) scale(115); opacity: 1; }
-    }
     @keyframes liquidDriftOne {
       from { border-radius: 44% 56% 58% 42%; }
       to { border-radius: 58% 42% 40% 60%; }
@@ -2397,40 +2016,23 @@
   </style>
 </head>
 <body class="intro-active">
-  <section class="journal-intro" id="journalIntro" aria-label="Serena 气泡实验装置开场">
+  <section class="journal-intro" id="journalIntro" aria-label="Serena 札记开场">
     <button class="skip-intro" id="skipIntro" type="button">SKIP INTRO</button>
     <div class="journal-book" id="journalBook">
-      <div class="experiment-unit" aria-hidden="true">
-        <span class="experiment-label">CREATIVE REACTION · 2026</span>
-        <div class="glass-chamber">
-          <span class="chamber-liquid"></span>
-          <span class="chamber-bubble" style="--bubble-left:31%;--bubble-bottom:18%;--bubble-size:15px;--bubble-delay:-.6s"></span>
-          <span class="chamber-bubble" style="--bubble-left:59%;--bubble-bottom:30%;--bubble-size:9px;--bubble-delay:-2s"></span>
-          <span class="chamber-bubble" style="--bubble-left:43%;--bubble-bottom:46%;--bubble-size:20px;--bubble-delay:-1.2s"></span>
-          <span class="chamber-bubble" style="--bubble-left:68%;--bubble-bottom:55%;--bubble-size:7px;--bubble-delay:-2.7s"></span>
-        </div>
-        <div class="reaction-wire">
-          <span class="reaction-button"></span>
-        </div>
+      <div class="journal-meta">
+        <strong>Serena's journal</strong>
+        <span>creative log · 2026</span>
       </div>
 
-      <div class="terminal-console">
-        <div class="journal-meta">
-          <strong>Serena bubble lab</strong>
-          <span>system ready · 01</span>
-        </div>
+      <div class="terminal-copy" id="terminalCopy" aria-live="polite"></div>
 
-        <div class="terminal-copy" id="terminalCopy" aria-live="polite"></div>
-
-        <div class="journal-action" id="journalAction">
-          <button class="open-journal" id="openJournal" type="button">
-            让想法冒泡
-            <span aria-hidden="true">↗</span>
-          </button>
-        </div>
+      <div class="journal-action" id="journalAction">
+        <button class="open-journal" id="openJournal" type="button">
+          翻开札记
+          <span aria-hidden="true">↘</span>
+        </button>
       </div>
     </div>
-    <span class="reaction-portal" aria-hidden="true"></span>
   </section>
 
   <div class="studio-app" id="studioApp" inert>
@@ -2792,7 +2394,6 @@
           const cursor = terminal.querySelector(".typing-cursor");
           if (cursor) cursor.remove();
           journalAction.classList.add("is-ready");
-          journalIntro.classList.add("is-ready");
           return;
         }
 
@@ -2842,7 +2443,6 @@
       });
       introFinished = true;
       journalAction.classList.add("is-ready");
-      journalIntro.classList.add("is-ready");
     }
 
     function enterStudio() {
@@ -2852,7 +2452,7 @@
       studioApp.removeAttribute("inert");
       studioApp.classList.add("is-visible");
       document.body.classList.remove("intro-active");
-      setTimeout(() => journalIntro.classList.add("is-gone"), 1450);
+      setTimeout(() => journalIntro.classList.add("is-gone"), 1200);
     }
 
     function openExhibit(id, trigger) {
