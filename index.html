@@ -1277,6 +1277,29 @@
 
     .page-tab:hover:not(.is-active) { color: var(--blue-purple); }
 
+    .pill-nav {
+      border-radius: 18px;
+      background: rgba(255, 254, 248, .92);
+      box-shadow: 0 14px 44px rgba(26, 58, 82, .14), 5px 5px 0 rgba(212, 225, 87, .5);
+    }
+
+    .page-tab {
+      border-radius: 13px;
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .04em;
+    }
+
+    .page-tab.is-active {
+      background: var(--ink);
+      color: var(--yellow-green);
+    }
+
+    .page-tab.is-active span {
+      color: var(--cream);
+      opacity: .72;
+    }
+
     .room-actions {
       display: flex;
       gap: 12px;
@@ -1888,6 +1911,374 @@
       vertical-align: 1px;
     }
 
+    /* ---------- 主页：Serena Channel OS ---------- */
+    .journal-intro.channel-intro {
+      background:
+        radial-gradient(circle at 16% 16%, rgba(212, 225, 87, .22), transparent 28%),
+        radial-gradient(circle at 86% 78%, rgba(91, 111, 224, .13), transparent 32%),
+        linear-gradient(135deg, #fefcf6 0%, #f8f6e8 100%);
+    }
+
+    .channel-intro .tv-entry {
+      min-height: min(610px, 82vh);
+      align-items: center;
+    }
+
+    .channel-intro .journal-book {
+      width: min(760px, 100%);
+      min-height: clamp(430px, 58vh, 540px);
+      grid-template-columns: 1fr 84px;
+      padding: 16px;
+      background: #f1f2d8;
+      border-width: 2px;
+      border-radius: 28px;
+      box-shadow:
+        10px 12px 0 rgba(91, 111, 224, .12),
+        0 26px 70px rgba(26, 58, 82, .12);
+    }
+
+    .channel-intro .journal-intro.is-opening .journal-book {
+      transform: none;
+    }
+
+    .channel-intro .tv-antenna {
+      opacity: .55;
+      transform: scale(.72);
+      transform-origin: bottom left;
+    }
+
+    .channel-intro .tv-screen {
+      min-height: clamp(350px, 51vh, 450px);
+      border-width: 2px;
+      border-radius: 20px;
+      background:
+        linear-gradient(rgba(255,255,255,.035) 50%, rgba(26,58,82,.08) 50%) 0 0 / 100% 7px,
+        radial-gradient(circle at 25% 16%, rgba(212, 225, 87, .17), transparent 34%),
+        linear-gradient(145deg, #1a3a52, #151821 78%);
+    }
+
+    .channel-intro .tv-panel {
+      gap: 14px;
+      padding-top: 22px;
+    }
+
+    .channel-intro .tv-dial {
+      width: 48px;
+      border-width: 2px;
+    }
+
+    .channel-intro .tv-feet {
+      opacity: .7;
+      bottom: -22px;
+    }
+
+    .channel-intro .intro-companion {
+      align-self: center;
+      padding-bottom: 0;
+    }
+
+    .channel-intro .intro-companion img {
+      width: clamp(110px, 15vw, 162px);
+    }
+
+    .channel-intro .intro-companion p {
+      box-shadow: 5px 5px 0 rgba(212, 225, 87, .55);
+    }
+
+    .channel-intro.is-opening .journal-book {
+      transform: translateY(4vh) scale(2.9);
+      opacity: 0;
+      filter: blur(1px);
+    }
+
+    #page-home.channel-home {
+      min-height: calc(100vh - 62px);
+      padding: clamp(22px, 4vw, 54px) clamp(18px, 4vw, 58px) 116px;
+      overflow: visible;
+      background:
+        radial-gradient(circle at 12% 14%, rgba(212, 225, 87, .24), transparent 24%),
+        radial-gradient(circle at 88% 70%, rgba(91, 111, 224, .11), transparent 28%),
+        linear-gradient(90deg, rgba(91, 111, 224, .045) 1px, transparent 1px),
+        linear-gradient(rgba(91, 111, 224, .04) 1px, transparent 1px),
+        var(--cream);
+      background-size: auto, auto, 34px 34px, 34px 34px, auto;
+    }
+
+    #page-home.channel-home::after {
+      content: "CH 01 / SERENA BROADCAST";
+      left: clamp(20px, 4vw, 58px);
+      bottom: 28px;
+      font-size: .58rem;
+      opacity: .48;
+    }
+
+    .channel-os {
+      position: relative;
+      z-index: 2;
+      width: min(1320px, 100%);
+      min-height: calc(100vh - 210px);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(310px, .84fr) minmax(0, 1.38fr);
+      gap: clamp(22px, 4vw, 54px);
+      align-items: stretch;
+    }
+
+    .channel-hero {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 590px;
+      padding: clamp(28px, 4vw, 46px);
+      overflow: hidden;
+      background: var(--paper);
+      border: 1px solid rgba(26, 58, 82, .13);
+      box-shadow: 10px 12px 0 rgba(212, 225, 87, .5);
+    }
+
+    .channel-hero::before {
+      content: "01";
+      position: absolute;
+      right: -18px;
+      top: -32px;
+      color: rgba(91, 111, 224, .1);
+      font-family: "Fraunces", serif;
+      font-size: clamp(7rem, 15vw, 13rem);
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .channel-label {
+      width: fit-content;
+      margin: 0 0 28px;
+      padding: 5px 10px;
+      color: var(--ink);
+      background: var(--yellow-green);
+      font-family: var(--mono);
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+    }
+
+    .channel-hero h1 {
+      position: relative;
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 6vw, 5.8rem);
+      font-weight: 900;
+      line-height: .98;
+      letter-spacing: -.08em;
+    }
+
+    .channel-hero h1 em {
+      display: block;
+      color: var(--blue-purple);
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -.07em;
+    }
+
+    .channel-hero p {
+      position: relative;
+      max-width: 360px;
+      margin: 24px 0 0;
+      color: var(--ink-light);
+      font-size: .9rem;
+      line-height: 1.9;
+    }
+
+    .signal-card {
+      position: relative;
+      margin-top: auto;
+      padding: 18px 18px 16px;
+      color: #f7f5eb;
+      background:
+        linear-gradient(rgba(255,255,255,.04) 50%, rgba(26,58,82,.1) 50%) 0 0 / 100% 7px,
+        #151821;
+      border-radius: 18px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+      font-family: var(--mono);
+      font-size: .72rem;
+      line-height: 1.8;
+    }
+
+    .signal-card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--yellow-green);
+      font-family: "Fraunces", serif;
+      font-size: 1rem;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .channel-stage {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: clamp(16px, 2.4vw, 26px);
+      min-height: 590px;
+    }
+
+    .broadcast-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .broadcast-chip {
+      padding: 13px 14px;
+      color: var(--ink);
+      background: rgba(255, 254, 248, .82);
+      border: 1px solid rgba(26, 58, 82, .12);
+      font-family: var(--mono);
+      font-size: .62rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .broadcast-chip strong {
+      display: block;
+      margin-top: 4px;
+      color: var(--blue-purple);
+      font-family: var(--sans);
+      font-size: .85rem;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .program-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-rows: minmax(190px, auto);
+      gap: clamp(14px, 2vw, 22px);
+    }
+
+    .program-card {
+      position: relative;
+      min-height: 190px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: clamp(20px, 2.6vw, 30px);
+      overflow: hidden;
+      color: var(--ink);
+      border: 1px solid rgba(26, 58, 82, .12);
+      background: var(--paper);
+      box-shadow: 7px 8px 0 rgba(26, 58, 82, .055);
+      text-align: left;
+      cursor: pointer;
+      transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+    }
+
+    .program-card::before {
+      content: attr(data-channel);
+      position: absolute;
+      right: 18px;
+      top: 14px;
+      color: rgba(91, 111, 224, .16);
+      font-family: "Fraunces", serif;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      font-style: italic;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .program-card.feature {
+      grid-row: span 2;
+      min-height: 410px;
+      background:
+        linear-gradient(135deg, rgba(212, 225, 87, .26), transparent 42%),
+        var(--paper);
+    }
+
+    .program-card:hover,
+    .program-card:focus-visible {
+      transform: translateY(-6px) rotate(-.4deg);
+      box-shadow: 11px 13px 0 rgba(212, 225, 87, .56);
+      outline: none;
+    }
+
+    .program-card:nth-child(2):hover,
+    .program-card:nth-child(2):focus-visible {
+      box-shadow: 11px 13px 0 rgba(214, 60, 166, .18);
+    }
+
+    .program-card small {
+      position: relative;
+      z-index: 1;
+      color: var(--magenta);
+      font-family: var(--mono);
+      font-size: .58rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .program-card h2 {
+      position: relative;
+      z-index: 1;
+      margin: 20px 0 10px;
+      font-family: var(--serif);
+      font-size: clamp(1.25rem, 2.4vw, 2rem);
+      line-height: 1.22;
+      letter-spacing: -.04em;
+    }
+
+    .program-card p {
+      position: relative;
+      z-index: 1;
+      max-width: 430px;
+      margin: 0;
+      color: var(--ink-light);
+      font-size: .82rem;
+      line-height: 1.75;
+    }
+
+    .program-card .program-action {
+      position: relative;
+      z-index: 1;
+      margin-top: auto;
+      padding-top: 24px;
+      color: var(--blue-purple);
+      font-family: var(--mono);
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+    }
+
+    .now-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 20px;
+      align-items: center;
+      padding: 18px 20px;
+      background: var(--blue-purple);
+      color: var(--cream);
+      box-shadow: 9px 9px 0 rgba(214, 60, 166, .18);
+    }
+
+    .now-panel strong {
+      display: block;
+      color: var(--yellow-green);
+      font-family: var(--hand);
+      font-size: 1.25rem;
+    }
+
+    .now-panel p {
+      margin: 2px 0 0;
+      font-size: .76rem;
+      line-height: 1.7;
+    }
+
+    .channel-clock {
+      color: rgba(254, 252, 246, .78);
+      font-family: var(--mono);
+      font-size: .64rem;
+      letter-spacing: .1em;
+      white-space: nowrap;
+    }
+
     /* ---------- 跨页面可拖动 Serena 贴纸 ---------- */
     .draggable-serena {
       position: fixed;
@@ -1966,6 +2357,17 @@
       .shortcut-b { right: 2%; }
       .shortcut-d { left: 3%; }
       .canvas-agent-note { right: 18%; bottom: 18%; }
+      .channel-os {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .channel-hero,
+      .channel-stage {
+        min-height: auto;
+      }
+      .signal-card {
+        margin-top: 42px;
+      }
     }
 
     @media (max-width: 760px) {
@@ -1983,6 +2385,38 @@
       #page-home.room-shell {
         min-height: auto;
         padding: 30px 16px 110px;
+      }
+      #page-home.channel-home {
+        padding: 24px 16px 118px;
+      }
+      .channel-os {
+        display: block;
+      }
+      .channel-hero {
+        margin-bottom: 24px;
+        padding: 26px 22px 24px;
+      }
+      .channel-hero h1 {
+        font-size: clamp(2.7rem, 16vw, 4.4rem);
+      }
+      .channel-hero p {
+        max-width: none;
+      }
+      .broadcast-strip {
+        grid-template-columns: 1fr;
+      }
+      .program-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+      }
+      .program-card,
+      .program-card.feature {
+        grid-row: auto;
+        min-height: 230px;
+      }
+      .now-panel {
+        grid-template-columns: 1fr;
+        margin-top: 18px;
       }
       .map-background { display: none; }
       .creative-canvas {
@@ -2060,7 +2494,7 @@
       .artwork:nth-child(n) { min-height: 138px; }
       .room-footer { flex-direction: column; margin-top: 34px; }
       .pill-nav { bottom: 14px; }
-      .page-tab { padding: 9px 13px; }
+      .page-tab { padding: 9px 11px; font-size: .62rem; }
       .room-actions { flex-wrap: wrap; }
       .collection-page { padding: 54px 18px 104px; }
       .collection-hero, .journal-layout { grid-template-columns: 1fr; }
@@ -2151,6 +2585,30 @@
       .terminal-copy { min-height: 300px; padding-left: 0; font-size: .71rem; }
       .journal-action { justify-content: center; }
       .skip-intro { top: 12px; right: 12px; }
+      .channel-intro .journal-book {
+        grid-template-columns: 1fr;
+        min-height: 560px;
+      }
+      .channel-intro .tv-screen {
+        min-height: 430px;
+      }
+      .channel-intro .tv-panel {
+        flex-direction: row;
+      }
+      .channel-label {
+        font-size: .56rem;
+      }
+      .program-card {
+        padding: 22px 20px;
+      }
+      .pill-nav {
+        width: calc(100vw - 24px);
+        justify-content: space-between;
+      }
+      .page-tab {
+        flex: 1;
+        justify-content: center;
+      }
       .room-title { font-size: 2rem; }
       .writing-window::before { top: 10px; left: 10px; }
       .desk-caption { display: none; }
@@ -2186,7 +2644,7 @@
   </style>
 </head>
 <body class="intro-active">
-  <section class="journal-intro" id="journalIntro" aria-label="Serena 私人频道开场">
+  <section class="journal-intro channel-intro" id="journalIntro" aria-label="Serena 私人频道开场">
     <button class="skip-intro" id="skipIntro" type="button">SKIP INTRO</button>
     <div class="tv-entry">
       <div class="journal-book" id="journalBook">
@@ -2244,77 +2702,71 @@
       <button class="nav-button" type="button" data-exhibit="about">和 Agent 并肩前行的女生 ↗</button>
     </header>
 
-    <main class="room-shell site-page is-active" id="page-home" data-page="home">
-      <div class="creative-canvas">
-        <div class="map-background" id="mapBackground" aria-hidden="true">
-          <div class="map-depth map-depth--far"></div>
-          <div class="map-depth map-depth--path">
-            <svg class="map-svg" viewBox="0 0 1200 700" preserveAspectRatio="none">
-              <path class="map-route" d="M-40 525 C140 420 164 158 354 236 C522 304 520 574 708 496 C858 434 856 128 1036 180 C1124 206 1176 306 1240 266"></path>
-              <path class="map-route secondary" d="M62 102 C218 208 318 64 444 142 C574 222 638 108 754 132 C914 166 1000 368 1164 300"></path>
-              <circle class="map-node" cx="168" cy="389" r="8"></circle>
-              <circle class="map-node hot" cx="354" cy="236" r="7"></circle>
-              <circle class="map-node" cx="708" cy="496" r="9"></circle>
-              <circle class="map-node" cx="1036" cy="180" r="8"></circle>
-            </svg>
-            <span class="map-word one">writing...</span>
-            <span class="map-word two">something is building</span>
-            <span class="map-word three">with agent ✦</span>
-          </div>
-          <div class="map-depth map-depth--near">
-            <span class="map-paper one"></span>
-            <span class="map-paper two"></span>
-            <span class="map-paper three"></span>
-            <span class="map-pin one"></span>
-            <span class="map-pin two"></span>
-          </div>
-        </div>
-        <section class="canvas-manifesto">
-          <span class="room-kicker">Serena's creative canvas ✦</span>
-          <h1 class="room-title">我和小冉，正在把<br><em>想法做出来。</em></h1>
-          <p class="room-hint">中文系 × Agent × AI building</p>
-        </section>
-
-        <section class="canvas-stage" aria-label="Serena 正在写作">
-          <div class="writing-window" id="writingWindow" data-time="NOW WRITING · --:--:--">
-            <img src="assets/serena-writing.jpg" alt="蓝紫卷发、戴圆框眼镜的 Serena 伏在桌前写作，旁边有一个小小的蓝色 Agent 伙伴">
-          </div>
-        </section>
-
-        <div class="canvas-shortcuts-mobile">
-          <button class="canvas-shortcut shortcut-a" type="button" data-exhibit="design">
-            <span class="shortcut-art folder">Ds</span>
-            <span>Design Skill</span>
-          </button>
-          <button class="canvas-shortcut shortcut-b" type="button" data-exhibit="xiaohongshu">
-            <span class="shortcut-art html"></span>
-            <span>案例库 HTML</span>
-          </button>
-          <button class="canvas-shortcut shortcut-c" type="button" data-exhibit="speech">
-            <span class="shortcut-art">02</span>
-            <span>即兴演讲</span>
-          </button>
-          <button class="canvas-shortcut shortcut-d" type="button" data-exhibit="writing">
-            <span class="shortcut-art note">Aa</span>
-            <span>创意写作</span>
-          </button>
-          <button class="canvas-shortcut shortcut-e" type="button" data-exhibit="agent">
-            <span class="shortcut-art agent"></span>
-            <span>小冉</span>
-          </button>
-        </div>
-
-        <aside class="canvas-agent-note">
-          <strong>小冉说：</strong>
-          她负责决定什么值得做，我负责让它先跑起来。
-        </aside>
-
-        <div class="canvas-live" id="canvasLive">ROOM IS LIVE</div>
+    <main class="room-shell channel-home site-page is-active" id="page-home" data-page="home">
+      <div class="map-background" id="mapBackground" aria-hidden="true">
+        <div class="map-depth map-depth--far"></div>
       </div>
 
-      <footer class="room-footer" style="display:none">
-        <span>Serena · 熙冉 × 小冉 · 2026</span>
-      </footer>
+      <div class="channel-os">
+        <section class="channel-hero" aria-label="Serena Channel 首页">
+          <p class="channel-label">CH 01 · LIVE FROM SERENA</p>
+          <h1>Serena<br><em>Channel</em></h1>
+          <p>这里不是一张普通个人介绍页，而是一座正在开播的个人频道：中文系的感受力、Agent 的执行力，和“妳的 AI building”一起长出来。</p>
+
+          <div class="signal-card" aria-label="频道信号">
+            <strong>signal check</strong>
+            <div>whoami → Serena_熙冉</div>
+            <div>status → 和 Agent 并肩前行</div>
+            <div>motto → 万水千山，我们一同领略🌊</div>
+          </div>
+        </section>
+
+        <section class="channel-stage" aria-label="频道节目单">
+          <div class="broadcast-strip">
+            <div class="broadcast-chip">profile<strong>ENTJ / 中文系</strong></div>
+            <div class="broadcast-chip">co-building<strong>Agent 小冉</strong></div>
+            <div class="broadcast-chip">now<strong>AI building</strong></div>
+          </div>
+
+          <div class="program-grid">
+            <button class="program-card feature" type="button" data-exhibit="design" data-channel="HTML">
+              <small>featured program</small>
+              <h2>个人品牌设计系统</h2>
+              <p>从三色、字体、组件到页面场景，把审美判断写成 Agent 可以持续读取的 Design Skill。这里是这座网站的底层操作系统。</p>
+              <span class="program-action">OPEN EXHIBIT ↗</span>
+            </button>
+
+            <button class="program-card" type="button" data-exhibit="xiaohongshu" data-channel="01">
+              <small>html / workflow</small>
+              <h2>小红书案例库插件</h2>
+              <p>把“看到好案例”变成可保存、可检索、可继续写作的个人内容工作流。</p>
+              <span class="program-action">VIEW CASE ↗</span>
+            </button>
+
+            <button class="program-card" type="button" data-exhibit="speech" data-channel="02">
+              <small>practice / mini app</small>
+              <h2>即兴演讲练习</h2>
+              <p>随机出题、录音表达、AI 反馈，让表达力在一次次开口里形成。</p>
+              <span class="program-action">VIEW CASE ↗</span>
+            </button>
+
+            <button class="program-card" type="button" data-exhibit="writing" data-channel="03">
+              <small>writing room</small>
+              <h2>创意写作与札记</h2>
+              <p>文学不是远离技术的东西，它训练观察、判断，也训练我在复杂信息里找到值得讲述的线。</p>
+              <span class="program-action">READ NOTE ↗</span>
+            </button>
+          </div>
+
+          <aside class="now-panel">
+            <div>
+              <strong>小冉正在后台待命</strong>
+              <p>拖动右下角的 Serena，可以把她带到任意频道旁边。下一步我们会让她对不同内容说不同的话。</p>
+            </div>
+            <span class="channel-clock" id="canvasLive">ON AIR</span>
+          </aside>
+        </section>
+      </div>
     </main>
 
     <main class="collection-page site-page" id="page-works" data-page="works">
@@ -2690,8 +3142,8 @@
         second: "2-digit",
         hour12: false
       }).format(new Date());
-      writingWindow.dataset.time = `NOW WRITING · ${time}`;
-      if (canvasLive) canvasLive.textContent = `ROOM IS LIVE · ${time}`;
+      if (writingWindow) writingWindow.dataset.time = `NOW WRITING · ${time}`;
+      if (canvasLive) canvasLive.textContent = `ON AIR · ${time}`;
     }
 
     function updateBodyLock() {
