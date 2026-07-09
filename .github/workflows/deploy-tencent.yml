@@ -1,0 +1,38 @@
+name: Deploy to Tencent Cloud
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: tencent-cloud-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Configure SSH
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "${{ secrets.TENCENT_SSH_KEY }}" > ~/.ssh/tencent_deploy_key
+          chmod 600 ~/.ssh/tencent_deploy_key
+          ssh-keyscan -p "${{ secrets.TENCENT_PORT || '22' }}" -H "${{ secrets.TENCENT_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy latest main branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          ssh \
+            -i ~/.ssh/tencent_deploy_key \
+            -p "${{ secrets.TENCENT_PORT || '22' }}" \
+            -o IdentitiesOnly=yes \
+            "${{ secrets.TENCENT_USER }}@${{ secrets.TENCENT_HOST }}" \
+            "/usr/local/bin/deploy-serena-site"
