@@ -232,6 +232,14 @@
     font-family:'Fira Code',monospace;font-size:.72rem;color:var(--ink-faint);
     display:flex;flex-wrap:wrap;gap:6px 22px;
   }
+  .icp-footer{
+    padding:0 clamp(20px,5vw,48px) 40px;
+    text-align:center;
+    font-size:.75rem;
+    color:var(--ink-faint);
+  }
+  .icp-footer a{color:inherit;text-decoration:none}
+  .icp-footer a:hover{color:var(--orange);text-decoration:underline}
 
   /* ══ reveal ══ */
   .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
@@ -397,6 +405,10 @@
   <span>TECH · React / Tailwind / FastAPI / Supabase / Railway</span>
   <span>DEV · Serena + Claude</span>
 </div>
+
+<footer class="icp-footer">
+  <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">赣ICP备2026015468号-1</a>
+</footer>
 
 <script>
   const observer = new IntersectionObserver((entries) => {
