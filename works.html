@@ -299,16 +299,38 @@ body.works-scene {
   font-size: 0.82rem;
   opacity: 0.55;
   letter-spacing: 0.06em;
+  min-width: 0;
 }
 .win-newtab {
-  font-size: 0.7rem;
-  opacity: 0.35;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 5px 9px;
+  border: 1px solid rgba(63,81,181,0.22);
+  border-radius: 999px;
+  background: rgba(63,81,181,0.06);
+  color: #3F51B5;
+  font-size: 0.72rem;
+  font-weight: 600;
+  opacity: 0.82;
   text-decoration: none;
-  color: inherit;
-  letter-spacing: 0.04em;
-  transition: opacity 0.15s;
+  letter-spacing: 0.02em;
+  transition: background 0.15s ease, border-color 0.15s ease, opacity 0.15s ease, transform 0.15s ease;
 }
-.win-newtab:hover { opacity: 0.8; }
+.win-newtab:hover {
+  opacity: 1;
+  background: rgba(63,81,181,0.1);
+  border-color: rgba(63,81,181,0.36);
+  transform: translateY(-1px);
+}
+.win-newtab.is-disabled {
+  color: rgba(26,26,26,0.38);
+  background: rgba(26,26,26,0.04);
+  border-color: rgba(26,26,26,0.1);
+  cursor: default;
+  transform: none;
+}
 
 /* 扫描线 */
 .win-scan {
@@ -354,12 +376,12 @@ body.works-scene {
 }
 
 .case-window.detail-window {
-  width: 760px;
+  width: min(1040px, calc(100vw - 48px));
 }
 .case-window.detail-window .win-body {
   padding: 0;
-  max-height: min(68vh, 640px);
-  height: min(68vh, 640px);
+  max-height: min(78vh, 760px);
+  height: min(78vh, 760px);
   overflow: hidden;
   background: #FFFEFA;
 }
@@ -545,7 +567,12 @@ body.works-scene {
   .case-window.detail-window { width: calc(100vw - 24px); }
   #ip-works { display: none; }
   .win-body { max-height: 50vh; }
-  .case-window.detail-window .win-body { max-height: 62vh; }
+  .win-title { font-size: 0.76rem; text-align: left; }
+  .win-newtab { font-size: 0.68rem; padding: 4px 7px; }
+  .case-window.detail-window .win-body {
+    max-height: 70vh;
+    height: 70vh;
+  }
 
   /* 移动端：车厢分页，一屏一个座位/IP */
   .train-scene {
@@ -652,7 +679,7 @@ body.works-scene {
       <div class="win-dot win-dot-expand"></div>
     </div>
     <div class="win-title">#2026-001 · 个人简历修改网站</div>
-    <a class="win-newtab" href="events/resume-editor.html" target="_blank">新标签页 ↗</a>
+    <a class="win-newtab" href="events/resume-editor.html" target="_blank" rel="noopener">打开独立项目页 ↗</a>
   </div>
   <div class="win-scan"></div>
   <div class="win-body">
@@ -668,7 +695,7 @@ body.works-scene {
       <div class="win-dot win-dot-expand"></div>
     </div>
     <div class="win-title">#2026-005 · YouTube 爆款监测系统</div>
-    <a class="win-newtab" href="events/youtube-signal-hub.html" target="_blank">新标签页 ↗</a>
+    <a class="win-newtab" href="events/youtube-signal-hub.html" target="_blank" rel="noopener">打开独立项目页 ↗</a>
   </div>
   <div class="win-scan"></div>
   <div class="win-body">
@@ -684,7 +711,7 @@ body.works-scene {
       <div class="win-dot win-dot-expand"></div>
     </div>
     <div class="win-title">#2026-004 · LockLock</div>
-    <a class="win-newtab" href="#" target="_blank">新标签页 ↗</a>
+    <span class="win-newtab is-disabled" aria-label="独立项目页待补充">独立页待补充</span>
   </div>
   <div class="win-scan"></div>
   <div class="win-body">
@@ -703,7 +730,7 @@ body.works-scene {
       <div class="win-dot win-dot-expand"></div>
     </div>
     <div class="win-title">#2026-006 · Home</div>
-    <a class="win-newtab" href="#" target="_blank">新标签页 ↗</a>
+    <span class="win-newtab is-disabled" aria-label="独立项目页待补充">独立页待补充</span>
   </div>
   <div class="win-scan"></div>
   <div class="win-body">
@@ -760,12 +787,19 @@ body.works-scene {
       return;
     }
 
-    // 设置初始位置
-    const off = offsets[openCount % offsets.length];
-    const cx = Math.min(off.x + openCount * 20, window.innerWidth - 500);
-    const cy = Math.min(off.y + openCount * 20, window.innerHeight - 400);
-    win.style.left = Math.max(12, cx) + 'px';
-    win.style.top  = Math.max(12, cy) + 'px';
+    // 设置初始位置：详情窗口居中，普通资料窗错开排列。
+    if (win.classList.contains('detail-window')) {
+      const width = Math.min(1040, window.innerWidth - 48);
+      const height = Math.min(window.innerHeight * 0.78, 760) + 44;
+      win.style.left = Math.max(12, (window.innerWidth - width) / 2) + 'px';
+      win.style.top = Math.max(12, (window.innerHeight - height) / 2) + 'px';
+    } else {
+      const off = offsets[openCount % offsets.length];
+      const cx = Math.min(off.x + openCount * 20, window.innerWidth - 500);
+      const cy = Math.min(off.y + openCount * 20, window.innerHeight - 400);
+      win.style.left = Math.max(12, cx) + 'px';
+      win.style.top  = Math.max(12, cy) + 'px';
+    }
     openCount++;
 
     win.classList.add('open');
