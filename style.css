@@ -416,62 +416,115 @@ a { color: inherit; }
   background-size: 32px 32px;
 }
 
-.signal-gallery-grid {
+.ticket-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
 }
 @media (min-width: 601px) {
-  .signal-gallery-grid {
+  .ticket-grid,
+  .signal-sample-library {
     width: min(1080px, calc(100vw - 48px));
     margin-left: 50%;
     transform: translateX(-50%);
   }
 }
-.signal-card {
+.ticket-v {
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(26, 26, 26, 0.12);
-  border-radius: 8px;
-  padding: 20px;
-  background:
-    linear-gradient(135deg, rgba(255, 254, 250, 0.96), rgba(250, 247, 239, 0.92)),
-    var(--bg);
-  box-shadow: 0 10px 32px rgba(26, 26, 26, 0.06);
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: 16px;
+  padding: 34px 28px;
+  background: var(--bg);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
-.signal-card:hover {
+.ticket-v:hover {
   border-color: rgba(63, 81, 181, 0.35);
-  box-shadow: 0 14px 36px rgba(63, 81, 181, 0.12);
+  box-shadow: 0 6px 20px rgba(63, 81, 181, 0.1);
   transform: translateY(-2px);
 }
-.signal-card-head {
-  min-height: 142px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding-bottom: 16px;
+.ticket-v-head {
+  margin-bottom: 26px;
 }
-.signal-kicker {
+.ticket-v-name {
   font-family: var(--font-title);
-  font-size: 0.72rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.02em;
   color: var(--accent);
 }
-.signal-card h2 {
+.ticket-v-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  flex: 1;
+}
+.ticket-v-item-title {
+  display: block;
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+}
+.ticket-v-item-desc {
+  display: block;
+  font-size: 0.8rem;
+  line-height: 1.65;
+  opacity: 0.5;
+}
+.signal-sample-library {
+  margin-top: 76px;
+}
+.signal-library-head {
+  max-width: 620px;
+  margin-bottom: 26px;
+}
+.signal-library-kicker {
+  display: block;
+  margin-bottom: 10px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: rgba(63, 81, 181, 0.72);
+}
+.signal-library-head h1 {
   margin: 0;
   font-family: var(--font-title);
-  font-size: 1.3rem;
-  line-height: 1.25;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  font-weight: 500;
+  line-height: 1.2;
 }
-.signal-card p {
+.signal-library-head p {
   margin: 0;
-  font-size: 0.86rem;
+  margin-top: 12px;
+  font-size: 0.92rem;
   line-height: 1.7;
-  opacity: 0.58;
+  opacity: 0.56;
 }
-.signal-frame {
+.signal-sample-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.signal-sample-card {
+  border: 1px solid rgba(26, 26, 26, 0.11);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 254, 250, 0.96), rgba(249, 246, 238, 0.9)),
+    var(--bg);
+  overflow: hidden;
+  box-shadow: 0 10px 32px rgba(26, 26, 26, 0.055);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.signal-sample-card:hover {
+  border-color: rgba(63, 81, 181, 0.28);
+  box-shadow: 0 14px 36px rgba(63, 81, 181, 0.1);
+  transform: translateY(-2px);
+}
+.signal-sample-media {
   position: relative;
   width: 100%;
   aspect-ratio: 9 / 12.4;
@@ -498,44 +551,52 @@ a { color: inherit; }
   opacity: 1;
   transform: scale(1);
 }
-.signal-card::after {
-  content: '';
-  display: block;
-  height: 0;
-  border-top: 1.5px dashed rgba(26, 26, 26, 0.22);
-  margin: 18px 0 14px;
-  order: 3;
-}
-.signal-card-foot {
-  order: 4;
-  display: grid;
-  grid-template-columns: 40px 1fr 40px;
-  align-items: center;
-  gap: 10px;
-}
 .signal-nav {
-  width: 40px;
-  height: 40px;
+  position: absolute;
+  top: 50%;
+  width: 38px;
+  height: 38px;
   border: 1px solid rgba(26, 26, 26, 0.14);
   border-radius: 50%;
-  background: rgba(255, 254, 250, 0.75);
+  background: rgba(255, 254, 250, 0.88);
   color: var(--ink);
   font-size: 1.35rem;
   line-height: 1;
   cursor: pointer;
   transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
+.signal-nav-prev { left: 12px; transform: translateY(-50%); }
+.signal-nav-next { right: 12px; transform: translateY(-50%); }
 .signal-nav:hover {
   border-color: rgba(63, 81, 181, 0.45);
   color: var(--accent);
-  transform: translateY(-1px);
 }
-.signal-count {
-  justify-self: center;
+.signal-nav-prev:hover { transform: translateY(-50%) translateX(-1px); }
+.signal-nav-next:hover { transform: translateY(-50%) translateX(1px); }
+.signal-sample-meta {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 14px;
+  padding: 16px 18px 18px;
+  border-top: 1px solid rgba(26, 26, 26, 0.08);
+}
+.signal-sample-mark {
+  font-family: var(--font-title);
+  font-size: 1rem;
+  color: var(--ink);
+}
+.signal-sample-count {
   font-family: var(--font-body);
   font-size: 0.76rem;
   letter-spacing: 0.08em;
   color: rgba(26, 26, 26, 0.45);
+}
+.signal-sample-meta p {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  opacity: 0.54;
 }
 .ticket-v-tear {
   position: relative;
@@ -764,32 +825,28 @@ a { color: inherit; }
     transform: none;
   }
 
-  .signal-gallery-grid {
+  .signal-sample-library {
+    margin-top: 58px;
+  }
+  .signal-library-head {
+    margin-bottom: 22px;
+  }
+  .signal-library-head p {
+    font-size: 0.86rem;
+  }
+  .signal-sample-grid {
     grid-template-columns: 1fr;
     gap: 22px;
   }
-  .signal-card {
-    padding: 16px;
-  }
-  .signal-card-head {
-    min-height: 0;
-    padding-bottom: 14px;
-  }
-  .signal-card h2 {
-    font-size: 1.16rem;
-  }
-  .signal-card p {
-    font-size: 0.82rem;
-  }
-  .signal-frame {
+  .signal-sample-media {
     aspect-ratio: 9 / 13.2;
-  }
-  .signal-card-foot {
-    grid-template-columns: 42px 1fr 42px;
   }
   .signal-nav {
     width: 42px;
     height: 42px;
+  }
+  .signal-sample-meta {
+    padding: 14px 16px 16px;
   }
 
   .ticket-grid { grid-template-columns: 1fr; gap: 24px; }

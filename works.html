@@ -199,31 +199,6 @@ body.works-scene {
 }
 .scene-ip:nth-child(even) .scene-ip-label { transform: rotate(1.5deg); }
 
-.scene-dots {
-  display: none;
-  position: fixed;
-  left: 50%;
-  bottom: 96px;
-  transform: translateX(-50%);
-  z-index: 2;
-  justify-content: center;
-  gap: 6px;
-}
-.scene-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  border: 0;
-  padding: 0;
-  background: rgba(26,26,26,0.16);
-  transition: background 0.2s ease, transform 0.2s ease;
-  cursor: pointer;
-}
-.scene-dot.active {
-  background: var(--accent);
-  transform: scale(1.15);
-}
-
 .scene-pager {
   display: none;
   position: fixed;
@@ -613,18 +588,6 @@ body.works-scene {
     text-align: center;
     line-height: 1.35;
   }
-  .scene-dots {
-    display: flex;
-    bottom: 104px;
-    gap: 10px;
-  }
-  .scene-dot {
-    width: 11px;
-    height: 11px;
-    border: 1px solid rgba(26,26,26,0.12);
-    background: rgba(255,254,250,0.84);
-  }
-  .scene-dot.active { background: var(--accent); }
   .scene-pager { display: flex; }
   .mini-metrics,
   .mini-three,
@@ -673,13 +636,6 @@ body.works-scene {
 </div>
 
 <div class="scene-notice" id="scene-notice" role="status"><span id="scene-notice-text"></span></div>
-
-<div class="scene-dots">
-  <button class="scene-dot" type="button" aria-label="查看第 1 个项目"></button>
-  <button class="scene-dot" type="button" aria-label="查看第 2 个项目"></button>
-  <button class="scene-dot" type="button" aria-label="查看第 3 个项目"></button>
-  <button class="scene-dot" type="button" aria-label="查看第 4 个项目"></button>
-</div>
 
 <div class="scene-pager" aria-label="项目切换">
   <button class="scene-page-btn" type="button" data-dir="-1" aria-label="上一个项目">‹</button>
@@ -1092,9 +1048,8 @@ body.works-scene {
     }, 700);
   })();
 
-  // 移动端分页：圆点、箭头和页码保持同步
+  // 移动端分页：箭头和页码保持同步
   if (scene) {
-    const dots = document.querySelectorAll('.scene-dot');
     const slides = document.querySelectorAll('.scene-ip');
     const pageCount = document.getElementById('scene-page-count');
     let currentPage = 0;
@@ -1110,11 +1065,6 @@ body.works-scene {
         slide.style.setProperty('--mobile-left', ((i - currentPage) * 100) + '%');
         slide.classList.toggle('active-slide', i === currentPage);
       });
-      dots.forEach(function (d, i) {
-        const active = i === currentPage;
-        d.classList.toggle('active', active);
-        d.setAttribute('aria-current', active ? 'true' : 'false');
-      });
       if (pageCount) pageCount.textContent = (currentPage + 1) + ' / ' + slides.length;
     }
 
@@ -1123,11 +1073,7 @@ body.works-scene {
       updatePager(next);
     }
 
-    if (dots.length && slides.length) {
-      dots.forEach(function (dot, idx) {
-        dot.addEventListener('click', function () { goToPage(idx); });
-      });
-
+    if (slides.length) {
       document.querySelectorAll('.scene-page-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
           goToPage(currentPage + Number(btn.dataset.dir || 0));
