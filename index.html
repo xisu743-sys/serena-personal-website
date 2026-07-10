@@ -116,7 +116,8 @@ body.entering-records #skip-btn {
   left: 50%;
   top: 48%;
   z-index: 90;
-  width: min(640px, calc(100vw - 80px));
+  width: min(720px, calc(100vw - 80px));
+  min-height: 320px;
   opacity: 0;
   pointer-events: none;
   transform: translate(-50%, calc(-50% + 24px));
@@ -126,100 +127,86 @@ body.entering-records #skip-btn {
 }
 #archive-preview .file-tag {
   margin-bottom: 24px;
+  text-align: center;
 }
-#archive-preview .cases-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 8px;
+.journey-preview {
+  position: relative;
+  height: 260px;
+  overflow: visible;
 }
-#archive-preview .case-card {
-  border: 1px solid rgba(26,26,26,0.12);
-  border-radius: 8px;
-  padding: 14px 18px;
-  background: rgba(255,254,250,0.76);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  color: inherit;
-  text-decoration: none;
-  transform: translateY(10px);
+.journey-cloud {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 230px;
+  transform: translateX(-50%);
   opacity: 0;
-  transition: opacity 0.56s ease,
-              transform 0.7s cubic-bezier(.16,1,.3,1),
-              background-color 0.18s ease,
-              border-color 0.18s ease;
+  filter: saturate(0.9);
+  transition: opacity 0.8s ease 0.2s, transform 1.2s cubic-bezier(.16,1,.3,1) 0.2s;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
-#archive-preview .case-card:hover {
-  background: rgba(63,81,181,0.04);
-  border-color: rgba(63,81,181,0.25);
+.journey-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 132px;
+  height: 80px;
+  opacity: 0;
+  transition: opacity 0.6s ease 0.34s;
 }
-#archive-preview .case-card-left {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  min-width: 0;
+.journey-line path {
+  fill: none;
+  stroke: rgba(26,26,26,0.16);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 780;
+  stroke-dashoffset: 780;
+  transition: stroke-dashoffset 1.05s linear 0.4s;
 }
-#archive-preview .case-id {
-  font-family: "Inter", monospace;
-  font-size: 0.72rem;
-  opacity: 0.4;
-  letter-spacing: 0.05em;
-  min-width: 72px;
-}
-#archive-preview .case-name {
+.journey-chip {
+  position: absolute;
+  border: 1px solid color-mix(in srgb, var(--chip-color, var(--accent)) 42%, transparent);
+  border-radius: 6px;
+  background: rgba(255,254,250,0.86);
+  padding: 5px 12px;
   font-family: "Noto Serif SC", serif;
-  font-size: 1rem;
-}
-#archive-preview .case-tag {
-  font-size: 0.7rem;
-  padding: 2px 10px;
-  border-radius: 999px;
-  border: 1px solid;
+  font-size: 0.84rem;
+  color: var(--ink);
   white-space: nowrap;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  opacity: 0;
+  transform: translateY(10px) rotate(var(--chip-rot, -1deg));
+  transition: opacity 0.52s ease, transform 0.72s cubic-bezier(.16,1,.3,1);
 }
-#archive-preview .archived-tag {
-  border-color: rgba(26,26,26,0.25);
-  color: rgba(26,26,26,0.45);
-}
-#archive-preview .stalled-tag {
-  border-color: #C2185B;
-  color: #C2185B;
-  opacity: 0.7;
-}
-#archive-preview .active-tag {
-  border-color: #3F51B5;
-  color: #3F51B5;
-}
-#archive-preview .case-open-hint {
-  font-size: 0.72rem;
-  opacity: 0.3;
-  letter-spacing: 0.06em;
-  margin-left: 8px;
-  white-space: nowrap;
-}
-
-/* 与 works.html 里同名元素配对，跳转时浏览器原生变形过渡（不支持的浏览器忽略） */
-#archive-preview .file-tag       { view-transition-name: vt-file-tag; }
-#archive-preview .case-card:nth-child(1) { view-transition-name: vt-case-w1; }
-#archive-preview .case-card:nth-child(2) { view-transition-name: vt-case-w2; }
-#archive-preview .case-card:nth-child(3) { view-transition-name: vt-case-w3; }
-#archive-preview .case-card:nth-child(4) { view-transition-name: vt-case-w4; }
-#archive-preview .case-card:nth-child(5) { view-transition-name: vt-case-w5; }
+.journey-chip:nth-of-type(1) { left: 6%;  top: 82px;  --chip-color: #3F51B5; --chip-rot: -1.5deg; }
+.journey-chip:nth-of-type(2) { left: 12%; top: 198px; --chip-color: #FF7A59; --chip-rot: 1.2deg; }
+.journey-chip:nth-of-type(3) { right: 9%; top: 78px;  --chip-color: #C2185B; --chip-rot: 1.5deg; }
+.journey-chip:nth-of-type(4) { right: 7%; top: 196px; --chip-color: #5C9E3D; --chip-rot: -1deg; }
 body.entering-records #archive-preview {
   opacity: 1;
   transform: translate(-50%, -50%);
 }
-body.entering-records #archive-preview .case-card {
-  opacity: 1;
-  transform: translateY(0);
+body.entering-records .journey-cloud {
+  opacity: 0.68;
+  transform: translateX(-50%) translateY(-8px);
 }
-body.entering-records #archive-preview .case-card:nth-child(1) { transition-delay: 0.08s; }
-body.entering-records #archive-preview .case-card:nth-child(2) { transition-delay: 0.2s; }
-body.entering-records #archive-preview .case-card:nth-child(3) { transition-delay: 0.32s; }
-body.entering-records #archive-preview .case-card:nth-child(4) { transition-delay: 0.44s; }
-body.entering-records #archive-preview .case-card:nth-child(5) { transition-delay: 0.56s; }
+body.entering-records .journey-line {
+  opacity: 1;
+}
+body.entering-records .journey-line path {
+  stroke-dashoffset: 0;
+}
+body.entering-records .journey-chip {
+  opacity: 1;
+  transform: translateY(0) rotate(var(--chip-rot, -1deg));
+}
+body.entering-records .journey-chip:nth-of-type(1) { transition-delay: 0.24s; }
+body.entering-records .journey-chip:nth-of-type(2) { transition-delay: 0.36s; }
+body.entering-records .journey-chip:nth-of-type(3) { transition-delay: 0.48s; }
+body.entering-records .journey-chip:nth-of-type(4) { transition-delay: 0.6s; }
 body.archive-ready #archive-preview {
   pointer-events: auto;
 }
@@ -340,22 +327,19 @@ body.intro-done .page-shell {
   #archive-preview {
     top: 46%;
     width: calc(100vw - 36px);
+    min-height: 360px;
   }
   #archive-preview .file-tag {
     margin-bottom: 16px;
   }
-  #archive-preview .case-card {
-    padding: 12px 14px;
-    align-items: flex-start;
-  }
-  #archive-preview .case-card-left {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 4px;
-  }
-  #archive-preview .case-id {
-    min-width: 0;
-  }
+  .journey-preview { height: 300px; }
+  .journey-cloud { width: 180px; top: 6px; }
+  .journey-line { top: 138px; }
+  .journey-chip { font-size: 0.78rem; padding: 5px 10px; }
+  .journey-chip:nth-of-type(1) { left: 2%;  top: 88px; }
+  .journey-chip:nth-of-type(2) { left: 5%;  top: 222px; }
+  .journey-chip:nth-of-type(3) { right: 2%; top: 92px; }
+  .journey-chip:nth-of-type(4) { right: 2%; top: 224px; }
 }
 </style>
 </head>
@@ -373,62 +357,20 @@ body.intro-done .page-shell {
 <button id="skip-btn">跳过</button>
 <div id="bottom-actions">
   <div id="drag-hint">▲ 档案被遮挡 · 拖动她查看全部</div>
-  <button id="enter-btn">进入档案室 →</button>
+  <button id="enter-btn">进入异常事件记录 →</button>
 </div>
 
 <div id="archive-preview" aria-hidden="true">
-  <div class="file-tag">[ 异常事件记录 · 共 6 份卷宗 · 点击打开 ]</div>
-  <div class="cases-list">
-    <a class="case-card" href="works.html">
-      <div class="case-card-left">
-        <span class="case-id">#2024-001</span>
-        <span class="case-name">ifyoucan 实习 · 主编助理</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span class="case-tag archived-tag">已归档</span>
-        <span class="case-open-hint">打开 ↗</span>
-      </div>
-    </a>
-    <a class="case-card" href="works.html">
-      <div class="case-card-left">
-        <span class="case-id">#2024-002</span>
-        <span class="case-name">央视纪录片撰稿</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span class="case-tag archived-tag">已归档</span>
-        <span class="case-open-hint">打开 ↗</span>
-      </div>
-    </a>
-    <a class="case-card" href="works.html">
-      <div class="case-card-left">
-        <span class="case-id">#2025-001</span>
-        <span class="case-name">苏州智加科技 PR 实习</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span class="case-tag archived-tag">已归档</span>
-        <span class="case-open-hint">打开 ↗</span>
-      </div>
-    </a>
-    <a class="case-card" href="works.html">
-      <div class="case-card-left">
-        <span class="case-id">#2026-001</span>
-        <span class="case-name">简历版本管理系统</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span class="case-tag stalled-tag">搁置中</span>
-        <span class="case-open-hint">打开 ↗</span>
-      </div>
-    </a>
-    <a class="case-card" href="works.html">
-      <div class="case-card-left">
-        <span class="case-id">#2026-003</span>
-        <span class="case-name">可验证匿名评价协议</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span class="case-tag active-tag">⚡ 高度异常</span>
-        <span class="case-open-hint">打开 ↗</span>
-      </div>
-    </a>
+  <div class="file-tag">[ 异常事件记录 · 云层稳定 · 信号正在靠近 ]</div>
+  <div class="journey-preview" aria-hidden="true">
+    <img class="journey-cloud" src="assets/cloud-a.png" alt="" draggable="false">
+    <svg class="journey-line" viewBox="0 0 720 80" preserveAspectRatio="none">
+      <path d="M0,44 L112,44 L128,24 L144,62 L160,44 L300,44 L316,30 L332,58 L348,16 L364,70 L380,44 L520,44 L536,30 L552,56 L568,44 L720,44" />
+    </svg>
+    <span class="journey-chip">YouTube 爆款监测</span>
+    <span class="journey-chip">简历修改网站</span>
+    <span class="journey-chip">LockLock</span>
+    <span class="journey-chip">Home</span>
   </div>
 </div>
 
@@ -583,21 +525,17 @@ body.intro-done .page-shell {
   });
 
 
-  /* 桌面端 works 页 IP 同为 240px 居中：把（可能被拖离的）IP 送回正中即可，跨页视觉上原地不动；
-     移动端 works 页 IP 仍在右下角（120px），保持原来的飞入角落 */
-  function moveIpToCorner() {
+  /* works 页已经是云层观测场：把（可能被拖离的）IP 收回画面中心，
+     让她像站在入口处目送信号展开；移动端终点页隐藏主 IP，因此这里只做轻微收束。 */
+  function moveIpTowardRecords() {
     const rect = ipWrapper.getBoundingClientRect();
     const isMobile = window.innerWidth <= 600;
-    const scale = isMobile ? 0.8 : 1;
+    const scale = isMobile ? 0.76 : 1;
     const startX = rect.left;
     const startY = rect.top;
-    const targetX = isMobile
-      ? window.innerWidth - 16 - rect.width * scale
-      : (window.innerWidth - rect.width) / 2;
-    const targetY = isMobile
-      ? window.innerHeight - 80 - rect.height * scale
-      : (window.innerHeight - rect.height) / 2;
-    const duration = 940;
+    const targetX = (window.innerWidth - rect.width * scale) / 2;
+    const targetY = (window.innerHeight - rect.height * scale) / 2;
+    const duration = 1120;
     const startedAt = performance.now();
 
     ipWrapper.classList.remove('settled', 'dragging');
@@ -630,7 +568,7 @@ body.intro-done .page-shell {
     linesEl.style.setProperty('opacity', '0', 'important');
     linesEl.style.setProperty('filter', 'blur(1px)', 'important');
     linesEl.style.setProperty('transform', 'translateY(-18px)', 'important');
-    moveIpToCorner();
+    moveIpTowardRecords();
 
     lineEls.forEach((el, i) => {
       const direction = i % 2 === 0 ? -1 : 1;
@@ -642,7 +580,7 @@ body.intro-done .page-shell {
       linesEl.style.display = 'none';
       sessionStorage.setItem('serena-entering-works', '1');
       window.location.href = 'works.html';
-    }, 900);
+    }, 1450);
   }
 
   enterBtn.addEventListener('click', enterSite);
