@@ -416,111 +416,91 @@ a { color: inherit; }
   background-size: 32px 32px;
 }
 
-.ticket-group { margin-bottom: 8px; }
-.ticket-group-head {
+.ticket-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.ticket-v {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  border-radius: 14px;
+  padding: 22px 20px;
+  background: var(--bg);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.ticket-v:hover {
+  border-color: rgba(63, 81, 181, 0.35);
+  box-shadow: 0 6px 20px rgba(63, 81, 181, 0.1);
+  transform: translateY(-2px);
+}
+.ticket-v-head {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  padding-bottom: 8px;
-  margin: 44px 0 16px;
-  border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+  gap: 8px;
+  margin-bottom: 16px;
 }
-.ticket-group:first-child .ticket-group-head { margin-top: 0; }
-.ticket-group-en {
+.ticket-v-code {
   font-family: var(--font-title);
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-size: 0.95rem;
+  font-weight: 700;
   color: var(--accent);
-  opacity: 0.9;
 }
-.ticket-group-index {
-  font-size: 0.68rem;
-  opacity: 0.35;
-  letter-spacing: 0.04em;
+.ticket-v-name {
+  font-family: var(--font-title);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  opacity: 0.4;
 }
-
-.ticket-list {
+.ticket-v-items {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 14px;
-}
-.ticket {
-  position: relative;
-  display: flex;
-  align-items: stretch;
-  border: 1px solid rgba(26, 26, 26, 0.12);
-  border-radius: 10px;
-  overflow: hidden;
-  background: var(--bg);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-.ticket:hover {
-  border-color: rgba(63, 81, 181, 0.4);
-  box-shadow: 0 2px 14px rgba(63, 81, 181, 0.08);
-}
-.ticket-main {
   flex: 1;
-  min-width: 0;
-  padding: 16px 18px;
 }
-.ticket-no {
+.ticket-v-item-title {
+  display: block;
   font-family: var(--font-title);
-  font-size: 0.7rem;
-  color: var(--accent);
-  opacity: 0.65;
-  letter-spacing: 0.08em;
-  margin-bottom: 5px;
+  font-size: 0.95rem;
+  margin-bottom: 3px;
 }
-.ticket-title {
-  font-family: var(--font-title);
-  font-size: 1.05rem;
-  line-height: 1.4;
-  margin-bottom: 5px;
+.ticket-v-item-desc {
+  display: block;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  opacity: 0.55;
 }
-.ticket-desc {
-  font-size: 0.86rem;
-  line-height: 1.65;
-  opacity: 0.6;
-}
-.ticket-tear {
+.ticket-v-tear {
   position: relative;
-  flex-shrink: 0;
-  width: 0;
-  align-self: stretch;
-  border-left: 1.5px dashed rgba(26, 26, 26, 0.22);
+  height: 0;
+  border-top: 1.5px dashed rgba(26, 26, 26, 0.22);
+  margin: 18px 0 14px;
 }
-.ticket-tear::before,
-.ticket-tear::after {
+.ticket-v-tear::before,
+.ticket-v-tear::after {
   content: '';
   position: absolute;
-  left: 50%;
+  top: 50%;
   width: 14px;
   height: 14px;
   background: var(--bg);
   border: 1px solid rgba(26, 26, 26, 0.12);
   border-radius: 50%;
 }
-.ticket-tear::before { top: 0; transform: translate(-50%, -50%); }
-.ticket-tear::after { bottom: 0; transform: translate(-50%, 50%); }
-.ticket-stub {
-  flex-shrink: 0;
-  width: 76px;
-  padding: 14px 8px;
+.ticket-v-tear::before { left: 0; transform: translate(-50%, -50%); }
+.ticket-v-tear::after { right: 0; transform: translate(50%, -50%); }
+.ticket-v-stub {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  background: rgba(63, 81, 181, 0.04);
+  gap: 12px;
 }
+.ticket-v-stub .ticket-barcode { flex: 1; height: 22px; }
 .ticket-barcode {
-  width: 100%;
-  height: 26px;
   background: repeating-linear-gradient(
     90deg,
     var(--ink) 0 1.5px,
@@ -528,12 +508,18 @@ a { color: inherit; }
   );
   opacity: 0.28;
 }
-.ticket-stub-code {
-  font-family: var(--font-title);
-  font-size: 0.66rem;
-  letter-spacing: 0.06em;
-  opacity: 0.45;
-  white-space: nowrap;
+.ticket-sticker {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border: 1.5px dashed rgba(63, 81, 181, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: var(--accent);
+  opacity: 0.4;
 }
 
 /* ═══════════ 接触协议 ═══════════ */
@@ -716,11 +702,7 @@ a { color: inherit; }
     transform: none;
   }
 
-  .ticket-stub { width: 60px; padding: 12px 6px; }
-  .ticket-main { padding: 14px 14px; }
-  .ticket-title { font-size: 1rem; }
-  .ticket-desc { font-size: 0.83rem; }
-  .ticket-group-head { margin-top: 36px; }
+  .ticket-grid { grid-template-columns: 1fr; gap: 22px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
