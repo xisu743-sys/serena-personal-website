@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home · Serena</title>
+<script>
+  if (new URLSearchParams(window.location.search).get('embed') === '1') {
+    document.documentElement.classList.add('is-embed');
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,700;1,400;1,600;1,700&family=Schoolbell&family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #F07040;
+    --accent: #2B7FD8;
+    --decor: #CC2936;
+    --cream: #FFFDF9;
+    --cream-dark: #F9F8F6;
+    --ink: #1A1A2E;
+    --ink-light: #44445A;
+    --ink-faint: #8A8A9A;
+    --line: rgba(26, 26, 46, .1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    min-height: 100vh;
+    font-family: 'Noto Sans SC', -apple-system, 'PingFang SC', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    line-height: 1.78;
+    color: var(--ink);
+    background: var(--cream);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--accent); color: #fff; }
+
+  .page { position: relative; background: var(--cream); }
+
+  .wrap { width: min(1120px, calc(100% - clamp(36px, 8vw, 96px))); margin: 0 auto; }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-d1 { transition-delay: .1s; }
+  .reveal-d2 { transition-delay: .2s; }
+  .reveal-d3 { transition-delay: .3s; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    font-family: 'Fira Code', monospace;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .eyebrow::before { content: ''; width: 28px; height: 3px; background: var(--primary); }
+
+  /* ===== Nav ===== */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    height: 58px;
+    padding: 0 clamp(26px, 4vw, 52px);
+    background: rgba(255, 253, 249, .88);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(12px);
+  }
+  .logo {
+    color: var(--primary);
+    font-family: 'Schoolbell', cursive;
+    font-size: 1.32rem;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .tabs {
+    display: flex;
+    align-items: center;
+    gap: clamp(18px, 3vw, 34px);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs a {
+    position: relative;
+    color: var(--ink-light);
+    font-size: .84rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color .2s ease;
+  }
+  .tabs a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -8px;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .22s ease;
+  }
+  .tabs a:hover { color: var(--primary); }
+  .tabs a:hover::after { transform: scaleX(1); }
+
+  /* ===== Hero: flat bg, centered title, no decoration ===== */
+  .hero {
+    padding: clamp(130px, 20vh, 224px) 0 clamp(120px, 17vh, 196px);
+    text-align: center;
+  }
+  .hero-title {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 900;
+    font-size: clamp(3rem, 8vw, 6.4rem);
+    line-height: 1.05;
+    letter-spacing: -.01em;
+    color: var(--ink);
+  }
+  .hero-tagline {
+    margin: 26px auto 0;
+    color: var(--ink-light);
+    font-size: 1.05rem;
+    line-height: 1.9;
+  }
+
+  /* ===== Scene head ===== */
+  .section-head { margin-bottom: clamp(36px, 6vw, 64px); }
+  .section-head h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 900;
+    line-height: 1.1;
+  }
+
+  /* ===== 01 背景: Key Insight annotation card (component #3) ===== */
+  .scene-01 { background: var(--cream-dark); padding: clamp(90px, 12vh, 150px) 0; }
+  .key-note {
+    position: relative;
+    max-width: 640px;
+    padding: clamp(30px, 3.6vw, 40px) clamp(28px, 3.6vw, 38px);
+    background: #fff;
+    border: 1.5px dashed rgba(240, 112, 64, .35);
+  }
+  .key-note .kt {
+    position: absolute;
+    top: -13px;
+    left: 24px;
+    padding: 0 8px;
+    background: var(--cream-dark);
+    font-family: 'Schoolbell', cursive;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+  .key-note p { color: var(--ink-light); font-size: 1rem; line-height: 1.92; }
+
+  /* ===== 02 搭建: big-numeral step cards (component #10A) ===== */
+  .scene-02 { padding: clamp(90px, 12vh, 150px) 0; }
+  .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 2.6vw, 28px); }
+  .chair-num {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(40px, 4vw, 48px) clamp(24px, 2.6vw, 28px) clamp(26px, 3vw, 30px);
+    background: #fff;
+    border: 1px solid var(--line);
+  }
+  .chair-num .bn {
+    position: absolute;
+    top: -14px;
+    right: -4px;
+    font-family: 'Spectral', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 5rem;
+    line-height: 1;
+    color: var(--nc, var(--primary));
+    opacity: .1;
+    pointer-events: none;
+  }
+  .chair-num h3 {
+    position: relative;
+    margin-bottom: 10px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.14rem;
+    font-weight: 900;
+  }
+  .chair-num p { position: relative; color: var(--ink-light); font-size: .92rem; line-height: 1.86; }
+
+  /* ===== 03 技术栈: typewriter terminal panel (component #25) ===== */
+  .scene-03 { background: var(--cream-dark); padding: clamp(90px, 12vh, 150px) 0; }
+  .tw-sec {
+    max-width: 680px;
+    padding: clamp(30px, 3.6vw, 40px);
+    background: #fff;
+    border: 1px solid var(--line);
+  }
+  .tw-sec .hd {
+    display: inline-block;
+    margin-bottom: 1.3rem;
+    padding-bottom: 4px;
+    border-bottom: 2px solid var(--ink);
+    font-family: 'Fira Code', monospace;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  .tw-sec .ct { font-family: 'Fira Code', monospace; font-size: .86rem; line-height: 2.3; }
+  .tw-sec .ct p { margin: 0; color: var(--ink-light); }
+  .tw-sec .ct .key { color: var(--primary); font-weight: 600; }
+
+  .filefoot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    padding: 40px 0 56px;
+    border-top: 1px solid var(--line);
+    font-family: 'Fira Code', monospace;
+    color: var(--ink-faint);
+    font-size: .72rem;
+  }
+  .icp-footer {
+    padding: 0 clamp(20px, 5vw, 48px) 40px;
+    text-align: center;
+    font-size: .75rem;
+    color: var(--ink-faint);
+  }
+  .icp-footer a { text-decoration: none; color: inherit; }
+  .icp-footer a:hover { color: var(--primary); text-decoration: underline; }
+
+  /* ===== Embed (iframe inside works.html) ===== */
+  html.is-embed body { overflow-x: hidden; }
+  html.is-embed .nav { padding: 0 16px; height: 50px; gap: 14px; }
+  html.is-embed .logo { font-size: 1.05rem; }
+  html.is-embed .tabs { gap: 14px; }
+  html.is-embed .tabs a { font-size: .76rem; }
+  html.is-embed .wrap { width: min(660px, calc(100% - 40px)); }
+  html.is-embed .hero { padding: 56px 0 60px; }
+  html.is-embed .hero-title { font-size: clamp(2.2rem, 8vw, 3.4rem); }
+  html.is-embed .scene-01, html.is-embed .scene-02, html.is-embed .scene-03 { padding: 60px 0; }
+  html.is-embed .g3 { grid-template-columns: 1fr; }
+  html.is-embed .section-head { margin-bottom: 32px; }
+  html.is-embed .section-head h2 { font-size: clamp(1.9rem, 5vw, 2.6rem); }
+
+  @media (max-width: 900px) {
+    .g3 { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    body { font-size: 15px; }
+    .wrap { width: min(100% - 34px, 430px); }
+    .nav { padding: 0 16px; gap: 16px; }
+    .logo { font-size: 1.1rem; }
+    .tabs { gap: 16px; }
+    .tabs a { font-size: .78rem; }
+    .hero-title { font-size: clamp(2.3rem, 11vw, 3.4rem); }
+    .tw-sec .ct { font-size: .78rem; line-height: 2.15; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="nav" aria-label="Primary">
+    <a class="logo" href="#hero">Home</a>
+    <div class="tabs" role="list">
+      <a href="#scene-01" role="listitem">背景</a>
+      <a href="#scene-02" role="listitem">搭建</a>
+      <a href="#scene-03" role="listitem">技术栈</a>
+    </div>
+  </nav>
+
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <div class="reveal">
+        <h1 class="hero-title">Home</h1>
+        <p class="hero-tagline">房间物品一目了然，轻松出行不在话下</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene-01" id="scene-01">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">01 背景</span>
+        <h2>背景</h2>
+      </div>
+      <div class="key-note reveal">
+        <span class="kt">Key Insight ✦</span>
+        <p>旅行、搬家、社交活动，出行要带的东西大不相同，每次都要重新列清单，非常繁琐。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene-02" id="scene-02">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">02 搭建</span>
+        <h2>搭建</h2>
+      </div>
+      <div class="g3">
+        <div class="chair-num reveal" style="--nc:var(--primary)">
+          <span class="bn">01</span>
+          <h3>把房间搬进 App</h3>
+          <p>添加全屋物品，一次盘点，永久可见。</p>
+        </div>
+        <div class="chair-num reveal reveal-d1" style="--nc:var(--accent)">
+          <span class="bn">02</span>
+          <h3>按场景生成清单</h3>
+          <p>从物品库筛选需要带的东西，生成对应场景 checklist（出差 / 旅行 / 社交 / 搬家）。</p>
+        </div>
+        <div class="chair-num reveal reveal-d2" style="--nc:var(--decor)">
+          <span class="bn">03</span>
+          <h3>快速核对、分享 SOP</h3>
+          <p>出门前逐项打勾，不再漏东西，还能提醒随行伙伴。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene-03" id="scene-03">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">03 技术栈</span>
+        <h2>技术栈</h2>
+      </div>
+      <div class="tw-sec reveal">
+        <div class="hd">tech_stack.md</div>
+        <div class="ct">
+          <p>&gt; <span class="key">框架</span>：Flutter (Dart)，跨平台 iOS + Android</p>
+          <p>&gt; <span class="key">状态管理</span>：Riverpod</p>
+          <p>&gt; <span class="key">本地存储</span>：SharedPreferences (JSON)</p>
+          <p>&gt; <span class="key">能力扩展</span>：image_picker、crop_your_image、share_plus、uuid、path_provider、image</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap filefoot">
+    <span>CASE · Home</span>
+    <span>TYPE · 物品清单 / 出行 SOP</span>
+  </div>
+
+  <footer class="icp-footer">
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">赣ICP备2026015468号-1</a>
+  </footer>
+
+</div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
