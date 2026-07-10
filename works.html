@@ -87,38 +87,28 @@ body.works-scene {
 }
 .signal-spark.show { opacity: 1; }
 
-/* 云：轮廓手绘感的三圆簇，而非实心色块（米白底上实心白云会隐形）。
+/* 云：手绘铅笔插画（透明底 PNG，和角色同一支笔）。
    pudding 式持续横穿：从屏右缓慢飘到屏左循环，负 delay 错开各自初始位置 */
 .scene-cloud {
   position: absolute;
   left: 0;
-  width: 34px;
-  height: 34px;
-  border: 1.6px solid rgba(26,26,26,0.22);
-  border-radius: 50%;
-  background: rgba(255,254,250,0.92);
+  width: var(--cw, 200px);
   z-index: 1;
-  animation: cloudDrift 75s linear infinite;
+  opacity: 0.9;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  animation: cloudDrift 90s linear infinite;
 }
-.scene-cloud::before,
-.scene-cloud::after {
-  content: '';
-  position: absolute;
-  border: 1.6px solid rgba(26,26,26,0.22);
-  border-radius: 50%;
-  background: rgba(255,254,250,0.92);
-}
-.scene-cloud::before { width: 24px; height: 24px; left: -14px; top: 9px; }
-.scene-cloud::after  { width: 19px; height: 19px; right: -11px; top: 11px; }
 @keyframes cloudDrift {
-  from { transform: translateX(calc(100vw + 60px)) scale(var(--cs, 1)); }
-  to   { transform: translateX(-160px) scale(var(--cs, 1)); }
+  from { transform: translateX(calc(100vw + 40px)); }
+  to   { transform: translateX(-340px); }
 }
 /* 关闭动画偏好时云不横穿，退回静态散布位置 */
 @media (prefers-reduced-motion: reduce) {
   .scene-cloud {
     left: var(--cx, 50%);
-    transform: scale(var(--cs, 1));
+    animation: none;
   }
 }
 
@@ -150,7 +140,7 @@ body.works-scene {
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  width: 172px;
+  width: 200px;
   background: none;
   border: none;
   padding: 0;
@@ -197,11 +187,12 @@ body.works-scene {
   transform: rotate(45deg) skew(8deg, 8deg);
 }
 
-/* 手绘线稿角色图（透明底 PNG，画中自带落地阴影，无需再画 CSS 阴影） */
+/* 手绘线稿角色图（透明底 PNG 已裁到画面内容边缘，画中自带落地阴影）。
+   高度 250px 让角色和右下角沙发 Serena（180px 宽 ≈ 266px 高）视觉等大 */
 .scene-ip-figure {
   position: relative;
-  width: 165px;
-  height: 165px;
+  width: 200px;
+  height: 250px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -215,8 +206,8 @@ body.works-scene {
   pointer-events: none;
   -webkit-user-drag: none;
 }
-/* 打扫这张自带书架/收纳筐等场景道具，画幅更宽，放大一号 */
-.scene-ip[data-id="w8"] .scene-ip-figure { width: 195px; height: 195px; }
+/* 打扫这张自带书架/收纳筐等场景道具，画幅更宽（1.21:1），给足宽度保持同等人物高度 */
+.scene-ip[data-id="w8"] .scene-ip-figure { width: 300px; height: 250px; }
 .scene-ip:hover .scene-ip-figure {
   transform: translateY(-4px);
 }
@@ -574,6 +565,9 @@ body.works-scene {
   .train-scene::-webkit-scrollbar { display: none; }
   .scene-caption { top: 18px; font-size: 0.64rem; }
   .scene-signal { top: 30%; height: 150px; }
+  .scene-cloud { width: calc(var(--cw, 200px) * 0.6); }
+  .scene-ip-figure { width: 180px; height: 220px; }
+  .scene-ip[data-id="w8"] .scene-ip-figure { width: 264px; height: 220px; }
   .scene-ip {
     position: static !important;
     transform: none !important;
@@ -607,8 +601,9 @@ body.works-scene {
     </svg>
   </div>
 
-  <span class="scene-cloud" style="top:9%;--cs:0.9;--cx:22%;animation-duration:86s;animation-delay:-43s"></span>
-  <span class="scene-cloud" style="top:15%;--cs:0.8;--cx:72%;animation-duration:62s;animation-delay:-56s"></span>
+  <img class="scene-cloud" src="assets/cloud-c.png" alt="" aria-hidden="true" draggable="false" style="top:4%;--cw:280px;--cx:12%;animation-duration:118s;animation-delay:-30s">
+  <img class="scene-cloud" src="assets/cloud-a.png" alt="" aria-hidden="true" draggable="false" style="top:10%;--cw:240px;--cx:56%;animation-duration:92s;animation-delay:-64s">
+  <img class="scene-cloud" src="assets/cloud-b.png" alt="" aria-hidden="true" draggable="false" style="top:18%;--cw:165px;--cx:82%;animation-duration:74s;animation-delay:-18s">
 
   <button class="scene-ip" data-id="w6" style="left:20%;top:38%;--ip-accent:#3F51B5">
     <span class="scene-ip-bubble" id="scene-bubble" aria-hidden="true"><span id="scene-bubble-text"></span></span>
