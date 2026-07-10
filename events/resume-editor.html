@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>个人简历修改网站 · Serena</title>
+<script>
+  if (new URLSearchParams(window.location.search).get('embed') === '1') {
+    document.documentElement.classList.add('is-embed');
+  }
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,600&family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;700&family=Caveat:wght@400;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
@@ -247,6 +252,115 @@
   .reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}
   @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 
+  html.is-embed body{
+    overflow-x:hidden;
+    background:var(--bg);
+  }
+
+  html.is-embed .topbar{
+    padding:10px 18px;
+  }
+
+  html.is-embed .topbar a{
+    font-size:.74rem;
+  }
+
+  html.is-embed .topbar .tag{
+    font-size:.62rem;
+  }
+
+  html.is-embed section{
+    padding:54px 0;
+  }
+
+  html.is-embed section:first-of-type{ padding-top:42px; }
+
+  html.is-embed .wrap{
+    width:min(690px, calc(100% - 44px));
+    padding:0;
+  }
+  html.is-embed .hero{
+    grid-template-columns:minmax(0, 1fr) minmax(190px, .52fr);
+    min-height:auto;
+    gap:clamp(22px, 4vw, 34px);
+  }
+  html.is-embed .label-caps{
+    font-size:.62rem;
+  }
+  html.is-embed .hero h1{
+    margin:12px 0 16px;
+    font-size:clamp(1.75rem, 4.6vw, 2.55rem);
+    line-height:1.28;
+  }
+  html.is-embed .hero p.lede{
+    max-width:36ch;
+    font-size:.88rem;
+    line-height:1.8;
+  }
+  html.is-embed .hero-meta{
+    margin-top:18px;
+    gap:6px;
+    padding-left:12px;
+  }
+  html.is-embed .hero-meta .row{
+    font-size:.72rem;
+  }
+  html.is-embed .hero-card{
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 18px 48px rgba(26,26,46,.08);
+  }
+  html.is-embed .hero-card::before{
+    font-size:3.8rem;
+  }
+  html.is-embed .hero-card p{
+    margin-top:36px;
+    font-size:.92rem;
+    line-height:1.75;
+  }
+  html.is-embed .deco-circle{
+    opacity:.7;
+  }
+
+  html.is-embed .split,
+  html.is-embed .steps-row,
+  html.is-embed .feature-grid,
+  html.is-embed .learn-grid{
+    gap:24px;
+  }
+
+  html.is-embed .split-left h2,
+  html.is-embed .wrap > h2{
+    font-size:clamp(1.55rem, 3.8vw, 2.1rem);
+  }
+
+  html.is-embed .split-right p,
+  html.is-embed .step-card p,
+  html.is-embed .t-content p,
+  html.is-embed .feature-card p,
+  html.is-embed .learn-card p{
+    font-size:.84rem;
+    line-height:1.72;
+  }
+
+  html.is-embed .steps-row{
+    margin-top:36px;
+  }
+
+  html.is-embed .step-card,
+  html.is-embed .feature-card,
+  html.is-embed .learn-card{
+    padding:22px;
+  }
+
+  html.is-embed .timeline{
+    margin-top:36px;
+  }
+
+  html.is-embed .icp-footer{
+    padding:18px;
+  }
+
   @media (max-width:900px){
     .hero{grid-template-columns:1fr;min-height:auto;gap:36px}
     .split{grid-template-columns:1fr}
@@ -261,6 +375,24 @@
   @media (max-width:600px){
     body{font-size:15px}
     .hero-card::before{font-size:3.6rem}
+    html.is-embed .topbar{padding:9px 14px;gap:12px}
+    html.is-embed .topbar .tag{display:none}
+    html.is-embed section{padding:42px 0}
+    html.is-embed .wrap{
+      width:min(390px, calc(100% - 34px));
+    }
+    html.is-embed .hero{
+      gap:18px;
+    }
+    html.is-embed .hero h1{
+      font-size:1.72rem;
+    }
+    html.is-embed .hero-meta{
+      margin-top:14px;
+    }
+    html.is-embed .hero-card{
+      padding:20px;
+    }
   }
 </style>
 </head>

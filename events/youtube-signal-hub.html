@@ -645,80 +645,144 @@
     overflow-x: hidden;
   }
 
-  html.is-embed .nav {
-    height: 52px;
-    padding-inline: 28px;
+  html.is-embed .page {
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 82% 28%, rgba(43,127,216,.075), transparent 24%),
+      var(--cream);
   }
 
-  html.is-embed .logo { font-size: 1.08rem; }
+  html.is-embed .nav {
+    height: 46px;
+    padding-inline: 18px;
+  }
 
-  html.is-embed .tabs { gap: 24px; }
+  html.is-embed .logo { font-size: 1rem; }
 
-  html.is-embed .tabs a { font-size: .8rem; }
+  html.is-embed .tabs {
+    gap: 18px;
+    max-width: 56%;
+  }
+
+  html.is-embed .tabs a { font-size: .74rem; }
 
   html.is-embed .hero {
-    width: min(920px, calc(100% - 56px));
+    width: min(690px, calc(100% - 36px));
     min-height: auto;
-    grid-template-columns: minmax(0, 1fr) minmax(210px, .48fr);
-    gap: clamp(28px, 5vw, 54px);
-    padding: clamp(36px, 6vh, 52px) 0 clamp(46px, 7vh, 70px);
+    grid-template-columns: minmax(0, 1fr) minmax(150px, .38fr);
+    gap: clamp(22px, 4vw, 34px);
+    padding: clamp(34px, 7vh, 52px) 0 clamp(46px, 8vh, 64px);
   }
 
   html.is-embed .eyebrow {
-    margin-bottom: 20px;
-    font-size: .66rem;
+    margin-bottom: 18px;
+    font-size: .62rem;
   }
 
   html.is-embed .kinetic-title {
-    margin-bottom: 20px;
-    font-size: clamp(2.45rem, 7vw, 4.6rem);
+    margin-bottom: 18px;
+    font-size: clamp(2.25rem, 7vw, 3.85rem);
   }
 
   html.is-embed .subtitle {
-    font-size: .95rem;
+    max-width: 34ch;
+    font-size: .9rem;
     line-height: 1.85;
   }
 
   html.is-embed .visual {
-    width: min(240px, 100%);
+    width: min(170px, 100%);
   }
 
   html.is-embed .shot {
-    border-radius: 16px;
-    box-shadow: 0 22px 54px rgba(26,26,46,.1);
+    border-radius: 14px;
+    box-shadow: 0 18px 48px rgba(26,26,46,.1);
   }
 
   html.is-embed .scene {
     min-height: auto;
-    padding: 62px 0;
+    padding: 56px 0;
+    scroll-margin-top: 46px;
   }
 
   html.is-embed .scene-inner {
-    width: min(920px, calc(100% - 56px));
+    width: min(690px, calc(100% - 36px));
+  }
+
+  html.is-embed .section-header {
+    margin-bottom: 28px;
+  }
+
+  html.is-embed .section-number {
+    font-size: 1.4rem;
+  }
+
+  html.is-embed .section-title {
+    font-size: clamp(1.65rem, 4vw, 2.1rem);
+  }
+
+  html.is-embed .section-sub,
+  html.is-embed .pain-copy p,
+  html.is-embed .quote-text,
+  html.is-embed .chair-copy p {
+    font-size: .84rem;
+    line-height: 1.75;
+  }
+
+  html.is-embed .scene-layout,
+  html.is-embed .iteration,
+  html.is-embed .chair-grid {
+    gap: 28px;
+  }
+
+  html.is-embed .setup-timeline {
+    margin-top: 10px;
   }
 
   html.is-embed .quote-band {
-    padding: 60px 0;
+    padding: 52px 0;
+  }
+
+  html.is-embed .quote-text {
+    font-size: clamp(1.35rem, 4vw, 1.9rem);
   }
 
   html.is-embed .cta {
-    padding: 58px 0 72px;
+    padding: 52px 0 64px;
+  }
+
+  html.is-embed .cta-link {
+    width: min(520px, calc(100% - 36px));
   }
 
   @media (max-width: 720px) {
     html.is-embed .nav {
-      position: static;
+      position: sticky;
       height: auto;
-      padding: 16px 22px 14px;
+      min-height: 44px;
+      padding: 12px 16px;
+      align-items: flex-start;
+    }
+    html.is-embed .tabs {
+      max-width: 58%;
+      gap: 14px;
     }
     html.is-embed .hero {
       grid-template-columns: 1fr;
-      width: min(560px, calc(100% - 36px));
-      padding-top: 34px;
+      width: min(420px, calc(100% - 34px));
+      gap: 22px;
+      min-height: auto;
+      padding: 30px 0 44px;
     }
     html.is-embed .visual {
       justify-self: start;
-      width: min(280px, 78vw);
+      width: min(172px, 58vw);
+    }
+    html.is-embed .scene {
+      padding: 44px 0;
+    }
+    html.is-embed .scene-inner {
+      width: min(420px, calc(100% - 34px));
     }
   }
 </style>
