@@ -270,6 +270,31 @@
     letter-spacing: .06em;
   }
 
+  /* ===== 04 演示: phone-frame video ===== */
+  .scene-04 { padding: clamp(90px, 12vh, 150px) 0; }
+  .demo-frame {
+    width: min(300px, 68vw);
+    margin: 0 auto;
+    padding: 10px;
+    background: var(--ink);
+    border-radius: 34px;
+    box-shadow: 0 24px 56px rgba(26, 26, 46, .16);
+  }
+  .demo-frame video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 592 / 1280;
+    border-radius: 24px;
+    background: #000;
+  }
+  .demo-hint {
+    margin-top: 20px;
+    text-align: center;
+    color: var(--ink-faint);
+    font-family: 'Fira Code', monospace;
+    font-size: .72rem;
+  }
+
   .filefoot {
     display: flex;
     flex-wrap: wrap;
@@ -298,11 +323,12 @@
   html.is-embed .wrap { width: min(660px, calc(100% - 40px)); }
   html.is-embed .hero { padding: 56px 0 60px; }
   html.is-embed .hero-title { font-size: clamp(2.2rem, 8vw, 3.4rem); }
-  html.is-embed .scene-01, html.is-embed .scene-02, html.is-embed .scene-03 { padding: 60px 0; }
+  html.is-embed .scene-01, html.is-embed .scene-02, html.is-embed .scene-03, html.is-embed .scene-04 { padding: 60px 0; }
   html.is-embed .g2 { grid-template-columns: 1fr; }
   html.is-embed .numgrid { grid-template-columns: 1fr; }
   html.is-embed .section-head { margin-bottom: 32px; }
   html.is-embed .section-head h2 { font-size: clamp(1.9rem, 5vw, 2.6rem); }
+  html.is-embed .demo-frame { width: min(220px, 60vw); }
 
   @media (max-width: 900px) {
     .g2 { grid-template-columns: 1fr; }
@@ -334,6 +360,7 @@
       <a href="#scene-01" role="listitem">背景</a>
       <a href="#scene-02" role="listitem">搭建</a>
       <a href="#scene-03" role="listitem">功能</a>
+      <a href="#scene-04" role="listitem">演示</a>
     </div>
   </nav>
 
@@ -425,6 +452,19 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="scene-04" id="scene-04">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">04 演示</span>
+        <h2>演示</h2>
+      </div>
+      <div class="demo-frame reveal">
+        <video src="assets/locklock-demo.mp4" controls playsinline preload="metadata"></video>
+      </div>
+      <p class="demo-hint">锁屏壁纸随机切换 · 实机录屏</p>
     </div>
   </section>
 

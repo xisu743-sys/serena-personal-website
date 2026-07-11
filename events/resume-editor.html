@@ -308,6 +308,24 @@
   }
   .tag-card p { color: var(--ink-light); font-size: .9rem; line-height: 1.82; }
 
+  .proof-shot {
+    margin-top: clamp(48px, 6vw, 72px);
+    width: min(420px, 100%);
+  }
+  .proof-shot .frame {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 26px rgba(26, 26, 46, .05);
+  }
+  .proof-shot img { display: block; width: 100%; }
+  .proof-shot figcaption {
+    margin-top: 16px;
+    color: var(--ink-light);
+    font-size: .9rem;
+    line-height: 1.82;
+  }
+  .proof-shot figcaption strong { color: var(--ink); font-weight: 700; }
+
   /* ===== Closing ===== */
   .closing { background: var(--primary); color: #fff; padding: clamp(70px, 10vw, 116px) 0; text-align: center; }
   .closing-text {
@@ -513,6 +531,13 @@
           <p>量化改进方向</p>
         </div>
       </div>
+
+      <figure class="proof-shot reveal reveal-d2">
+        <div class="frame">
+          <img src="assets/resume-editor-shot.png" alt="版本管理弹窗：勾选要恢复的模块——教育经历、实习经历、项目经历、技能与能力">
+        </div>
+        <figcaption><strong>版本管理</strong>的实际界面：AI 改写后，仍可按模块单独回退，不是全有或全无。</figcaption>
+      </figure>
     </div>
   </section>
 
