@@ -560,33 +560,41 @@ a { color: inherit; }
   margin-bottom: 56px;
 }
 
-/* 片尾名单风格：接触渠道与致谢合并为一条连续名单 */
-.credits-roll {
-  list-style: none;
-  margin: 0 auto;
-  padding: 0;
+/* 片尾名单风格：分组标题 + 行内 role/value 排布 */
+.credits-groups {
   max-width: 420px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  margin: 0 auto;
 }
-.cr-row { padding: 34px 0; }
-.cr-row:first-child { padding-top: 0; }
+.cr-group { margin-bottom: 50px; }
+.cr-group:last-child { margin-bottom: 0; }
+.cr-group-title {
+  text-align: center;
+  font-family: var(--font-title);
+  font-size: 0.78rem;
+  letter-spacing: 0.3em;
+  color: var(--dim);
+  margin-bottom: 22px;
+}
+.cr-list { list-style: none; margin: 0; padding: 0; }
+.cr-row {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding: 13px 0;
+}
 .cr-role {
-  display: block;
+  flex: 0 0 128px;
   font-family: var(--font-body);
   font-size: 0.68rem;
   font-weight: 500;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--dim);
-  margin-bottom: 12px;
 }
+.cr-body { display: flex; flex-direction: column; }
 .cr-value {
-  display: block;
   font-family: var(--font-title);
-  font-size: 1.32rem;
+  font-size: 1.02rem;
   color: var(--ink);
   text-decoration: none;
 }
@@ -594,8 +602,8 @@ a.cr-value { transition: color 0.2s ease; }
 a.cr-value:hover { color: var(--accent); }
 .cr-note {
   display: block;
-  margin-top: 8px;
-  font-size: 0.78rem;
+  margin-top: 4px;
+  font-size: 0.72rem;
   opacity: 0.5;
 }
 
@@ -641,7 +649,7 @@ a.cr-value:hover { color: var(--accent); }
   .page { padding: 32px 20px 100px; }
 
   .icp-footer {
-    color: rgba(26, 26, 26, 0.38);
+    color: rgba(26, 26, 26, 0.34);
   }
 
   .bottom-nav {
@@ -699,6 +707,10 @@ a.cr-value:hover { color: var(--accent); }
 
   .signal-pillars { grid-template-columns: 1fr; gap: 36px; padding-top: 4px; }
   .signal-pillar-title { margin-bottom: 20px; }
+
+  .cr-row { gap: 12px; }
+  .cr-role { flex-basis: 96px; font-size: 0.6rem; }
+  .cr-value { font-size: 0.92rem; word-break: break-word; }
 }
 
 @media (prefers-reduced-motion: reduce) {
