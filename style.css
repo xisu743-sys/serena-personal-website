@@ -109,6 +109,42 @@ a { color: inherit; }
   box-shadow: 0 0 12px rgba(63, 81, 181, 0.25);
 }
 
+/* ── 语言切换：固定在右上角，和底部导航保持相同的轻盈手账质感 ── */
+.language-switcher {
+  position: fixed;
+  z-index: 600;
+  top: 22px;
+  right: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border: 1px solid rgba(26, 26, 26, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 254, 250, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 3px 16px rgba(0, 0, 0, 0.06);
+  color: var(--ink);
+  font-family: var(--font-title);
+  font-size: .74rem;
+}
+.language-switcher button {
+  padding: 2px 3px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  opacity: .42;
+  cursor: pointer;
+}
+.language-switcher button:hover,
+.language-switcher button.active { opacity: 1; }
+html[lang="en"] .about-title { white-space: pre-line; }
+@media (max-width: 600px) {
+  .language-switcher { top: 14px; right: 16px; }
+}
+
 /* ── 页脚 ── */
 .site-footer {
   font-size: .8rem;

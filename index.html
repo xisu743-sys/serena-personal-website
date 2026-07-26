@@ -22,6 +22,7 @@
 <meta name="twitter:description" content="一个不太松弛的中文系女生，和 Agent 并肩前行的故事。">
 <meta name="twitter:image" content="https://sumohe.com/assets/social-summary-800x800.png">
 <meta name="twitter:image:alt" content="Serena 熙冉的个人网站 IP 头像">
+<script src="i18n.js"></script>
 <link rel="stylesheet" href="style.css?v=20260711-assetfix">
 <link rel="preload" as="image" href="assets/serena-fullbody-720.png">
 <style>
@@ -414,7 +415,7 @@ body.intro-done .page-shell {
 <script>
 (function () {
   /* ── 文案 ── */
-  const LINES = [
+  const LINES = window.SerenaI18n && window.SerenaI18n.isEnglish ? window.SerenaI18n.homeLines : [
     "[ 系统正在初始化… ]",
     "",
     "你好，旅行者。",
