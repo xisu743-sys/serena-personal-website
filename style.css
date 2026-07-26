@@ -141,39 +141,41 @@ a { color: inherit; }
 .language-switcher button:hover,
 .language-switcher button.active { opacity: 1; }
 html[lang="en"] .about-title {
-  max-width: 19ch;
-  margin: 20px auto 54px;
+  max-width: 24ch;
+  margin: 4px auto 40px;
   white-space: pre-line;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2.1rem, 3.6vw, 3.25rem);
+  font-size: clamp(1.6rem, 2.4vw, 1.85rem);
   font-weight: 400;
-  line-height: 1.12;
-  letter-spacing: -0.035em;
+  line-height: 1.42;
+  letter-spacing: -0.015em;
 }
-html[lang="en"] .page-about .file-tag { margin-bottom: 20px; }
-html[lang="en"] .page-about .about-hero { gap: 28px; margin-bottom: 42px; }
-html[lang="en"] .page-about .about-hero-illus { max-width: 260px; }
+html[lang="en"] .page-about .about-hero { gap: 22px; margin-bottom: 24px; }
+html[lang="en"] .page-about .about-hero-illus { max-width: 320px; }
 html[lang="en"] .page-about .about-hero-intro {
-  max-width: 580px;
+  max-width: 400px;
   font-family: Inter, Arial, sans-serif;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.75;
 }
-html[lang="en"] .page-about .journal { gap: 52px; }
+html[lang="en"] .page-about .journal { gap: 44px; }
 html[lang="en"] .page-about .journal-entry,
-html[lang="en"] .page-about .about-edu { max-width: 580px; padding-left: 0; }
+html[lang="en"] .page-about .about-edu { max-width: 400px; padding-left: 0; }
 html[lang="en"] .page-about .journal-text {
   padding-left: 0;
   font-family: Inter, Arial, sans-serif;
   font-size: 1rem;
-  line-height: 1.65;
+  line-height: 1.75;
+  text-align: center;
 }
-html[lang="en"] .page-about .about-pair { gap: 16px 34px; }
-html[lang="en"] .page-about .about-edu { margin-top: 12px; }
+html[lang="en"] .page-about .about-pair { justify-content: center; gap: 14px 24px; }
+html[lang="en"] .page-about .about-edu { margin-top: 0; text-align: center; }
 html[lang="en"] .page-about .about-edu-list { font-family: Inter, Arial, sans-serif; }
+html[lang="en"] .page-about .about-edu-list li { padding-left: 0; }
+html[lang="en"] .page-about .about-edu-list li::before { display: none; }
 @media (max-width: 600px) {
   .language-switcher { top: 14px; right: 16px; }
-  html[lang="en"] .about-title { max-width: 15ch; font-size: 2.1rem; }
+  html[lang="en"] .about-title { max-width: 16ch; font-size: 1.55rem; }
   html[lang="en"] .page-about .about-hero-intro,
   html[lang="en"] .page-about .journal-text { font-size: .96rem; }
 }
