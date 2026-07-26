@@ -140,9 +140,42 @@ a { color: inherit; }
 }
 .language-switcher button:hover,
 .language-switcher button.active { opacity: 1; }
-html[lang="en"] .about-title { white-space: pre-line; }
+html[lang="en"] .about-title {
+  max-width: 19ch;
+  margin: 20px auto 54px;
+  white-space: pre-line;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.1rem, 3.6vw, 3.25rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+html[lang="en"] .page-about .file-tag { margin-bottom: 20px; }
+html[lang="en"] .page-about .about-hero { gap: 28px; margin-bottom: 42px; }
+html[lang="en"] .page-about .about-hero-illus { max-width: 260px; }
+html[lang="en"] .page-about .about-hero-intro {
+  max-width: 580px;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+html[lang="en"] .page-about .journal { gap: 52px; }
+html[lang="en"] .page-about .journal-entry,
+html[lang="en"] .page-about .about-edu { max-width: 580px; padding-left: 0; }
+html[lang="en"] .page-about .journal-text {
+  padding-left: 0;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+html[lang="en"] .page-about .about-pair { gap: 16px 34px; }
+html[lang="en"] .page-about .about-edu { margin-top: 12px; }
+html[lang="en"] .page-about .about-edu-list { font-family: Inter, Arial, sans-serif; }
 @media (max-width: 600px) {
   .language-switcher { top: 14px; right: 16px; }
+  html[lang="en"] .about-title { max-width: 15ch; font-size: 2.1rem; }
+  html[lang="en"] .page-about .about-hero-intro,
+  html[lang="en"] .page-about .journal-text { font-size: .96rem; }
 }
 
 /* ── 页脚 ── */
