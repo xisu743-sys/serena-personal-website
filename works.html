@@ -1099,8 +1099,8 @@ body.works-scene {
     const noticeText = document.getElementById('scene-notice-text');
     if (!notice || !noticeText) return;
     const msg = window.matchMedia('(max-width: 600px)').matches
-      ? '捕获到 4 条异常信号，\n点击角色查看档案。'
-      : '捕获到 4 条异常信号，点击角色查看档案。';
+      ? window.SerenaI18n.t('捕获到 4 条异常信号，\n点击角色查看档案。')
+      : window.SerenaI18n.t('捕获到 4 条异常信号，点击角色查看档案。');
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       noticeText.textContent = msg;
       notice.classList.add('show');

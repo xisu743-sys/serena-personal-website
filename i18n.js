@@ -85,7 +85,9 @@
     '上一个项目': 'Previous project',
     '下一个项目': 'Next project',
     '个人简历修改网站': 'Personal Resume Editor',
-    'YouTube 爆款监测系统': 'YouTube Viral Monitoring System'
+    'YouTube 爆款监测系统': 'YouTube Viral Monitoring System',
+    '捕获到 4 条异常信号，点击角色查看档案。': '4 anomalous signals captured. Click a character to open its profile.',
+    '捕获到 4 条异常信号，\n点击角色查看档案。': '4 anomalous signals captured.\nClick a character to open its profile.'
   };
 
   const homeLines = [
