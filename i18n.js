@@ -17,12 +17,13 @@
     '异常事件记录': 'Anomaly Records',
     '信号追踪': 'Signal Trace',
     '接触协议': 'Contact Protocol',
-    '一些值得留住的发现，和一些还在慢慢想明白的事。': 'Finds worth keeping, and things I am still slowly making sense of.',
     '拾记': 'Finds',
     '随记': 'Notes',
     '那些让人想马上转发给朋友的工具、网页和意外发现。': 'Tools, websites, and unexpected finds I want to send straight to a friend.',
     '实习、工作和生活里，暂时还没有答案的片段。': 'Fragments from internships, work, and life that do not have answers yet.',
-    '新的信号正在路上。': 'New signals are on their way.',
+    '查看拾记 →': 'View all Finds →',
+    '查看随记 →': 'View all Notes →',
+    '← 返回信号追踪': '← Back to Signal Trace',
     '[ 存在体概况 · 访问级别：公开 ]': '[ ENTITY PROFILE · ACCESS: PUBLIC ]',
     '此行风大雨大，风雨间歇时出发': 'Storm-lashed the way,\nwe ride the lull’s soft ray.',
     '一个不太松弛的中文系女生': 'A Chinese-literature girl still learning to loosen up,',
@@ -195,7 +196,7 @@
     document.documentElement.lang = 'en';
     const pageNames = {
       'about.html': 'Entity Profile', 'works.html': 'Anomaly Records',
-      'talks.html': 'Signal Trace', 'contact.html': 'Contact Protocol',
+      'talks.html': 'Signal Trace', 'finds.html': 'Finds', 'notes.html': 'Notes', 'contact.html': 'Contact Protocol',
       'resume-editor.html': 'Personal Résumé Editor', 'youtube-signal-hub.html': 'YouTube Signal Hub',
       'locklock.html': 'LockLock', 'home.html': 'Home'
     };
