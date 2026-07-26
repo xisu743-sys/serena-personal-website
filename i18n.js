@@ -87,7 +87,32 @@
     '个人简历修改网站': 'Personal Resume Editor',
     'YouTube 爆款监测系统': 'YouTube Viral Monitoring System',
     '捕获到 4 条异常信号，点击角色查看档案。': '4 anomalous signals captured. Click a character to open its profile.',
-    '捕获到 4 条异常信号，\n点击角色查看档案。': '4 anomalous signals captured.\nClick a character to open its profile.'
+    '捕获到 4 条异常信号，\n点击角色查看档案。': '4 anomalous signals captured.\nClick a character to open its profile.',
+    '背景': 'Context', '搭建': 'Build', '技术栈': 'Tech Stack', '功能': 'Features', '演示': 'Demo', '现场': 'In the Field', '迭代': 'Iteration', '能力': 'Capabilities',
+    '房间物品一目了然，轻松出行不在话下': 'Know what is in your room. Leave with ease.',
+    '旅行、搬家、社交活动，出行要带的东西大不相同，每次都要重新列清单，非常繁琐。': 'Travel, moving, and social plans all require different things. Rebuilding a packing list every time is a chore.',
+    '把房间搬进 App': 'Bring your room into the app', '添加全屋物品，一次盘点，永久可见。': 'Add everything in your home once; keep it visible forever.',
+    '按场景生成清单': 'Generate lists by scenario', '从物品库筛选需要带的东西，生成对应场景 checklist（出差 / 旅行 / 社交 / 搬家）。': 'Pick what you need from your inventory to create checklists for business trips, travel, social plans, or moving.',
+    '快速核对、分享 SOP': 'Check quickly, share the SOP', '出门前逐项打勾，不再漏东西，还能提醒随行伙伴。': 'Tick things off before leaving, miss nothing, and remind your companions.',
+    '框架': 'Framework', '状态管理': 'State management', '本地存储': 'Local storage', '能力扩展': 'Extensions', '物品清单 / 出行 SOP': 'Inventory / travel SOP',
+    '一款帮你利用锁屏空间的轻应用': 'A lightweight app that makes use of your lock screen',
+    '日均解锁手机 136 次': '136 phone unlocks a day', '完全是下意识动作，大部分时候并没有特别明确要做的事情。': 'Usually an unconscious act—with no specific task in mind.',
+    '锁屏待办 App 大量涌现': 'A wave of lock-screen to-do apps', '只局限在待办事项，自定义程度不高。': 'They stay confined to to-dos, with little room for customisation.',
+    '和 Claude 讨论需求和效果': 'Discuss requirements and outcomes with Claude', '明确技术边界': 'Define the technical boundaries', '不调用生图模型，用代码生成。': 'No image-generation models—built in code.', '测试解锁切换效果': 'Test the unlock-transition effect',
+    '生成纯色 / 渐变色壁纸': 'Generate solid or gradient wallpapers', '壁纸': 'Wallpaper', '亮屏时随机切换': 'Randomise when the screen wakes', '随机': 'Random', '支持导入 CSV': 'Import CSV files', '导入': 'Import', '高度自定义': 'Highly customisable', '自定义': 'Custom', '锁屏壁纸随机切换 · 实机录屏': 'Random lock-screen wallpapers · device recording', '锁屏轻应用': 'Lock-screen utility',
+    '版本靠猜': 'Versions by guesswork', '每投一个岗位就另存一份 Word——': 'Every job application meant saving another Word file—', '改动靠记': 'Edits by memory',
+    '同一段实习经历，投不同岗位时改动了哪些，哪家公司几号投的、用的是哪个版本的简历、JD 是什么，全靠记忆。': 'Which edits went with which role, where and when I applied, which résumé version I used, and what the JD said—all kept in my head.',
+    '一个下午出 MVP': 'An MVP in one afternoon', '技术栈：React + Tailwind + FastAPI + Supabase，当晚部署上线。': 'React + Tailwind + FastAPI + Supabase; deployed that night.',
+    '核心功能闭环': 'Close the core loop', '粘贴 JD → AI 自动改写简历，匹配现有经历，贴合岗位。': 'Paste a JD → AI rewrites the résumé around existing experience and the role.',
+    '版本管理打通': 'Version management connected', '高亮修改部分，存档修改内容，简历关联投递记录。': 'Highlight edits, archive changes, and connect résumés to applications.',
+    '不同浏览器兼容修复': 'Cross-browser fixes', '朋友截图反馈浏览器解析异常，逐版排查修复。': 'Friends sent screenshots of rendering bugs; I traced and fixed them release by release.',
+    '邮件服务迁移': 'Email service migration', 'Supabase 免费版限制 5 封/小时，更换为 Resend。': 'Supabase’s free plan caps mail at five an hour, so I moved to Resend.',
+    '← 左右滑动查看全部 →': '← Swipe to see everything →', '其他功能': 'Other Features', '版本管理': 'Version management', '每次修改可溯源、可对比、可部分恢复': 'Every edit is traceable, comparable, and partly reversible.',
+    '中英切换': 'Chinese / English', '一键生成英文版': 'Generate an English version in one click.', '灵活编辑': 'Flexible editing', '自定义模块、字体、字号、API': 'Customise modules, fonts, type sizes, and API.', 'PDF 导出': 'PDF export', 'A4 尺寸所见即所得，清晰度优化': 'A4 WYSIWYG export, optimised for clarity.', '简历评分': 'Résumé scoring', '量化改进方向': 'Quantify the direction for improvement.', '第一个完整的': 'My first complete', '前后端项目': 'full-stack project', '个人简历修改网站': 'Personal Résumé Editor', '前后端项目': 'Full-stack project',
+    '你的爆款视频已送达。': 'Your viral videos have arrived.', '定制频道监控规则，让信号主动找上门。': 'Customise channel-monitoring rules and let signals come to you.',
+    '增量只能猜': 'Growth is guesswork', '大部分插件只显示发布时间，增量爆发靠人工推测。': 'Most plugins only show publish time; spikes have to be inferred by hand.', '数据逐条查': 'Check data one by one', '手动刷对标，高峰时期会同时打开几十个视频标签。': 'Manual competitive research means dozens of video tabs at peak times.', '爆款易错过': 'Virality is easy to miss', '真正有价值的信号随时可能爆发，难以及时捕捉。': 'The most valuable signals can spike at any moment and are hard to catch in time.',
+    '拉取频道数据': 'Pull channel data', '接入 YouTube Data API，拉取频道和视频基础数据，优化配额消耗。': 'Use the YouTube Data API for channel and video basics while optimising quota use.', '获取增量信息': 'Get growth data', '反向获取 vidIQ token，处理接口。': 'Retrieve a vidIQ token and work through the endpoint.', '配置定时同步任务': 'Configure scheduled syncs', '反复测试 QStash，排查 Upstash regional endpoint URL。': 'Test QStash repeatedly and troubleshoot the Upstash regional endpoint URL.', '上线规则引擎': 'Launch the rules engine', '自定义触发爆款推送条件，实现闭环。': 'Define viral-alert triggers and close the loop.',
+    '第一次收到爆款通知时，我知道这个工具的': 'When the first viral alert arrived, I knew this tool’s ', '闭环成立了': 'loop was real', '这次跑在生产环境里的，不是 demo。': 'This time it was running in production—not a demo.', '规则触发 · 企业微信推送 · 20 个视频命中': 'Rule triggered · WeCom delivery · 20 videos matched'
   };
 
   const homeLines = [
@@ -131,7 +156,9 @@
     document.documentElement.lang = 'en';
     const pageNames = {
       'about.html': 'Entity Profile', 'works.html': 'Anomaly Records',
-      'talks.html': 'Signal Trace', 'contact.html': 'Contact Protocol'
+      'talks.html': 'Signal Trace', 'contact.html': 'Contact Protocol',
+      'resume-editor.html': 'Personal Résumé Editor', 'youtube-signal-hub.html': 'YouTube Signal Hub',
+      'locklock.html': 'LockLock', 'home.html': 'Home'
     };
     const page = location.pathname.split('/').pop() || 'index.html';
     document.title = pageNames[page] ? pageNames[page] + ' — Serena' : 'Serena';
@@ -160,7 +187,7 @@
   }
 
   function init() {
-    addSwitcher();
+    if (!document.documentElement.hasAttribute('data-language-inherited')) addSwitcher();
     if (!isEnglish) return;
     setMetadata();
     translateTextNodes();
