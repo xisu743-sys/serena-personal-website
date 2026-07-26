@@ -162,6 +162,14 @@ html[lang="en"] .page-about .journal-text {
   font-family: Inter, Arial, sans-serif;
   font-size: 1rem;
 }
+/* 英文叙述按「一组一段」流动；仅在团队角色行处保留独立结构。 */
+html[lang="en"] .page-about .journal-text p:not(.about-pair) {
+  display: inline;
+  margin: 0;
+}
+html[lang="en"] .page-about .journal-text p:not(.about-pair)::after { content: ' '; }
+html[lang="en"] .page-about .journal-text p:not(.about-pair):last-child::after { content: ''; }
+html[lang="en"] .page-about .journal-text .about-pair { margin: 12px 0; }
 html[lang="en"] .page-about .about-edu-list { font-family: Inter, Arial, sans-serif; }
 @media (max-width: 600px) {
   .language-switcher { top: 14px; right: 16px; }
