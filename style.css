@@ -181,7 +181,16 @@ html[lang="en"] .page-about .journal-text p {
 html[lang="en"] .page-about .journal-illus { left: -270px; }
 html[lang="en"] .page-about .about-team-role { white-space: nowrap; }
 html[lang="en"] .page-about .about-aside { color: rgba(26, 26, 26, .66); }
-html[lang="en"] .page-about .about-edu-list { font-family: Georgia, "Times New Roman", serif; }
+html[lang="en"] .page-about .about-edu {
+  max-width: 320px;
+  margin: 0 auto;
+  padding-left: 0;
+}
+html[lang="en"] .page-about .about-edu-list {
+  font-family: Georgia, "Times New Roman", serif;
+}
+html[lang="en"] .page-about .about-edu-list li { padding-left: 0; }
+html[lang="en"] .page-about .about-edu-list li::before { display: none; }
 @media (max-width: 600px) {
   .language-switcher { top: 14px; right: 16px; }
   html[lang="en"] .about-title { max-width: 16ch; font-size: 1.55rem; }
@@ -189,6 +198,7 @@ html[lang="en"] .page-about .about-edu-list { font-family: Georgia, "Times New R
   html[lang="en"] .page-about .journal-text { font-size: 16px; }
   html[lang="en"] .page-about .about-hero-intro { max-width: 300px; }
   html[lang="en"] .page-about .journal-text { max-width: 300px; margin-left: 0; }
+  html[lang="en"] .page-about .about-edu { max-width: 300px; margin: 0 auto; }
 }
 
 /* ── 页脚 ── */
