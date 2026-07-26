@@ -162,6 +162,29 @@
     });
   }
 
+  // The Chinese About page is deliberately composed as short, separate lines.
+  // English reads more naturally as complete paragraphs, so give it its own
+  // semantic copy instead of trying to join the Chinese DOM with CSS.
+  function renderEnglishAbout() {
+    if (!location.pathname.endsWith('/about.html')) return;
+
+    const intro = document.querySelector('.about-hero-intro');
+    if (intro) {
+      intro.innerHTML = '<p>A Chinese-literature girl still learning to loosen up, I came across Agent Orange’s CC primer by chance—and it opened the door to the world of AI.</p>';
+    }
+
+    const sections = document.querySelectorAll('.journal-text');
+    if (sections[0]) {
+      sections[0].innerHTML = '<p>My team includes <span class="about-team-role">Art Director <span class="en-hand">Claude</span></span>, <span class="about-team-role">Executive Director <span class="en-hand">Codex</span></span>, <span class="about-team-role">Google Ambassador <span class="en-hand">Gemini</span></span>, and <span class="about-team-role">Chief Steward <span class="en-hand">Cola</span></span>. <span class="about-aside">(Keeping a team is expensive, so I went out hunting.)</span></p>';
+    }
+    if (sections[1]) {
+      sections[1].innerHTML = '<p>Dreaming of becoming a cool girl who speaks ten languages, I have dipped into French, German, Japanese, and Korean. No certificates—but an IELTS 7.0 gets me through.</p>';
+    }
+    if (sections[2]) {
+      sections[2].innerHTML = '<p>I have written for WeChat and made a CCTV micro-documentary, partnered steadily with a Douyin creator for two years, and worked in PR for autonomous heavy trucks. Still making a beautiful mess…</p>';
+    }
+  }
+
   function setMetadata() {
     document.documentElement.lang = 'en';
     const pageNames = {
@@ -201,6 +224,7 @@
     if (!isEnglish) return;
     setMetadata();
     translateTextNodes();
+    renderEnglishAbout();
     const education = document.querySelector('.about-edu-head');
     if (education && education.lastChild.nodeType === Node.TEXT_NODE) education.lastChild.nodeValue = '';
   }

@@ -154,41 +154,36 @@ html[lang="en"] .page-about .about-hero { gap: 22px; margin-bottom: 24px; }
 html[lang="en"] .page-about .about-hero-illus { max-width: 320px; }
 html[lang="en"] .page-about .about-hero-intro {
   display: block;
-  max-width: 400px;
-  font-family: Inter, Arial, sans-serif;
-  font-size: 1rem;
+  width: min(320px, 100%);
+  max-width: 320px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 17px;
   line-height: 1.75;
+  text-align: left;
 }
 html[lang="en"] .page-about .about-hero-intro p {
-  display: inline;
   margin: 0;
 }
-html[lang="en"] .page-about .about-hero-intro p:not(:last-child)::after { content: ' '; }
 html[lang="en"] .page-about .journal-text {
-  font-family: Inter, Arial, sans-serif;
-  font-size: 1rem;
+  /* 68px is reserved for the existing IELTS illustration; the reading
+     measure itself remains a Pudding-like 320px without moving the image. */
+  max-width: 388px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 17px;
+  line-height: 1.75;
+  letter-spacing: 0;
 }
-/* 英文叙述按「一组一段」流动；仅在团队角色行处保留独立结构。 */
-html[lang="en"] .page-about .journal-text p:not(.about-pair) {
-  display: inline;
+html[lang="en"] .page-about .journal-text p {
   margin: 0;
 }
-html[lang="en"] .page-about .journal-text p:not(.about-pair)::after { content: ' '; }
-html[lang="en"] .page-about .journal-text p:not(.about-pair):last-child::after { content: ''; }
-html[lang="en"] .page-about .journal-text .about-pair {
-  display: inline;
-  margin: 0;
-}
-html[lang="en"] .page-about .journal-text .about-pair span { white-space: nowrap; }
-html[lang="en"] .page-about .journal-text .about-pair span + span::before { content: ', '; }
-html[lang="en"] .page-about .journal-text .about-pair + .about-pair::before { content: ', '; }
-html[lang="en"] .page-about .journal-text .about-pair:nth-of-type(3)::after { content: '. '; }
-html[lang="en"] .page-about .about-edu-list { font-family: Inter, Arial, sans-serif; }
+html[lang="en"] .page-about .about-team-role { white-space: nowrap; }
+html[lang="en"] .page-about .about-aside { color: rgba(26, 26, 26, .66); }
+html[lang="en"] .page-about .about-edu-list { font-family: Georgia, "Times New Roman", serif; }
 @media (max-width: 600px) {
   .language-switcher { top: 14px; right: 16px; }
   html[lang="en"] .about-title { max-width: 16ch; font-size: 1.55rem; }
   html[lang="en"] .page-about .about-hero-intro,
-  html[lang="en"] .page-about .journal-text { font-size: .96rem; }
+  html[lang="en"] .page-about .journal-text { font-size: 16px; }
 }
 
 /* ── 页脚 ── */
@@ -797,6 +792,13 @@ a.cr-value:hover { color: var(--accent); }
   .cr-row { gap: 12px; }
   .cr-role { flex-basis: 96px; font-size: 0.6rem; }
   .cr-value { font-size: 0.92rem; word-break: break-word; }
+}
+
+/* Keep the English reading column left-aligned on small screens too. */
+@media (max-width: 600px) {
+  html[lang="en"] .page-about .about-hero-intro,
+  html[lang="en"] .page-about .journal-text,
+  html[lang="en"] .page-about .about-edu { text-align: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {
