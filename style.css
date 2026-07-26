@@ -153,11 +153,17 @@ html[lang="en"] .about-title {
 html[lang="en"] .page-about .about-hero { gap: 22px; margin-bottom: 24px; }
 html[lang="en"] .page-about .about-hero-illus { max-width: 320px; }
 html[lang="en"] .page-about .about-hero-intro {
+  display: block;
   max-width: 400px;
   font-family: Inter, Arial, sans-serif;
   font-size: 1rem;
   line-height: 1.75;
 }
+html[lang="en"] .page-about .about-hero-intro p {
+  display: inline;
+  margin: 0;
+}
+html[lang="en"] .page-about .about-hero-intro p:not(:last-child)::after { content: ' '; }
 html[lang="en"] .page-about .journal-text {
   font-family: Inter, Arial, sans-serif;
   font-size: 1rem;
@@ -169,7 +175,14 @@ html[lang="en"] .page-about .journal-text p:not(.about-pair) {
 }
 html[lang="en"] .page-about .journal-text p:not(.about-pair)::after { content: ' '; }
 html[lang="en"] .page-about .journal-text p:not(.about-pair):last-child::after { content: ''; }
-html[lang="en"] .page-about .journal-text .about-pair { margin: 12px 0; }
+html[lang="en"] .page-about .journal-text .about-pair {
+  display: inline;
+  margin: 0;
+}
+html[lang="en"] .page-about .journal-text .about-pair span { white-space: nowrap; }
+html[lang="en"] .page-about .journal-text .about-pair span + span::before { content: ', '; }
+html[lang="en"] .page-about .journal-text .about-pair + .about-pair::before { content: ', '; }
+html[lang="en"] .page-about .journal-text .about-pair:nth-of-type(3)::after { content: '. '; }
 html[lang="en"] .page-about .about-edu-list { font-family: Inter, Arial, sans-serif; }
 @media (max-width: 600px) {
   .language-switcher { top: 14px; right: 16px; }
