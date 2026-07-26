@@ -158,23 +158,11 @@ html[lang="en"] .page-about .about-hero-intro {
   font-size: 1rem;
   line-height: 1.75;
 }
-html[lang="en"] .page-about .about-hero-intro p,
-html[lang="en"] .page-about .journal-text p { white-space: pre-line; }
-html[lang="en"] .page-about .journal { gap: 44px; }
-html[lang="en"] .page-about .journal-entry,
-html[lang="en"] .page-about .about-edu { max-width: 400px; padding-left: 0; }
 html[lang="en"] .page-about .journal-text {
-  padding-left: 0;
   font-family: Inter, Arial, sans-serif;
   font-size: 1rem;
-  line-height: 1.75;
-  text-align: center;
 }
-html[lang="en"] .page-about .about-pair { justify-content: center; gap: 14px 24px; }
-html[lang="en"] .page-about .about-edu { margin-top: 0; text-align: center; }
 html[lang="en"] .page-about .about-edu-list { font-family: Inter, Arial, sans-serif; }
-html[lang="en"] .page-about .about-edu-list li { padding-left: 0; }
-html[lang="en"] .page-about .about-edu-list li::before { display: none; }
 @media (max-width: 600px) {
   .language-switcher { top: 14px; right: 16px; }
   html[lang="en"] .about-title { max-width: 16ch; font-size: 1.55rem; }
