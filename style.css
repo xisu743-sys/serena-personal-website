@@ -169,6 +169,10 @@ html[lang="en"] .page-about .journal-text {
   text-align: center;
 }
 html[lang="en"] .page-about .about-pair { justify-content: center; gap: 14px 24px; }
+html[lang="en"] .page-about .journal-entry--illus .journal-illus {
+  left: -260px;
+  width: 220px;
+}
 html[lang="en"] .page-about .about-edu { margin-top: 0; text-align: center; }
 html[lang="en"] .page-about .about-edu-list { font-family: Inter, Arial, sans-serif; }
 html[lang="en"] .page-about .about-edu-list li { padding-left: 0; }
@@ -196,6 +200,10 @@ html[lang="en"] .page-about .about-edu-list li::before { display: none; }
   color: inherit;
   text-decoration: none;
   transition: color 0.2s ease, opacity 0.2s ease;
+}
+.icp-footer .icp-separator {
+  margin: 0 .55em;
+  opacity: .55;
 }
 .icp-footer a:hover {
   color: rgba(63, 81, 181, 0.72);
