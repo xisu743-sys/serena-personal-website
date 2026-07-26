@@ -109,101 +109,6 @@ a { color: inherit; }
   box-shadow: 0 0 12px rgba(63, 81, 181, 0.25);
 }
 
-/* ═══════════ Blog · 工具手记 ═══════════ */
-.page-blog { --accent: #A84B22; }
-.page-blog .content { padding-top: 10px; }
-.blog-header { margin: 30px 0 46px; }
-.blog-kicker {
-  margin: 0 0 12px;
-  color: var(--accent);
-  font-family: var(--font-body);
-  font-size: .72rem;
-  font-weight: 500;
-  letter-spacing: .16em;
-}
-.blog-header h1 {
-  max-width: 12em;
-  margin: 0;
-  font-family: var(--font-title);
-  font-size: clamp(2rem, 5.2vw, 3rem);
-  font-weight: 500;
-  line-height: 1.25;
-  letter-spacing: .02em;
-}
-.blog-intro {
-  max-width: 500px;
-  margin: 22px 0 0;
-  font-family: var(--font-title);
-  font-size: 1rem;
-  line-height: 2;
-  color: rgba(26, 26, 26, .74);
-}
-.blog-feed { border-top: 1px solid rgba(26, 26, 26, .2); }
-.blog-post {
-  display: grid;
-  grid-template-columns: 52px minmax(0, 1fr) auto;
-  gap: 20px;
-  align-items: start;
-  padding: 28px 0 30px;
-  border-bottom: 1px solid rgba(26, 26, 26, .2);
-}
-.blog-post-index {
-  color: var(--accent);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.15rem;
-  line-height: 1.4;
-}
-.blog-post-meta {
-  margin: 0 0 8px;
-  color: var(--accent);
-  font-size: .68rem;
-  letter-spacing: .12em;
-}
-.blog-post h2 {
-  margin: 0;
-  font-family: var(--font-title);
-  font-size: 1.35rem;
-  font-weight: 500;
-  line-height: 1.45;
-}
-.blog-post-body > p:last-child {
-  max-width: 440px;
-  margin: 10px 0 0;
-  font-family: var(--font-title);
-  font-size: .94rem;
-  line-height: 1.85;
-  color: rgba(26, 26, 26, .68);
-}
-.blog-post-status {
-  margin-top: 3px;
-  padding: 4px 8px;
-  border: 1px solid rgba(168, 75, 34, .34);
-  border-radius: 999px;
-  color: var(--accent);
-  font-family: var(--font-title);
-  font-size: .7rem;
-  white-space: nowrap;
-}
-.blog-note {
-  display: flex;
-  gap: 12px;
-  max-width: 480px;
-  margin-top: 34px;
-  padding: 16px 0 0;
-  color: rgba(26, 26, 26, .62);
-  font-family: var(--font-title);
-  font-size: .9rem;
-  line-height: 1.8;
-}
-.blog-note-mark { color: var(--accent); }
-.blog-note p { margin: 0; }
-html[lang="en"] .page-blog .blog-header h1,
-html[lang="en"] .page-blog .blog-intro,
-html[lang="en"] .page-blog .blog-post h2,
-html[lang="en"] .page-blog .blog-post-body > p:last-child,
-html[lang="en"] .page-blog .blog-note { font-family: Georgia, "Times New Roman", serif; }
-html[lang="en"] .page-blog .blog-header h1 { max-width: 18ch; }
-
 /* ── 语言切换：固定在右上角，和底部导航保持相同的轻盈手账质感 ── */
 .language-switcher {
   position: fixed;
@@ -650,6 +555,81 @@ html[lang="en"] .page-about .about-edu-list { font-family: Georgia, "Times New R
 .signal-sample-library {
   margin-top: 84px;
 }
+/* Talks is also the site's growing notebook. These two quiet columns become
+   chronological lists once posts are added, without turning the page into cards. */
+.signal-notes {
+  width: min(1080px, calc(100vw - 48px));
+  margin: 92px auto 0;
+  padding: 34px 0 4px;
+  border-top: 1px solid rgba(43, 127, 216, .24);
+}
+.signal-notes-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 34px;
+}
+.signal-notes-eyebrow {
+  margin: 0;
+  color: var(--accent);
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .16em;
+  white-space: nowrap;
+}
+.signal-notes-head > p:last-child {
+  max-width: 420px;
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: .9rem;
+  line-height: 1.8;
+  opacity: .62;
+}
+.signal-notes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 52px;
+}
+.signal-note-group {
+  min-height: 150px;
+  padding: 0 0 24px;
+  border-bottom: 1px solid rgba(26, 26, 26, .18);
+}
+.signal-note-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.signal-note-title-row h2 {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+.signal-note-title-row span {
+  color: var(--accent);
+  font-size: .66rem;
+  font-weight: 500;
+  letter-spacing: .13em;
+}
+.signal-note-desc {
+  max-width: 340px;
+  margin: 14px 0 18px;
+  font-family: var(--font-title);
+  font-size: .88rem;
+  line-height: 1.8;
+  opacity: .68;
+}
+.signal-note-empty {
+  margin: 0;
+  color: rgba(43, 127, 216, .74);
+  font-size: .72rem;
+  letter-spacing: .05em;
+}
+html[lang="en"] .signal-notes-head > p:last-child,
+html[lang="en"] .signal-note-desc,
+html[lang="en"] .signal-note-empty { font-family: Georgia, "Times New Roman", serif; }
 .signal-library-head {
   max-width: 620px;
   margin: 0 auto 44px;
@@ -823,6 +803,16 @@ a.cr-value:hover { color: var(--accent); }
 /* ═══════════ 响应式 ═══════════ */
 @media (max-width: 600px) {
   .page { padding: 32px 20px 100px; }
+
+  .signal-notes {
+    width: 100%;
+    margin-top: 68px;
+    padding-top: 28px;
+  }
+  .signal-notes-head { display: block; margin-bottom: 28px; }
+  .signal-notes-head > p:last-child { margin-top: 12px; }
+  .signal-notes-grid { grid-template-columns: 1fr; gap: 30px; }
+  .signal-note-group { min-height: 0; }
 
   .icp-footer {
     color: rgba(26, 26, 26, 0.34);

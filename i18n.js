@@ -16,15 +16,13 @@
     '存在体概况': 'Entity Profile',
     '异常事件记录': 'Anomaly Records',
     '信号追踪': 'Signal Trace',
-    '工具手记': 'Tool Notes',
     '接触协议': 'Contact Protocol',
-    '[ 工具手记 · 持续更新中 ]': '[ TOOL NOTES · UPDATED ON THE WAY ]',
-    '把好用的工具，留在这里': 'Keeping useful tools within reach',
-    '我常常在不同的群聊里安利刚发现的 AI 小工具。与其一次次从头讲起，不如把它们的使用场景、真实感受和上手方式写在这里：需要时，随时来拿。': 'I often tell different groups about AI tools I have just found. Instead of starting over each time, I am collecting their use cases, honest impressions, and getting-started notes here—ready whenever you need them.',
-    '下一篇工具推荐，正在路上': 'The next tool note is on its way',
-    '这里会记录那些真正进入我日常工作流的工具：它解决了什么、适合谁、我会怎么用，以及可能踩到的坑。': 'This is for tools that genuinely make it into my day-to-day workflow: what they solve, who they suit, how I use them, and the pitfalls worth knowing.',
-    '待更新': 'Coming soon',
-    '不追求“万能工具清单”。只分享我实际用过、觉得值得转发给朋友的东西。': 'This is not a list of supposedly universal tools. I only share things I have actually used and would gladly pass on to a friend.',
+    '一些值得留住的发现，和一些还在慢慢想明白的事。': 'Finds worth keeping, and things I am still slowly making sense of.',
+    '拾记': 'Finds',
+    '随记': 'Notes',
+    '那些让人想马上转发给朋友的工具、网页和意外发现。': 'Tools, websites, and unexpected finds I want to send straight to a friend.',
+    '实习、工作和生活里，暂时还没有答案的片段。': 'Fragments from internships, work, and life that do not have answers yet.',
+    '新的信号正在路上。': 'New signals are on their way.',
     '[ 存在体概况 · 访问级别：公开 ]': '[ ENTITY PROFILE · ACCESS: PUBLIC ]',
     '此行风大雨大，风雨间歇时出发': 'Storm-lashed the way,\nwe ride the lull’s soft ray.',
     '一个不太松弛的中文系女生': 'A Chinese-literature girl still learning to loosen up,',
@@ -197,7 +195,7 @@
     document.documentElement.lang = 'en';
     const pageNames = {
       'about.html': 'Entity Profile', 'works.html': 'Anomaly Records',
-      'talks.html': 'Signal Trace', 'blog.html': 'Tool Notes', 'contact.html': 'Contact Protocol',
+      'talks.html': 'Signal Trace', 'contact.html': 'Contact Protocol',
       'resume-editor.html': 'Personal Résumé Editor', 'youtube-signal-hub.html': 'YouTube Signal Hub',
       'locklock.html': 'LockLock', 'home.html': 'Home'
     };
