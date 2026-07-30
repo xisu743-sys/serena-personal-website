@@ -19,8 +19,8 @@
 <meta name="twitter:title" content="Serena_熙冉：we ride the lull’s soft ray">
 <meta name="twitter:description" content="一个不太松弛的中文系女生，和 Agent 并肩前行的故事。">
 <meta name="twitter:image" content="https://sumohe.com/assets/serena-fullbody-720.png">
-<script src="i18n.js?v=about-copy-1"></script>
-<link rel="stylesheet" href="style.css?v=about-flow-3">
+<script src="i18n.js?v=contact-shore-1"></script>
+<link rel="stylesheet" href="style.css?v=contact-shore-1">
 </head>
 <body>
 <div class="page">
@@ -72,6 +72,32 @@
       请选择适合你的频段。
     </div>
 
+    <section class="shore-scene" aria-label="拾记与随记">
+      <img class="shore-sea" src="assets/contact-sea-source.png" alt="蓝色网点印刷的海面">
+      <div class="shore-drift" aria-label="漂在海面上的漂流瓶与贝壳">
+        <!-- 不设左右分区：物件在同一片海上交错，滚动时按各自深度产生微小视差。 -->
+        <button class="shore-object shore-object--bottle shore-object--tall" type="button" data-shore-open="finds" aria-controls="shore-finds" aria-label="打开拾记"><img src="assets/contact-bottle-tall.png" alt=""></button>
+        <button class="shore-object shore-object--shell shore-object--fan" type="button" data-shore-open="notes" aria-controls="shore-notes" aria-label="打开随记"><img src="assets/contact-shell-fan.png" alt=""></button>
+        <button class="shore-object shore-object--bottle shore-object--round" type="button" data-shore-open="finds" aria-controls="shore-finds" aria-label="打开拾记"><img src="assets/contact-bottle-round.png" alt=""></button>
+        <button class="shore-object shore-object--shell shore-object--conch" type="button" data-shore-open="notes" aria-controls="shore-notes" aria-label="打开随记"><img src="assets/contact-shell-conch.png" alt=""></button>
+        <button class="shore-object shore-object--bottle shore-object--rect" type="button" data-shore-open="finds" aria-controls="shore-finds" aria-label="打开拾记"><img src="assets/contact-bottle-rect.png" alt=""></button>
+        <button class="shore-object shore-object--shell shore-object--cowrie" type="button" data-shore-open="notes" aria-controls="shore-notes" aria-label="打开随记"><img src="assets/contact-shell-cowrie.png" alt=""></button>
+        <button class="shore-object shore-object--bottle shore-object--long" type="button" data-shore-open="finds" aria-controls="shore-finds" aria-label="打开拾记"><img src="assets/contact-bottle-long.png" alt=""></button>
+        <button class="shore-object shore-object--shell shore-object--clam" type="button" data-shore-open="notes" aria-controls="shore-notes" aria-label="打开随记"><img src="assets/contact-shell-clam.png" alt=""></button>
+      </div>
+
+      <aside class="shore-card shore-card--finds" id="shore-finds" aria-hidden="true">
+        <p>拾记 <span>FINDS</span></p>
+        <div>那些让人想马上转发给朋友的工具、网页和意外发现。</div>
+        <a href="talks/finds.html">进入拾记 →</a>
+      </aside>
+      <aside class="shore-card shore-card--notes" id="shore-notes" aria-hidden="true">
+        <p>随记 <span>NOTES</span></p>
+        <div>实习、工作和生活里，暂时还没有答案的片段。</div>
+        <a href="talks/notes.html">进入随记 →</a>
+      </aside>
+    </section>
+
   </main>
 
   
@@ -92,5 +118,42 @@
   <a href="talks.html">信号追踪</a>
   <a href="contact.html" class="active">接触协议</a>
 </nav>
+<script>
+  (() => {
+    const scene = document.querySelector('.shore-scene');
+    if (!scene) return;
+    const cards = [...scene.querySelectorAll('.shore-card')];
+    const close = () => {
+      scene.dataset.active = '';
+      cards.forEach(card => card.setAttribute('aria-hidden', 'true'));
+    };
+    scene.querySelectorAll('[data-shore-open]').forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const type = button.dataset.shoreOpen;
+        const isOpen = scene.dataset.active === type;
+        close();
+        if (!isOpen) {
+          scene.dataset.active = type;
+          document.getElementById('shore-' + type).setAttribute('aria-hidden', 'false');
+        }
+      });
+    });
+    document.addEventListener('click', (event) => { if (!scene.contains(event.target)) close(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') close(); });
+
+    let ticking = false;
+    const updateParallax = () => {
+      const rect = scene.getBoundingClientRect();
+      const progress = Math.max(-1, Math.min(1, (window.innerHeight * .55 - (rect.top + rect.height / 2)) / window.innerHeight));
+      scene.style.setProperty('--shore-parallax', progress.toFixed(3));
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) { requestAnimationFrame(updateParallax); ticking = true; }
+    }, { passive: true });
+    updateParallax();
+  })();
+</script>
 </body>
 </html>
