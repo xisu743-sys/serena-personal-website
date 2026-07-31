@@ -414,6 +414,71 @@ html[lang="en"] .page-about .about-edu-list li::before { display: none; }
   background: var(--accent);
 }
 
+/* Journey 右侧的内容旁注：它只露出近期线索，不承担归档的职责。 */
+.about-journey-layout { position: relative; }
+.about-margin-notes {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% + 254px);
+  width: 188px;
+}
+.about-margin-notes-inner { position: sticky; top: 116px; }
+.about-margin-note + .about-margin-note { margin-top: 42px; }
+.about-margin-note-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 11px;
+}
+.about-margin-note-head img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  filter: saturate(.9);
+}
+.about-margin-note-head h2 {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: .88rem;
+  font-weight: 500;
+  letter-spacing: .08em;
+}
+.about-margin-note-head h2 span {
+  margin-left: 4px;
+  color: #c94b25;
+  font-family: var(--font-body);
+  font-size: .56rem;
+  font-weight: 500;
+  letter-spacing: .13em;
+}
+html[lang="en"] .about-margin-note-head h2 span { display: none; }
+.about-margin-note-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.about-margin-note-list a {
+  display: block;
+  font-family: var(--font-title);
+  font-size: .77rem;
+  line-height: 1.5;
+  text-decoration: none;
+}
+.about-margin-note-list a:hover { color: var(--accent); }
+.about-margin-note > a {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--dim);
+  font-size: .65rem;
+  letter-spacing: .04em;
+  text-decoration: none;
+}
+.about-margin-note > a:hover { color: var(--accent); }
+
 /* ═══════════ 作品页 · 案件卷宗 ═══════════ */
 .works-header-tag { margin-bottom: 28px; }
 
@@ -805,80 +870,6 @@ a.cr-value:hover { color: var(--accent); }
   opacity: 0.5;
 }
 
-/* 海不是衬图：海面和物件是两个独立层。滚动时物件按深度轻微错位，
-   像真的漂在水上，而不是被摆在一张画的底部。 */
-.shore-scene {
-  position: relative;
-  width: min(1180px, 100vw);
-  margin: 110px 50% 0;
-  transform: translateX(-50%);
-  overflow: hidden;
-  isolation: isolate;
-  aspect-ratio: 1.77;
-  --shore-parallax: 0;
-}
-.shore-sea {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  user-select: none;
-}
-.shore-drift { position: absolute; inset: 0; z-index: 1; }
-.shore-object {
-  position: absolute;
-  display: block;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  transform: translate3d(0, calc(var(--shore-parallax) * var(--depth, 10px)), 0) rotate(var(--turn, 0deg));
-  transition: filter .25s ease, transform .35s ease;
-}
-.shore-object img { display: block; width: 100%; height: auto; }
-.shore-object:hover,
-.shore-object:focus-visible {
-  filter: drop-shadow(0 8px 8px rgba(10, 41, 92, .25));
-  transform: translate3d(0, calc(var(--shore-parallax) * var(--depth, 10px) - 7px), 0) rotate(var(--turn, 0deg));
-}
-.shore-object--tall { left: 8%; top: 35%; width: 9%; --depth: 14px; --turn: -4deg; }
-.shore-object--fan { left: 20%; top: 57%; width: 13%; --depth: 7px; --turn: 3deg; }
-.shore-object--round { left: 35%; top: 43%; width: 15%; --depth: 19px; --turn: -8deg; }
-.shore-object--conch { left: 47%; top: 65%; width: 11%; --depth: 6px; --turn: 7deg; }
-.shore-object--rect { left: 57%; top: 39%; width: 14%; --depth: 16px; --turn: 8deg; }
-.shore-object--cowrie { left: 69%; top: 64%; width: 9%; --depth: 8px; --turn: -4deg; }
-.shore-object--long { left: 78%; top: 49%; width: 16%; --depth: 12px; --turn: 8deg; }
-.shore-object--clam { left: 83%; top: 71%; width: 13%; --depth: 5px; --turn: -7deg; }
-.shore-card {
-  position: absolute;
-  z-index: 3;
-  width: min(275px, 38%);
-  padding: 17px 19px 16px;
-  color: var(--ink);
-  background: rgba(255, 254, 250, .92);
-  border: 1px solid rgba(26, 26, 26, .12);
-  box-shadow: 0 7px 28px rgba(35, 52, 86, .10);
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(8px);
-  transition: opacity .24s ease, transform .24s ease;
-}
-.shore-card--finds { left: 14%; top: 12%; }
-.shore-card--notes { right: 14%; top: 14%; }
-.shore-scene[data-active="finds"] .shore-card--finds,
-.shore-scene[data-active="notes"] .shore-card--notes {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
-.shore-card p { margin: 0 0 8px; font-family: var(--font-title); font-size: 1.05rem; }
-.shore-card p span { margin-left: 7px; color: #dd4f24; font-family: var(--font-body); font-size: .62rem; letter-spacing: .16em; }
-.shore-card div { font-size: .78rem; line-height: 1.7; opacity: .66; }
-.shore-card a { display: inline-block; margin-top: 15px; font-size: .76rem; text-decoration: none; color: #bf431d; }
-.shore-card a:hover { text-decoration: underline; text-underline-offset: 4px; }
-
 /* ── 弹窗（首页保留）── */
 .modal {
   position: fixed; inset: 0; z-index: 50;
@@ -920,17 +911,15 @@ a.cr-value:hover { color: var(--accent); }
 @media (max-width: 600px) {
   .page { padding: 32px 20px 100px; }
 
-  .shore-scene {
-    width: 100vw;
-    margin-top: 82px;
+  .about-margin-notes {
+    position: static;
+    bottom: auto;
+    width: min(300px, 100%);
+    margin: 4px auto 42px;
   }
-  .shore-card {
-    width: min(250px, 72%);
-    padding: 14px 15px;
-  }
-  .shore-card--finds { left: 7%; top: 8%; }
-  .shore-card--notes { right: 7%; top: 8%; }
-  .shore-card div { font-size: .72rem; }
+  .about-margin-notes-inner { position: static; }
+  .about-margin-note + .about-margin-note { margin-top: 30px; }
+  .about-margin-note-head img { width: 27px; height: 27px; }
 
   .signal-journal { width: 100%; margin-top: 74px; }
   .signal-journal-kicker { margin-bottom: 24px; }
