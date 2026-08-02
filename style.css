@@ -742,10 +742,7 @@ body.page-archive.signals-bg {
   padding: 0;
 }
 .archive-entry {
-  border-top: 1px solid rgba(26, 26, 26, .16);
-}
-.archive-list > li:last-child .archive-entry {
-  border-bottom: 1px solid rgba(26, 26, 26, .16);
+  border: 0;
 }
 .archive-entry summary {
   display: flex;
@@ -767,8 +764,8 @@ body.page-archive.signals-bg {
 .archive-entry-title {
   flex: 1 1 auto;
   font-family: 'Baloo Bhai 2', var(--font-title);
-  font-size: 1.08rem;
-  line-height: 1.55;
+  font-size: 1.2rem;
+  line-height: 1.5;
 }
 .archive-entry-toggle {
   position: relative;
@@ -794,8 +791,8 @@ body.page-archive.signals-bg {
   padding: 0 24px 40px 52px;
   color: rgba(26, 26, 26, .68);
   font-family: 'Baloo Bhai 2', var(--font-title);
-  font-size: 1.16rem;
-  line-height: 1.82;
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  line-height: 1.5;
 }
 .archive-entry-body p { margin: 0 0 12px; }
 .archive-entry-body p:last-child { margin-bottom: 0; }
@@ -990,6 +987,12 @@ a.cr-value:hover { color: var(--accent); }
   .signal-journal-grid { grid-template-columns: 1fr; gap: 48px; }
   .signal-channel-head > p { min-height: 0; }
   .archive-back { margin-bottom: 48px; }
+  .archive-entry-title { font-size: 1.08rem; }
+  .archive-entry-body {
+    padding: 0 0 32px 52px;
+    font-size: 1.12rem;
+    line-height: 1.65;
+  }
 
   .icp-footer {
     color: rgba(26, 26, 26, 0.34);
