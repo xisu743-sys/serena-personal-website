@@ -805,6 +805,7 @@ html[lang="zh-CN"] .archive-back {
 }
 html[lang="zh-CN"] .archive-entry-title {
   font-family: 'LXGW WenKai TC', 'Noto Sans SC', sans-serif;
+  font-size: clamp(1.18rem, 2.5vw, 1.65rem);
   font-weight: 500;
 }
 html[lang="en"] .signal-channel-head > p,
@@ -998,6 +999,7 @@ a.cr-value:hover { color: var(--accent); }
   .signal-channel-head > p { min-height: 0; }
   .archive-back { margin-bottom: 48px; }
   .archive-entry-title { font-size: 1.32rem; }
+  html[lang="zh-CN"] .archive-entry-title { font-size: 1.18rem; }
   .archive-entry-body {
     padding: 0 0 32px 52px;
     font-size: 1.08rem;
