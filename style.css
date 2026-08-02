@@ -4,7 +4,7 @@
    Noto Serif SC + Inter
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;500;600&family=Bowlby+One+SC&family=Inter:wght@400;500&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;700&family=Schoolbell&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;500;600&family=Bowlby+One+SC&family=Inter:wght@400;500&family=LXGW+WenKai+TC:wght@400&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;700&family=Schoolbell&family=ZCOOL+KuaiLe&display=swap');
 
 :root {
   --font-title: "Noto Serif SC", "PingFang SC", "Noto Sans SC", serif;
@@ -799,9 +799,12 @@ body.page-archive.signals-bg {
 .archive-entry-body p:last-child { margin-bottom: 0; }
 .archive-entry--empty .archive-entry-body { opacity: .72; }
 html[lang="zh-CN"] .archive-head > p:last-child,
-html[lang="zh-CN"] .archive-entry-title,
-html[lang="zh-CN"] .archive-entry-body {
-  font-family: 'Noto Sans SC', 'Baloo Bhai 2', sans-serif;
+html[lang="zh-CN"] .archive-entry-body,
+html[lang="zh-CN"] .archive-back {
+  font-family: 'LXGW WenKai TC', 'Noto Sans SC', sans-serif;
+}
+html[lang="zh-CN"] .archive-entry-title {
+  font-family: 'ZCOOL KuaiLe', 'Noto Sans SC', sans-serif;
 }
 html[lang="en"] .signal-channel-head > p,
 html[lang="en"] .signal-channel-more { font-family: Georgia, "Times New Roman", serif; }
