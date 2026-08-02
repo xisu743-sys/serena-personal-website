@@ -21,9 +21,8 @@
 
     function update() {
       if (!slides.length) return;
-      var gap = parseFloat(getComputedStyle(track).gap) || 16;
-      var slideWidth = slides[0].getBoundingClientRect().width + gap;
-      var offset = (viewport.clientWidth - slides[0].getBoundingClientRect().width) / 2 - index * slideWidth;
+      var activeSlide = slides[index];
+      var offset = (viewport.clientWidth / 2) - (activeSlide.offsetLeft + activeSlide.offsetWidth / 2);
       track.style.transform = 'translate3d(' + offset + 'px, 0, 0)';
       slides.forEach(function (slide, slideIndex) {
         slide.classList.toggle('is-active', slideIndex === index);
