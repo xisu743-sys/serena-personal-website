@@ -8,7 +8,12 @@
     var count = carousel.querySelector('[data-carousel-count]');
     var caption = carousel.querySelector('[data-carousel-caption]');
     var index = 0;
-    var captions = [
+    var isEnglish = new URLSearchParams(window.location.search).get('lang') === 'en' || document.documentElement.lang === 'en';
+    var captions = isEnglish ? [
+      'Image placeholder: replace this with the article image later.',
+      'Image placeholder: use the arrows to browse the next image.',
+      'Image placeholder: each image can belong to its own article.'
+    ] : [
       '配图占位：之后可以替换成你的文章图片。',
       '配图占位：左右箭头可以继续浏览下一张。',
       '配图占位：每张图片都可以对应一篇文章。'
