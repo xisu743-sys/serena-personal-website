@@ -4,7 +4,7 @@
    Noto Serif SC + Inter
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;500;600&family=Bowlby+One+SC&family=Inter:wght@400;500&family=Noto+Serif+SC:wght@400;500;700&family=Schoolbell&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;500;600&family=Bowlby+One+SC&family=Inter:wght@400;500&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;700&family=Schoolbell&display=swap');
 
 :root {
   --font-title: "Noto Serif SC", "PingFang SC", "Noto Sans SC", serif;
@@ -764,8 +764,9 @@ body.page-archive.signals-bg {
 .archive-entry-title {
   flex: 1 1 auto;
   font-family: 'Baloo Bhai 2', var(--font-title);
-  font-size: 1.2rem;
-  line-height: 1.5;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  line-height: 1.3;
+  font-weight: 500;
 }
 .archive-entry-toggle {
   position: relative;
@@ -791,12 +792,17 @@ body.page-archive.signals-bg {
   padding: 0 24px 40px 52px;
   color: rgba(26, 26, 26, .68);
   font-family: 'Baloo Bhai 2', var(--font-title);
-  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
-  line-height: 1.5;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  line-height: 1.8;
 }
 .archive-entry-body p { margin: 0 0 12px; }
 .archive-entry-body p:last-child { margin-bottom: 0; }
 .archive-entry--empty .archive-entry-body { opacity: .72; }
+html[lang="zh-CN"] .archive-head > p:last-child,
+html[lang="zh-CN"] .archive-entry-title,
+html[lang="zh-CN"] .archive-entry-body {
+  font-family: 'Noto Sans SC', 'Baloo Bhai 2', sans-serif;
+}
 html[lang="en"] .signal-channel-head > p,
 html[lang="en"] .signal-channel-more { font-family: Georgia, "Times New Roman", serif; }
 html[lang="en"] .signal-channel-head span,
@@ -987,11 +993,11 @@ a.cr-value:hover { color: var(--accent); }
   .signal-journal-grid { grid-template-columns: 1fr; gap: 48px; }
   .signal-channel-head > p { min-height: 0; }
   .archive-back { margin-bottom: 48px; }
-  .archive-entry-title { font-size: 1.08rem; }
+  .archive-entry-title { font-size: 1.32rem; }
   .archive-entry-body {
     padding: 0 0 32px 52px;
-    font-size: 1.12rem;
-    line-height: 1.65;
+    font-size: 1.08rem;
+    line-height: 1.72;
   }
 
   .icp-footer {
