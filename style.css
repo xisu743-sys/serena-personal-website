@@ -804,7 +804,8 @@ html[lang="zh-CN"] .archive-back {
   font-family: 'LXGW WenKai TC', 'Noto Sans SC', sans-serif;
 }
 html[lang="zh-CN"] .archive-entry-title {
-  font-family: 'ZCOOL KuaiLe', 'Noto Sans SC', sans-serif;
+  font-family: 'LXGW WenKai TC', 'Noto Sans SC', sans-serif;
+  font-weight: 500;
 }
 html[lang="en"] .signal-channel-head > p,
 html[lang="en"] .signal-channel-more { font-family: Georgia, "Times New Roman", serif; }
