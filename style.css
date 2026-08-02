@@ -815,7 +815,7 @@ body.page-archive.signals-bg {
   height: 49px;
   fill: currentColor;
 }
-.archive-carousel-arrow--prev svg {
+.archive-carousel-arrow--next svg {
   transform: rotate(180deg);
 }
 .archive-carousel-arrow--prev { left: 0; }
