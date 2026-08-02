@@ -816,14 +816,6 @@ html[lang="en"] .signal-channel-head > p,
 html[lang="en"] .signal-channel-more { font-family: Georgia, "Times New Roman", serif; }
 html[lang="en"] .signal-channel-head span,
 html[lang="en"] .archive-head h1 span { display: none; }
-html[lang="en"] .archive-entry-title {
-  font-size: clamp(1.1rem, 2vw, 1.28rem);
-  line-height: 1.45;
-}
-html[lang="en"] .archive-entry-body {
-  font-size: 1.08rem;
-  line-height: 1.78;
-}
 .signal-library-head {
   max-width: 620px;
   margin: 0 auto 44px;
@@ -1013,11 +1005,6 @@ a.cr-value:hover { color: var(--accent); }
   .archive-entry-title { font-size: 1.32rem; }
   html[lang="zh-CN"] .archive-entry-title { font-size: 1.16rem; }
   html[lang="zh-CN"] .archive-entry-body {
-    font-size: 1.04rem;
-    line-height: 1.72;
-  }
-  html[lang="en"] .archive-entry-title { font-size: 1.16rem; }
-  html[lang="en"] .archive-entry-body {
     font-size: 1.04rem;
     line-height: 1.72;
   }
