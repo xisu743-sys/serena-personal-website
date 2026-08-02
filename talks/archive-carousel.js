@@ -8,6 +8,9 @@
     var count = carousel.querySelector('[data-carousel-count]');
     var caption = carousel.querySelector('[data-carousel-caption]');
     var index = 0;
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var touchActive = false;
     var isEnglish = new URLSearchParams(window.location.search).get('lang') === 'en' || document.documentElement.lang === 'en';
     var captions = isEnglish ? [
       'Image placeholder: replace this with the article image later.',
@@ -35,8 +38,42 @@
       caption.textContent = captions[index] || captions[0];
     }
 
-    previous.addEventListener('click', function () { if (index > 0) { index -= 1; update(); } });
-    next.addEventListener('click', function () { if (index < slides.length - 1) { index += 1; update(); } });
+    function move(direction) {
+      var nextIndex = index + direction;
+      if (nextIndex < 0 || nextIndex >= slides.length) return;
+      index = nextIndex;
+      update();
+    }
+
+    previous.addEventListener('click', function () { move(-1); });
+    next.addEventListener('click', function () { move(1); });
+
+    // 手机上可以直接在图片区域左右滑动；垂直滚动仍优先交给页面本身。
+    viewport.addEventListener('touchstart', function (event) {
+      if (!event.touches.length) return;
+      touchStartX = event.touches[0].clientX;
+      touchStartY = event.touches[0].clientY;
+      touchActive = true;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', function (event) {
+      if (!touchActive || !event.changedTouches.length) return;
+      touchActive = false;
+      var touch = event.changedTouches[0];
+      var deltaX = touch.clientX - touchStartX;
+      var deltaY = touch.clientY - touchStartY;
+      var swipeDistance = 42;
+      if (Math.abs(deltaX) < swipeDistance || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+      move(deltaX < 0 ? 1 : -1);
+    }, { passive: true });
+
+    carousel.addEventListener('keydown', function (event) {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      event.preventDefault();
+      move(event.key === 'ArrowRight' ? 1 : -1);
+    });
+
+    if (caption) caption.setAttribute('aria-live', 'polite');
     window.addEventListener('resize', update);
     update();
   });

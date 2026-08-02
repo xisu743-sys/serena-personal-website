@@ -750,6 +750,7 @@ body.page-archive.signals-bg {
   position: absolute;
   inset: 0 96px;
   overflow: hidden;
+  touch-action: pan-y;
 }
 .archive-carousel-track {
   display: flex;
