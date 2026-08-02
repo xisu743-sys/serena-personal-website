@@ -748,7 +748,7 @@ body.page-archive.signals-bg {
 }
 .archive-carousel-viewport {
   position: absolute;
-  inset: 0 80px;
+  inset: 0 96px;
   overflow: hidden;
 }
 .archive-carousel-track {
@@ -760,11 +760,11 @@ body.page-archive.signals-bg {
   transition: transform .5s cubic-bezier(.2, .75, .25, 1);
 }
 .archive-carousel-slide {
-  flex: 0 0 62%;
+  flex: 0 0 68%;
   min-width: 0;
   margin: 0;
   opacity: .34;
-  transform: scale(.7);
+  transform: scale(.82);
   transition: opacity .45s ease, transform .45s ease;
 }
 .archive-carousel-slide.is-active {
@@ -798,7 +798,7 @@ body.page-archive.signals-bg {
   height: 80px;
   padding: 0;
   border: 4px solid #262626;
-  border-radius: 0;
+  border-radius: 14px;
   background: #EF813E;
   color: #262626;
   cursor: pointer;
@@ -1112,9 +1112,10 @@ a.cr-value:hover { color: var(--accent); }
   .archive-carousel { margin-top: 48px; }
   .archive-carousel--inline { margin: 8px 0 48px; }
   .archive-carousel-stage { height: 290px; }
-  .archive-carousel-viewport { inset: 0 52px; }
-  .archive-carousel-slide { flex-basis: 78%; }
+  .archive-carousel-viewport { inset: 0 68px; }
+  .archive-carousel-slide { flex-basis: 82%; }
   .archive-carousel-arrow { width: 52px; height: 56px; }
+  .archive-carousel-arrow { border-radius: 10px; }
   .archive-carousel-arrow svg { width: 34px; height: 35px; stroke-width: 4; }
   .archive-carousel-meta { margin: 14px 52px 0; font-size: .76rem; }
   .archive-entry-title { font-size: 1.32rem; }
