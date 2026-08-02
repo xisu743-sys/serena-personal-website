@@ -734,8 +734,103 @@ body.page-archive.signals-bg {
   text-align: center;
   opacity: .78;
 }
+.archive-carousel {
+  width: 100%;
+  margin: 64px 0 0;
+}
+.archive-carousel-stage {
+  position: relative;
+  height: clamp(280px, 48vw, 430px);
+  overflow: hidden;
+}
+.archive-carousel-viewport {
+  position: absolute;
+  inset: 0 80px;
+  overflow: hidden;
+}
+.archive-carousel-track {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 100%;
+  will-change: transform;
+  transition: transform .5s cubic-bezier(.2, .75, .25, 1);
+}
+.archive-carousel-slide {
+  flex: 0 0 62%;
+  min-width: 0;
+  margin: 0;
+  opacity: .34;
+  transform: scale(.7);
+  transition: opacity .45s ease, transform .45s ease;
+}
+.archive-carousel-slide.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+.archive-carousel-art {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  color: rgba(38, 38, 38, .62);
+  font-family: 'Baloo Bhai 2', var(--font-title);
+  font-size: .76rem;
+  letter-spacing: .16em;
+  background: #F3C7A5;
+}
+.archive-carousel-art--two { background: #9BC5C5; }
+.archive-carousel-art--three { background: #D7A6A0; }
+.archive-carousel-art span {
+  padding: 8px 12px;
+  border: 1px dashed rgba(38, 38, 38, .36);
+}
+.archive-carousel-arrow {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 80px;
+  height: 80px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: #EF813E;
+  color: #262626;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: opacity .2s ease, transform .2s ease;
+}
+.archive-carousel-arrow:hover:not(:disabled) { transform: translateY(-50%) scale(1.04); }
+.archive-carousel-arrow:disabled { cursor: default; opacity: .28; }
+.archive-carousel-arrow span {
+  font-family: Arial, sans-serif;
+  font-size: 2.8rem;
+  font-weight: 400;
+  line-height: 1;
+}
+.archive-carousel-arrow--prev { left: 0; }
+.archive-carousel-arrow--next { right: 0; }
+.archive-carousel-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin: 18px 80px 0;
+  color: rgba(38, 38, 38, .58);
+  font-family: 'Baloo Bhai 2', var(--font-title);
+  font-size: .8rem;
+}
+.archive-carousel-meta span {
+  flex: 0 0 auto;
+  color: var(--accent);
+  font-family: var(--font-body);
+  font-size: .65rem;
+  letter-spacing: .1em;
+}
+.archive-carousel-meta p { margin: 0; }
 .archive-list {
-  margin-top: 72px;
+  margin-top: 60px;
 }
 .archive-list > li {
   margin: 0;
@@ -1002,6 +1097,13 @@ a.cr-value:hover { color: var(--accent); }
   .signal-journal-grid { grid-template-columns: 1fr; gap: 48px; }
   .signal-channel-head > p { min-height: 0; }
   .archive-back { margin-bottom: 48px; }
+  .archive-carousel { margin-top: 48px; }
+  .archive-carousel-stage { height: 290px; }
+  .archive-carousel-viewport { inset: 0 52px; }
+  .archive-carousel-slide { flex-basis: 78%; }
+  .archive-carousel-arrow { width: 52px; height: 56px; }
+  .archive-carousel-arrow span { font-size: 2rem; }
+  .archive-carousel-meta { margin: 14px 52px 0; font-size: .76rem; }
   .archive-entry-title { font-size: 1.32rem; }
   html[lang="zh-CN"] .archive-entry-title { font-size: 1.16rem; }
   html[lang="zh-CN"] .archive-entry-body {
