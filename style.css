@@ -681,7 +681,7 @@ body.page-archive.signals-bg {
   display: inline-block;
   margin-bottom: 66px;
   color: rgba(26, 26, 26, .56);
-  font-family: var(--font-title);
+  font-family: 'Baloo Bhai 2', var(--font-title);
   font-size: .84rem;
   text-decoration: none;
 }
@@ -766,9 +766,9 @@ body.page-archive.signals-bg {
 }
 .archive-entry-title {
   flex: 1 1 auto;
-  font-family: var(--font-title);
-  font-size: 1rem;
-  line-height: 1.5;
+  font-family: 'Baloo Bhai 2', var(--font-title);
+  font-size: 1.08rem;
+  line-height: 1.55;
 }
 .archive-entry-toggle {
   position: relative;
@@ -790,19 +790,18 @@ body.page-archive.signals-bg {
 .archive-entry-toggle::after { transform: rotate(90deg); }
 .archive-entry[open] .archive-entry-toggle::after { transform: rotate(0); }
 .archive-entry-body {
-  max-width: 455px;
-  padding: 0 36px 28px 70px;
+  max-width: 100%;
+  padding: 0 24px 40px 52px;
   color: rgba(26, 26, 26, .68);
-  font-family: var(--font-title);
-  font-size: .92rem;
-  line-height: 1.9;
+  font-family: 'Baloo Bhai 2', var(--font-title);
+  font-size: 1.16rem;
+  line-height: 1.82;
 }
 .archive-entry-body p { margin: 0 0 12px; }
 .archive-entry-body p:last-child { margin-bottom: 0; }
 .archive-entry--empty .archive-entry-body { opacity: .72; }
 html[lang="en"] .signal-channel-head > p,
-html[lang="en"] .signal-channel-more,
-html[lang="en"] .archive-back { font-family: Georgia, "Times New Roman", serif; }
+html[lang="en"] .signal-channel-more { font-family: Georgia, "Times New Roman", serif; }
 html[lang="en"] .signal-channel-head span,
 html[lang="en"] .archive-head h1 span { display: none; }
 .signal-library-head {
